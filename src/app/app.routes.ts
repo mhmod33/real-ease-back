@@ -1,6 +1,16 @@
 import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
+        path: 'login',
+        loadComponent:()=>import('./components/auth/login/login').then(m=>m.Login),
+        pathMatch:'full'
+    },
+    {
+        path: 'forget-password',
+        loadComponent:()=>import('./components/auth/forget-password/forget-password').then(m=>m.ForgetPassword),
+        pathMatch:'full'
+    },
+    {
         path: '',
         loadComponent:()=>import('./components/dashboard/dashboard').then(m=>m.Dashboard),
         pathMatch:'full'
