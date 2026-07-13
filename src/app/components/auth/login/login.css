@@ -1,98 +1,143 @@
 :host {
   display: block;
   min-height: 100vh;
-  color: #363636;
   font-family: "Cairo", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
 }
 
-.auth-page {
-  position: relative;
+/* ── Page ── */
+.login-page {
+  display: flex;
   min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fb;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* ── Card ── */
+.login-card {
+  display: flex;
+  flex-direction: row-reverse; /* form on right, image on left */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  background: #fff;
+  border-radius: 0;
   overflow: hidden;
+  position: relative;
+}
+
+/* ── Logo — top left ── */
+.login-logo {
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  width: 60px;
+  height: auto;
+  z-index: 10;
+}
+
+/* ── Left: form panel ── */
+.login-form-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 36px 36px 40px 32px;
+  box-sizing: border-box;
+  text-align: right;
+  direction: rtl;
   background: #fff;
 }
 
-.auth-logo {
-  position: absolute;
-  top: 44px;
-  left: 22px;
-  z-index: 2;
-  width: 56px;
-  height: auto;
-}
-
-.auth-panel {
-  position: absolute;
-  left: clamp(24px, 15.9vw, 136px);
-  width: 362px;
-  text-align: right;
-}
-
-.login-panel {
-  top: 118px;
-}
-
-h1,
-.auth-subtitle {
-  margin: 0;
-}
-
+/* ── Headings ── */
 h1 {
-  color: #333;
-  font-size: 24px;
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 28px;
   font-weight: 800;
-  line-height: 1.35;
+  line-height: 1.4;
+  width: 100%;
+  margin-bottom: 8px;
 }
 
-.auth-subtitle {
-  margin-top: 15px;
-  color: #3b3b3b;
-  font-size: 17px;
-  font-weight: 800;
-  line-height: 1.5;
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 0;
 }
 
-.auth-form {
-  margin-top: 24px;
+.login-subtitle {
+  margin: 0 0 30px 0;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+  width: 100%;
 }
 
-.auth-field {
+/* ── Form ── */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 0;
+  width: 100%;
+  width: 100%;
+  max-width: 660px;
+}
+
+.form-field {
   position: relative;
   display: block;
   width: 100%;
-  height: 44px;
+  height: 48px;
+  margin-bottom: 14px;
 }
 
-.auth-field + .auth-field {
+.form-field + .form-field {
   margin-top: 14px;
 }
 
-.auth-field input {
+.form-field input {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  border: 0;
-  border-radius: 8px;
+  border: 1.5px solid #d0d8e0;
+  border-radius: 6px;
   outline: none;
-  background: #f5f7ff;
+  background: #f8f9fb;
   color: #303744;
-  font: 500 12px/1.2 "Cairo", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
-  padding: 0 48px 0 44px;
+  font: 500 14px/1.2 "Cairo", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+  padding: 0 44px 0 44px;
   text-align: right;
+  direction: rtl;
+  transition: border-color 0.3s, background 0.3s;
 }
 
-.auth-field input::placeholder {
-  color: #a6aeba;
+.form-field input:focus {
+  border-color: #064376;
+  background: #fff;
+}
+
+.form-field input::placeholder {
+  color: #999;
   opacity: 1;
 }
 
+/* ── Icons & toggle button ── */
 .field-icon {
   position: absolute;
   top: 50%;
   display: grid;
-  width: 18px;
-  height: 18px;
-  color: #aab2bf;
+  width: 20px;
+  height: 20px;
+  color: #b0b9c8;
   pointer-events: none;
   transform: translateY(-50%);
   place-items: center;
@@ -109,76 +154,128 @@ h1 {
 }
 
 .field-icon-right {
-  right: 13px;
+  right: 12px;
 }
 
 .field-icon-left {
-  left: 13px;
+  left: 12px;
 }
 
+/* toggle is a button — reset styles, keep icon look */
+.toggle-btn {
+  pointer-events: all;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: #b0b9c8;
+  transition: color 0.2s;
+}
+
+.toggle-btn:hover {
+  color: #064376;
+}
+
+/* ── Forgot link ── */
 .forgot-link {
   display: block;
-  margin: 13px 0 37px;
-  color: #222;
-  font-size: 11px;
+  margin: 8px 0 24px 0;
+  color: #666;
+  font-size: 12px;
   font-weight: 500;
-  line-height: 1.4;
-  text-align: left;
+  text-align: right;
   text-decoration: none;
+  direction: rtl;
+  transition: color 0.2s;
 }
 
-.auth-submit {
+.forgot-link:hover {
+  color: #064376;
+  text-decoration: underline;
+}
+
+/* ── Submit ── */
+.login-submit {
   display: block;
   width: 100%;
-  height: 44px;
+  height: 48px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #064376;
   color: #fff;
   cursor: pointer;
-  font: 700 18px/1 "Cairo", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+  font: 700 16px/1 "Cairo", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
   text-align: center;
+  transition: background 0.3s, transform 0.2s;
+  margin-top: 6px;
 }
 
-.auth-visual {
-  position: absolute;
-  right: 0;
+.login-submit:hover {
+  background: #0a5a9e;
+  transform: translateY(-2px);
+}
+
+.login-submit:active {
+  transform: translateY(0);
+}
+
+/* ── Right: image panel ── */
+.login-visual-panel {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 36px 0 0 36px;
+}
+
+.login-visual-img {
+  width: 100%;
+  height: 90vh;
   object-fit: cover;
   object-position: center;
+  display: block;
+  border-radius: 18px 0 0 18px;
 }
 
-.login-visual {
-  top: 44px;
-  width: min(36vw, 307px);
-  height: min(83.6vh, 462px);
-  border-radius: 10px 0 0 10px;
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .login-visual-panel {
+    flex: 0 0 35%;
+  }
+
+  .login-form-panel {
+    flex: 1;
+    padding: 50px 40px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
 }
 
-@media (max-width: 780px) {
-  .auth-page {
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    padding: 112px 24px 48px;
-    box-sizing: border-box;
-  }
-
-  .auth-logo {
-    top: 28px;
-    left: 24px;
-  }
-
-  .auth-panel {
-    position: static;
-    width: min(100%, 362px);
-  }
-
-  .login-panel {
-    top: auto;
-  }
-
-  .auth-visual {
+@media (max-width: 768px) {
+  .login-visual-panel {
     display: none;
+  }
+
+  .login-card {
+    flex-direction: row;
+    min-height: auto;
+  }
+
+  .login-form-panel {
+    flex: 1;
+    padding: 40px 32px 50px;
+    justify-content: flex-start;
+    padding-top: 80px;
+  }
+
+  .login-logo {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    width: 50px;
+  }
+
+  h1 {
+    font-size: 22px;
   }
 }
