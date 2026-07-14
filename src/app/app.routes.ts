@@ -11,6 +11,16 @@ export const routes: Routes = [
         pathMatch:'full'
     },
     {
+        path: 'confirm-email',
+        loadComponent:()=>import('./components/auth/confirm-email/confirm-email').then(m=>m.ConfirmEmail),
+        pathMatch:'full'
+    },
+    {
+        path: 'restore-password',
+        loadComponent:()=>import('./components/auth/restore-password/restore-password').then(m=>m.RestorePassword),
+        pathMatch:'full'
+    },
+    {
         path: '',
         loadComponent:()=>import('./components/dashboard/dashboard').then(m=>m.Dashboard),
         pathMatch:'full'

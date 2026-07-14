@@ -1,0 +1,37 @@
+<main class="confirm-page" dir="rtl">
+  <div class="confirm-card">
+    <img class="confirm-logo" src="/images/logo1.png" alt="RealEase" />
+
+    <section class="confirm-form-panel" aria-labelledby="confirm-title">
+      <div class="header">
+        <h1 id="confirm-title">تأكيد البريد الالكتروني</h1>
+      </div>
+
+      <form class="confirm-form">
+        <div class="otp-group" role="group" aria-label="رمز التحقق">
+          @for (digit of otpDigits; track $index) {
+            <input
+              #otpInput
+              class="otp-input"
+              type="text"
+              inputmode="numeric"
+              maxlength="1"
+              autocomplete="one-time-code"
+              [attr.aria-label]="'رقم ' + ($index + 1)"
+              (input)="onOtpInput($event, $index)"
+              (keydown)="onOtpKeydown($event, $index)"
+            />
+          }
+        </div>
+
+        <p class="resend-text">اعادة ارسال الرمز بعد {{ countdown() }}</p>
+
+        <button class="confirm-submit" type="submit">تأكيد</button>
+      </form>
+    </section>
+
+    <div class="confirm-visual-panel" aria-hidden="true">
+      <img src="/images/image2.png" alt="" class="confirm-visual-img" />
+    </div>
+  </div>
+</main>
