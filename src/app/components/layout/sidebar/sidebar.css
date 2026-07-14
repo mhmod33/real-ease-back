@@ -1,0 +1,290 @@
+:host {
+  display: block;
+  font-family: "Cairo", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  min-height: 100vh;
+  padding: 0 18px 20px;
+  box-sizing: border-box;
+  background: #f4f7fe;
+  border-radius: 30px 0 0 30px;
+  border-inline-end: 1px solid #e4ebf3;
+  transition: width 0.25s ease, padding 0.25s ease;
+}
+
+.sidebar--collapsed {
+  width: 88px;
+  padding-inline: 12px;
+}
+
+.sidebar--collapsed .sidebar__nav-label,
+.sidebar--collapsed .sidebar__promo,
+.sidebar--collapsed .sidebar__logo {
+  display: none;
+}
+
+.sidebar--collapsed .sidebar__header {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.sidebar--collapsed .sidebar__nav-link,
+.sidebar--collapsed .sidebar__logout {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.sidebar--collapsed .sidebar__collapse-btn svg {
+  transform: rotate(180deg);
+}
+
+/* ── Header ── */
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 78px;
+  padding: 18px 4px 16px;
+}
+
+.sidebar__logo {
+  flex: 1;
+  width: auto;
+  max-width: 168px;
+  height: auto;
+  max-height: 42px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.sidebar__collapse-btn {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #b8c4d4;
+  border-radius: 50%;
+  background: transparent;
+  color: #4a5f78;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.sidebar__collapse-btn:hover {
+  background: #eef3fb;
+  border-color: #8fa3bb;
+}
+
+.sidebar__collapse-btn svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+  transition: transform 0.25s ease;
+}
+
+.sidebar__header-divider {
+  height: 1px;
+  margin: 0 -18px 22px;
+  background: #dce4ef;
+}
+
+/* ── Navigation ── */
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar__nav-link,
+.sidebar__logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #064376;
+  font: 600 14px/1.2 "Cairo", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+  text-decoration: none;
+  text-align: right;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  box-sizing: border-box;
+}
+
+.sidebar__nav-link:hover,
+.sidebar__logout:hover {
+  background: #e8f0f8;
+}
+
+.sidebar__nav-link--active {
+  background: linear-gradient(135deg, #0a5a9e 0%, #064376 100%);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(6, 67, 118, 0.22);
+}
+
+.sidebar__nav-link--active:hover {
+  background: linear-gradient(135deg, #0a5a9e 0%, #064376 100%);
+}
+
+.sidebar__nav-link--active .sidebar__nav-icon {
+  color: #fff;
+}
+
+.sidebar__nav-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: #064376;
+}
+
+.sidebar__nav-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.sidebar__nav-icon--logout {
+  color: #e53935;
+}
+
+.sidebar__logout {
+  color: #e53935;
+}
+
+.sidebar__logout .sidebar__nav-icon svg {
+  stroke-width: 2;
+}
+
+.sidebar__divider {
+  height: 1px;
+  margin: 18px 0;
+  background: #d8e2ee;
+}
+
+.sidebar__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Promo card ── */
+.sidebar__promo {
+  position: relative;
+  margin-top: auto;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #1a3a6c;
+}
+
+.sidebar__promo-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 120% 80% at 110% 0%,
+      rgba(72, 130, 198, 0.45) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 90% 70% at -10% 100%,
+      rgba(56, 108, 175, 0.35) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(30, 72, 130, 0.6) 0%,
+      transparent 70%
+    );
+  pointer-events: none;
+}
+
+.sidebar__promo-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 18px 20px;
+  text-align: center;
+}
+
+.sidebar__promo-logo {
+  width: 78px;
+  height: auto;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.sidebar__promo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 18px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+.sidebar__promo-btn {
+  width: 82%;
+  height: 40px;
+  border: 0;
+  border-radius: 11px;
+  background: #f0f4f8;
+  color: #1a3a6c;
+  cursor: pointer;
+  font: 700 13px/1 "Cairo", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.sidebar__promo-btn:hover {
+  background: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 88px;
+    padding-inline: 12px;
+  }
+
+  .sidebar .sidebar__nav-label,
+  .sidebar .sidebar__promo,
+  .sidebar .sidebar__logo {
+    display: none;
+  }
+
+  .sidebar .sidebar__header {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .sidebar .sidebar__nav-link,
+  .sidebar .sidebar__logout {
+    justify-content: center;
+    padding-inline: 0;
+  }
+}

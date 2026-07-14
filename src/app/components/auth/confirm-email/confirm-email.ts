@@ -17,19 +17,29 @@ export class ConfirmEmail implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.timerId = setInterval(() => {
       if (this.secondsRemaining <= 0) {
+        this.stopTimer();
         return;
       }
+
       this.secondsRemaining--;
       const mins = Math.floor(this.secondsRemaining / 60);
       const secs = this.secondsRemaining % 60;
       this.countdown.set(`${mins}:${secs.toString().padStart(2, '0')}`);
+
+      if (this.secondsRemaining === 0) {
+        this.stopTimer();
+      }
     }, 1000);
-    // clearInterval(this.timerId);
   }
 
   ngOnDestroy(): void {
+    this.stopTimer();
+  }
+
+  private stopTimer(): void {
     if (this.timerId) {
       clearInterval(this.timerId);
+      this.timerId = undefined;
     }
   }
 
