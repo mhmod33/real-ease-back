@@ -24,6 +24,7 @@ export class ConfirmEmail implements OnInit, OnDestroy {
       const secs = this.secondsRemaining % 60;
       this.countdown.set(`${mins}:${secs.toString().padStart(2, '0')}`);
     }, 1000);
+    clearInterval(this.timerId);
   }
 
   ngOnDestroy(): void {
