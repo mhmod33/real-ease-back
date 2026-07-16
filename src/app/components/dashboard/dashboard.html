@@ -1,10 +1,375 @@
-<script src="https://code.highcharts.com/maps/highmaps.js"></script>
-<script src="https://code.highcharts.com/maps/modules/data.js"></script>
-<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
-<script src="https://code.highcharts.com/maps/modules/accessibility.js"></script>
+<!-- ===== DASHBOARD PAGE ===== -->
+<div class="dashboard-wrapper" dir="rtl">
 
-<div id="container"></div>
+  <!-- ===== TOP HEADER BAR ===== -->
+  <div class="db-header">
+    <div class="db-header-left">
+      <h1 class="db-greeting">مرحباً، <span class="db-name">مصطفى</span></h1>
+    </div>
 
-<div id="container-chart"></div>
+  </div>
+
+  <!-- ===== HERO STATS CARD ===== -->
+  <div class="db-hero-card">
+    <!-- Faint background blueprint icon on the left -->
+    <img src="images/Simplification.svg" alt="blueprint" class="db-hero-blueprint-bg" />
     
+    <!-- Right buildings icon -->
+    <img src="images/Simplification-white.svg" alt="buildings" class="db-hero-buildings-img" />
+
+    <!-- Center content block -->
+    <div class="db-hero-content">
+      <!-- Top row: Title and Number -->
+      <div class="db-hero-top-row">
+        <span class="db-hero-title">كل العقارات</span>
+        <span class="db-hero-number">4,562</span>
+      </div>
+      
+      <!-- Middle row: Progress Bar -->
+      <div class="db-hero-progress-container">
+        <div class="db-hero-progress-bar" style="width: 42%"></div>
+      </div>
+      
+      <!-- Bottom row: Subtext -->
+      <div class="db-hero-subtext">
+        431 على كسر الرقم القياسي للشهر الماضي
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== THREE STAT CARDS ===== -->
+  <div class="db-stats-row">
+
+    <!-- Total Revenue -->
+    <div class="db-stat-card db-stat-dark">
+      <div class="db-stat-content">
+        <p class="db-stat-label">اجمالي الايرادات</p>
+        <div class="db-stat-value">45,890 $</div>
+      </div>
+      <div class="db-stat-icon-wrap">
+        <img src="images/Simplification-3.svg" alt="revenue icon" />
+      </div>
+    </div>
+
+    <!-- Total Visitors -->
+    <div class="db-stat-card db-stat-white">
+      <div class="db-stat-content">
+        <p class="db-stat-label">اجمالي الزوار</p>
+        <div class="db-stat-value">2,290 $</div>
+      </div>
+      <div class="db-stat-icon-wrap">
+        <img src="images/Simplification-vistitors.png" alt="sale icon" />
+      </div>
+    </div>
+
+    <!-- Properties for sale -->
+    <div class="db-stat-card db-stat-white">
+      <div class="db-stat-content">
+        <p class="db-stat-label">عقارات للبيع</p>
+        <div class="db-stat-value">360 $</div>
+      </div>
+      <div class="db-stat-icon-wrap">
+                <img src="images/Simplification-2.svg" alt="visitors icon" />
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ===== AGENTS + CHART SECTION ===== -->
+  <div class="db-mid-row">
+
+   
+
+    <!-- Line Chart Column -->
+    <div class="db-chart-panel">
+      <div id="container-chart"></div>
+    </div>
+
+     <!-- Best Agents Column -->
+    <div class="db-agents-panel">
+      <div class="db-panel-header">
+        <h2 class="db-panel-title">افضل الوكلاء</h2>
+        <a href="#" class="db-panel-link">كل الوكلاء←</a>
+      </div>
+      <div class="db-agents-list">
+
+        <!-- Agent 1 -->
+        <div class="db-agent-item">
+          <div class="db-agent-photo">
+            <img src="images/image 6.png" alt="خالد الحسيني عز" />
+          </div>
+          <div class="db-agent-info">
+            <div class="db-agent-name">خالد الحسيني عز</div>
+            <div class="db-agent-role">مصر، وكيل عقارات</div>
+            <div class="db-agent-stars">
+              <span class="db-agent-rating">(5.0)</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+            </div>
+          </div>
+          <div class="db-agent-nav">
+            <button class="db-agent-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#333333">
+              <path d="M15 20.6695C14.81 20.6695 14.62 20.5995 14.47 20.4495L7.95003 13.9295C6.89003 12.8695 6.89003 11.1295 7.95003 10.0695L14.47 3.54953C14.76 3.25953 15.24 3.25953 15.53 3.54953C15.82 3.83953 15.82 4.31953 15.53 4.60953L9.01003 11.1295C8.53003 11.6095 8.53003 12.3895 9.01003 12.8695L15.53 19.3895C15.82 19.6795 15.82 20.1595 15.53 20.4495C15.38 20.5895 15.19 20.6695 15 20.6695Z" fill="white" style="fill: var(--fillg);"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Agent 2 -->
+        <div class="db-agent-item">
+          <div class="db-agent-photo">
+            <img src="images/image 5.png" alt="ريم عز الدين ابو مصعب" />
+          </div>
+          <div class="db-agent-info">
+            <div class="db-agent-name">ريم عز الدين ابو مصعب</div>
+            <div class="db-agent-role">فلسطين، رائدة اعمال، مدير عقارات</div>
+            <div class="db-agent-stars">
+              <span class="db-agent-rating">(4.0)</span>
+              <span class="db-star">★</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+            </div>
+          </div>
+          <div class="db-agent-nav">
+            <button class="db-agent-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#333333">
+              <path d="M15 20.6695C14.81 20.6695 14.62 20.5995 14.47 20.4495L7.95003 13.9295C6.89003 12.8695 6.89003 11.1295 7.95003 10.0695L14.47 3.54953C14.76 3.25953 15.24 3.25953 15.53 3.54953C15.82 3.83953 15.82 4.31953 15.53 4.60953L9.01003 11.1295C8.53003 11.6095 8.53003 12.3895 9.01003 12.8695L15.53 19.3895C15.82 19.6795 15.82 20.1595 15.53 20.4495C15.38 20.5895 15.19 20.6695 15 20.6695Z" fill="white" style="fill: var(--fillg);"/>
+              </svg>
+            </button>          </div>
+        </div>
+
+        <!-- Agent 3 -->
+        <div class="db-agent-item">
+          <div class="db-agent-photo">
+            <img src="images/image 7.png" alt="خالد محمد بن سعود" />
+          </div>
+          <div class="db-agent-info">
+            <div class="db-agent-name">خالد محمد بن سعود</div>
+            <div class="db-agent-role">السعودية، رائد اعمال، وكيل عقارات</div>
+            <div class="db-agent-stars">
+              <span class="db-agent-rating">(5.0)</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+              <span class="db-star filled">★</span>
+            </div>
+          </div>
+          <div class="db-agent-nav">
+            <button class="db-agent-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#333333">
+              <path d="M15 20.6695C14.81 20.6695 14.62 20.5995 14.47 20.4495L7.95003 13.9295C6.89003 12.8695 6.89003 11.1295 7.95003 10.0695L14.47 3.54953C14.76 3.25953 15.24 3.25953 15.53 3.54953C15.82 3.83953 15.82 4.31953 15.53 4.60953L9.01003 11.1295C8.53003 11.6095 8.53003 12.3895 9.01003 12.8695L15.53 19.3895C15.82 19.6795 15.82 20.1595 15.53 20.4495C15.38 20.5895 15.19 20.6695 15 20.6695Z" fill="white" style="fill: var(--fillg);"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TRANSACTIONS + PROPERTIES SECTION ===== -->
+  <div class="db-bottom-row">
+
+    <!-- Recent Transactions -->
+    <div class="db-transactions-panel">
+      <div class="db-panel-header">
+        <h2 class="db-panel-title">المعاملات الأخيرة</h2>
+        <a href="#" class="db-panel-link"> كل الطلبات←</a>
+      </div>
+      <div class="db-transactions-list">
+
+        <!-- Transaction 1 -->
+        <div class="db-tx-item">
+          <div class="db-tx-photo">
+            <img src="images/image 11.png" alt="property" />
+          </div>
+          <div class="db-tx-date">12 ديسمبر 2024</div>
+          <div class="db-tx-name">حسين خالد</div>
+          <div class="db-tx-amount">$61430</div>
+          <div class="db-tx-type">مأجر</div>
+          <div class="db-tx-status db-status-paid">تم الدفع</div>
+        </div>
+
+        <!-- Transaction 2 -->
+        <div class="db-tx-item">
+          <div class="db-tx-photo">
+            <img src="images/image-4.png" alt="property" />
+          </div>
+          <div class="db-tx-date">21 نوفمبر 2025</div>
+          <div class="db-tx-name">مصعب علي</div>
+          <div class="db-tx-amount">$122450</div>
+          <div class="db-tx-type">مباع</div>
+          <div class="db-tx-status db-status-paid">تم الدفع</div>
+        </div>
+
+        <!-- Transaction 3 -->
+        <div class="db-tx-item">
+          <div class="db-tx-photo">
+            <img src="images/image-5.png" alt="property" />
+          </div>
+          <div class="db-tx-date">21 فبراير 2025</div>
+          <div class="db-tx-name">خالد جابر</div>
+          <div class="db-tx-amount">$78450</div>
+          <div class="db-tx-type">مباع</div>
+          <div class="db-tx-status db-status-unpaid">لم يتم الدفع</div>
+        </div>
+
+        <!-- Transaction 4 -->
+        <div class="db-tx-item">
+          <div class="db-tx-photo">
+            <img src="images/image-6.png" alt="property" />
+          </div>
+          <div class="db-tx-date">21 سبتمبر 2025</div>
+          <div class="db-tx-name">لين الحريري</div>
+          <div class="db-tx-amount">$9150</div>
+          <div class="db-tx-type">مأجر</div>
+          <div class="db-tx-status db-status-paid">تم الدفع</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Best Properties -->
+    <div class="db-properties-panel">
+      <div class="db-panel-header">
+        <h2 class="db-panel-title">افضل العقارات</h2>
+        <a href="#" class="db-panel-link"> كل العقارات←</a>
+      </div>
+      <div class="db-properties-list">
+
+        <!-- Property 1 -->
+        <div class="db-prop-item">
+          <div class="db-prop-photo">
+            <img src="images/image-1.png" alt="فيلا مميزة علي البحر" />
+          </div>
+          <div class="db-prop-info">
+            <div class="db-prop-name">فيلا مميزة علي البحر</div>
+            <div class="db-prop-location">مصر، الساحل الشمالي</div>
+          </div>
+          <div class="db-prop-badge db-badge-sale">للبيع</div>
+          <div class="db-prop-price">$1570</div>
+          <div class="db-prop-discount db-discount-yes">خصم 20%</div>
+        </div>
+
+        <!-- Property 2 -->
+        <div class="db-prop-item">
+          <div class="db-prop-photo">
+            <img src="images/image-2.png" alt="شقة فاخرة" />
+          </div>
+          <div class="db-prop-info">
+            <div class="db-prop-name">شقة فاخرة</div>
+            <div class="db-prop-location">السعودية، جدة</div>
+          </div>
+          <div class="db-prop-badge db-badge-sale">للبيع</div>
+          <div class="db-prop-price">$6470</div>
+          <div class="db-prop-discount db-discount-no">لا يوجد خصم</div>
+        </div>
+
+        <!-- Property 3 -->
+        <div class="db-prop-item">
+          <div class="db-prop-photo">
+            <img src="images/image-3.png" alt="منزل مع إطلالة مميزة" />
+          </div>
+          <div class="db-prop-info">
+            <div class="db-prop-name">منزل مع إطلالة مميزة</div>
+            <div class="db-prop-location">فلسطين، غزة</div>
+          </div>
+          <div class="db-prop-badge db-badge-rent">للإيجار</div>
+          <div class="db-prop-price">$7890</div>
+          <div class="db-prop-discount db-discount-yes">خصم 40%</div>
+        </div>
+
+        <!-- Property 4 -->
+        <div class="db-prop-item">
+          <div class="db-prop-photo">
+            <img src="images/image.png" alt="بنتهاوس راقٍ" />
+          </div>
+          <div class="db-prop-info">
+            <div class="db-prop-name">بنتهاوس راقٍ</div>
+            <div class="db-prop-location">الإمارات، دبي</div>
+          </div>
+          <div class="db-prop-badge db-badge-sale">للبيع</div>
+          <div class="db-prop-price">$2450</div>
+          <div class="db-prop-discount db-discount-no">لا يوجد خصم</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== MAP + COUNTRY STATS SECTION ===== -->
+  <div class="db-map-section">
+
+    
+
+    <!-- Country Stats Panel -->
+    <div class="db-country-panel">
+      <h2 class="db-section-title">خريطة مواقع العقارات</h2>
+
+      <div class="db-country-item">
+        <div class="db-country-info">
+          <span class="db-country-name">المملكة العربية السعودية</span>
+          <span class="db-country-units">823 وحدة</span>
+        </div>
+        <div class="db-country-bar-wrap">
+          <div class="db-country-bar" style="width: 82%"></div>
+        </div>
+      </div>
+
+      <div class="db-country-item">
+        <div class="db-country-info">
+          <span class="db-country-name">البحرين</span>
+          <span class="db-country-units">653 وحدة</span>
+        </div>
+        <div class="db-country-bar-wrap">
+          <div class="db-country-bar" style="width: 65%"></div>
+        </div>
+      </div>
+
+      <div class="db-country-item">
+        <div class="db-country-info">
+          <span class="db-country-name">الامارات العربية المتحدة</span>
+          <span class="db-country-units">1012 وحدة</span>
+        </div>
+        <div class="db-country-bar-wrap">
+          <div class="db-country-bar db-bar-dark" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <div class="db-country-item">
+        <div class="db-country-info">
+          <span class="db-country-name">المغرب</span>
+          <span class="db-country-units">212 وحدة</span>
+        </div>
+        <div class="db-country-bar-wrap">
+          <div class="db-country-bar" style="width: 61%"></div>
+        </div>
+      </div>
+      <div class="db-country-item">
+        <div class="db-country-info">
+          <span class="db-country-name">مصر</span>
+          <span class="db-country-units">121 وحدة</span>
+        </div>
+        <div class="db-country-bar-wrap">
+          <div class="db-country-bar" style="width: 21%"></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Map Panel -->
+    <div class="db-map-panel">
+      <div id="container"></div>
+    </div>
+  </div>
+
+</div>

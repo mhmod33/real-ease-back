@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
 import { Sidebar } from './sidebar/sidebar';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-layout',
@@ -9,4 +10,6 @@ import { Sidebar } from './sidebar/sidebar';
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })
-export class Layout {}
+export class Layout {
+  readonly sidebarService = inject(SidebarService);
+}

@@ -1,82 +1,798 @@
+/* ================================================
+   DASHBOARD STYLES — Real Ease
+   ================================================ */
 
+/* ---- Map & Chart containers ---- */
 #container {
-    height: 500px;
-    min-width: 310px;
-    max-width: 800px;
-    margin: 0 auto;
+  height: 380px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
 }
+
 #container-chart {
-    height: 500px;
-    min-width: 310px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-.loading {
-    margin-top: 10em;
-    text-align: center;
-    color: gray;
-}
-body {
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        "Apple Color Emoji",
-        "Segoe UI Emoji",
-        "Segoe UI Symbol",
-        sans-serif;
-    background: var(--highcharts-background-color);
-    color: var(--highcharts-neutral-color-100);
+  height: 320px;
+  width: 100%;
 }
 
-.highcharts-figure,
-.highcharts-data-table table {
-    min-width: 310px;
-    max-width: 800px;
-    margin: 1em auto;
+/* ================================================
+   WRAPPER
+   ================================================ */
+.dashboard-wrapper {
+  font-family: 'Expo-arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
+  direction: rtl;
+  background: #f4f6fb;
+  padding: 24px 28px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  color: #1a2540;
 }
 
-.highcharts-data-table table {
-    font-family: Verdana, sans-serif;
-    border-collapse: collapse;
-    border: 1px solid var(--highcharts-neutral-color-10, #e6e6e6);
-    margin: 10px auto;
-    text-align: center;
-    width: 100%;
-    max-width: 500px;
+/* ================================================
+   HEADER
+   ================================================ */
+.db-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.highcharts-data-table caption {
-    padding: 1em 0;
-    font-size: 1.2em;
-    color: var(--highcharts-neutral-color-60, #666);
+.db-greeting {
+  font-size: 22px;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
 }
 
-.highcharts-data-table th {
-    font-weight: 600;
-    padding: 0.5em;
+.db-name {
+  font-weight: 700;
+  color: #1a2540;
 }
 
-.highcharts-data-table td,
-.highcharts-data-table th,
-.highcharts-data-table caption {
-    padding: 0.5em;
+.db-header-icon {
+  width: 56px;
+  height: 56px;
+  opacity: 0.9;
 }
 
-.highcharts-data-table thead tr,
-.highcharts-data-table tbody tr:nth-child(even) {
-    background: var(--highcharts-neutral-color-3, #f7f7f7);
+/* ================================================
+   HERO CARD (ORANGE)
+   ================================================ */
+.db-hero-card {
+  background: #ee8c3a;
+  /* Solid warm orange matching the mockup */
+  border-radius: 16px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(238, 140, 58, 0.25);
+  gap: 24px;
 }
 
-.highcharts-description {
-    background: light-dark(#f2f6f2, #323232);
-    border-radius: 0 4px 4px 0;
-    border-left: 2px solid light-dark(#1d6aff, #fff);
-    font-size: 0.8rem;
-    font-style: italic;
-    padding: 8px 16px;
-    margin: 2em 10px 1em;
+/* Far left blueprint icon */
+.db-hero-blueprint-bg {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 120px;
+  width: auto;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Far right building icon */
+.db-hero-buildings-img {
+  height: 85px;
+  width: auto;
+  flex-shrink: 0;
+  z-index: 2;
+  filter: brightness(0) invert(1);
+  /* Ensure it's crisp white outline */
+}
+
+/* Middle content block */
+.db-hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  /* max-width: 950px; */
+}
+
+/* Top row with Title and Number */
+.db-hero-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.db-hero-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.db-hero-number {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* Progress Bar Container */
+.db-hero-progress-container {
+  background: rgba(255, 255, 255, 0.3);
+  height: 7px;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 12px;
+  overflow: hidden;
+  position: relative;
+  direction: ltr;
+  /* Fills from left to right */
+}
+
+/* Filled part - solid white */
+.db-hero-progress-bar {
+  background: #ffffff;
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* Subtext */
+.db-hero-subtext {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+  opacity: 0.95;
+}
+
+/* ================================================
+   THREE STAT CARDS
+   ================================================ */
+.db-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.db-stat-card {
+  position: relative;
+  border-radius: 16px;
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  height: 110px;
+  box-sizing: border-box;
+}
+
+.db-stat-dark {
+  background: #063363;
+  /* Deep navy blue matching mockup */
+  color: #ffffff;
+}
+
+.db-stat-white {
+  background: #f5f7fc;
+  /* Pale blue-grey matching mockup */
+  color: #1a2540;
+}
+
+.db-stat-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: right;
+  z-index: 2;
+}
+
+.db-stat-label {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: inherit;
+}
+
+.db-stat-white .db-stat-label {
+  color: #1b3160;
+  /* Dark navy text */
+}
+
+.db-stat-dark .db-stat-label {
+  color: #ffffff;
+}
+
+.db-stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ee8c3a;
+  /* Orange value text for all cards */
+}
+
+.db-stat-icon-wrap {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.db-stat-icon-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.db-stat-white .db-stat-icon-wrap {
+  opacity: 1;
+}
+
+.db-stat-dark .db-stat-icon-wrap {
+  opacity: 1;
+}
+
+
+/* ================================================
+   AGENTS + CHART ROW
+   ================================================ */
+.db-mid-row {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* ---- AGENTS PANEL ---- */
+.db-agents-panel,
+.db-transactions-panel,
+.db-properties-panel {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.db-chart-panel {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.db-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.db-panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: #1a2540;
+}
+
+.db-panel-link {
+  font-size: 12px;
+  color: #e87e2a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.db-panel-link:hover {
+  opacity: 0.7;
+}
+
+/* ---- Agent Items ---- */
+.db-agents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.db-agent-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1.5px solid #dde1ea;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.db-agent-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #cbd5e1;
+}
+
+.db-agent-item.db-agent-active {
+  border: 2px solid #2c6ae5;
+}
+
+.db-agent-item.db-agent-active::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1.2px dashed #2c6ae5;
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.db-agent-photo {
+  flex-shrink: 0;
+}
+
+.db-agent-photo img {
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  object-fit: cover;
+  display: block;
+}
+
+.db-agent-info {
+  flex: 1;
+  min-width: 0;
+  text-align: right;
+}
+
+.db-agent-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1b3160;
+}
+
+.db-agent-role {
+  font-size: 11px;
+  color: #7c8ba1;
+  margin: 4px 0 6px;
+}
+
+.db-agent-stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.db-star {
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.db-star.filled {
+  color: #f5a623;
+}
+
+.db-agent-rating {
+  font-size: 12px;
+  color: #7c8ba1;
+  margin-left: 6px;
+}
+
+.db-agent-nav {
+  flex-shrink: 0;
+}
+
+.db-agent-arrow {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid #333333;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.db-agent-arrow:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #1b3160;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* ================================================
+   BOTTOM ROW — TRANSACTIONS + PROPERTIES
+   ================================================ */
+.db-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ---- Transactions ---- */
+.db-transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.db-tx-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #dde1ea;
+  gap: 14px;
+  transition: all 0.2s ease;
+}
+
+.db-tx-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.db-tx-photo {
+  width: 44px;
+  flex-shrink: 0;
+}
+
+.db-tx-photo img {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+
+.db-tx-date {
+  flex: 1.5;
+  font-size: 13px;
+  color: #7c8ba1;
+  text-align: right;
+}
+
+.db-tx-name {
+  flex: 1.2;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2540;
+  text-align: right;
+}
+
+.db-tx-amount {
+  flex: 1.1;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1b3160;
+  text-align: right;
+}
+
+.db-tx-type {
+  flex: 0.8;
+  font-size: 13px;
+  color: #7c8ba1;
+  text-align: right;
+}
+
+.db-tx-status {
+  width: 90px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.db-status-paid {
+  background: #0fb67a;
+  color: #ffffff;
+}
+
+.db-status-unpaid {
+  background: #e03c3c;
+  color: #ffffff;
+}
+
+/* ---- Properties ---- */
+.db-properties-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.db-prop-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #dde1ea;
+  gap: 14px;
+  transition: all 0.2s ease;
+}
+
+.db-prop-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.db-prop-photo {
+  width: 48px;
+  flex-shrink: 0;
+}
+
+.db-prop-photo img {
+  width: 48px;
+  height: 42px;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+}
+
+.db-prop-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+}
+
+.db-prop-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2540;
+}
+
+.db-prop-location {
+  font-size: 11px;
+  color: #7c8ba1;
+}
+
+.db-prop-badge {
+  width: 65px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.db-badge-sale {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.db-badge-rent {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.db-prop-price {
+  width: 80px;
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2540;
+  text-align: center;
+}
+
+.db-prop-discount {
+  width: 90px;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.db-discount-yes {
+  border: 1px solid #52c41a;
+  background: #f6ffed;
+  color: #388e3c;
+}
+
+.db-discount-no {
+  border: 1px solid #f5222d;
+  background: #fff1f0;
+  color: #c62828;
+}
+
+/* ================================================
+   MAP + COUNTRY SECTION
+   ================================================ */
+.db-map-section {
+  display: grid;
+  grid-template-columns:50% 1fr;
+  gap: 24px;
+  align-items: stretch;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.db-map-panel {
+  background: none !important;
+  border-radius: 0 !important;
+  overflow: hidden;
+  box-shadow: none !important;
+  min-height: 380px;
+}
+
+.db-country-panel {
+  background: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.db-section-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a2540;
+  margin: 0 0 20px;
+}
+
+.db-country-item {
+  margin-bottom: 38px;
+}
+
+.db-country-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.db-country-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a2540;
+}
+
+.db-country-units {
+  font-size: 12px;
+  color: #888;
+}
+
+.db-country-bar-wrap {
+  background: #eef0f5;
+  border-radius: 6px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.db-country-bar {
+  height: 100%;
+  border-radius: 6px;
+  background: #1b3160;
+  /* Solid dark navy blue to match mockup */
+  transition: width 0.8s ease;
+}
+
+.db-bar-dark {
+  background: #1b3160;
+}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+.db-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 1100px) {
+  .db-mid-row {
+    grid-template-columns: 1fr;
+  }
+
+  .db-map-section {
+    grid-template-columns: 1fr;
+  }
+
+  .db-country-panel {
+    order: -1;
+  }
+}
+
+@media (max-width: 992px) {
+  .db-bottom-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    padding: 16px 14px;
+    gap: 16px;
+  }
+
+  .db-hero-card {
+    padding: 20px;
+  }
+
+  .db-hero-number {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 600px) {
+  #container {
+    height: 280px;
+  }
+
+  #container-chart {
+    height: 240px;
+  }
+
+  .db-hero-card {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .db-hero-building {
+    align-self: flex-end;
+    width: 70px;
+    height: 70px;
+  }
+
+  .db-stats-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .db-agent-item {
+    padding: 8px 10px;
+  }
+
+  .db-agent-name {
+    font-size: 12px;
+  }
+
+  .db-agent-role {
+    font-size: 9px;
+  }
+
+  .db-tx-item,
+  .db-prop-item {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .db-tx-amount,
+  .db-prop-price {
+    margin-inline-start: auto;
+  }
+
+  .db-tx-status,
+  .db-prop-badge,
+  .db-prop-tag {
+    font-size: 9px;
+    padding: 2px 8px;
+  }
 }

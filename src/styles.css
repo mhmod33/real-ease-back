@@ -6,4 +6,86 @@ body {
 
 body {
   background: #fff;
+  font-family: 'Expo-arabic', ui-sans-serif, system-ui, sans-serif !important;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   Font Faces — ExpoArabic (from /fonts/)
+   ========================================= */
+
+@font-face {
+  font-family: 'Expo-arabic';
+  src: url('fonts/ExpoArabic-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Expo-arabic';
+  src: url('fonts/ExpoArabic-Book.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Expo-arabic';
+  src: url('fonts/ExpoArabic-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Expo-arabic';
+  src: url('fonts/ExpoArabic-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Expo-arabic';
+  src: url('fonts/ExpoArabic-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Expo-arabic';
+  src: url('fonts/ExpoArabic-Bold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================================
+   Font Faces — Ping Arabic (from /fonts/ping/)
+   ========================================= */
+
+@font-face {
+  font-family: 'Ping-arabic';
+  src: url('fonts/ping/ping-ar-lt-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ping-arabic';
+  src: url('fonts/ping/ping-ar-lt-medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ping-arabic';
+  src: url('fonts/ping/alfont_com_PingARLT-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }

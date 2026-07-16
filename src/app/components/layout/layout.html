@@ -1,4 +1,7 @@
 <div class="app-shell" dir="rtl">
+  @if (sidebarService.isOpen()) {
+    <div class="sidebar-backdrop" (click)="sidebarService.close()"></div>
+  }
   <app-sidebar />
   <div class="app-main">
     <app-header />

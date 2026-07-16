@@ -72,23 +72,53 @@ export class Dashboard {
         },
 
         series: [{
-    data: data.map((p: any) => {
-        if (p.code3 === 'ISR') p['name'] = 'Palestine';
-        return p;
-    }),
-    joinBy: ['iso-a3', 'code3'],
-    name: 'Population density',
-    tooltip: { valueSuffix: '/km²' },
-    nullColor: '#3E4043',        
-    borderColor: '#ffffff',      
-    borderWidth: 1.5,
-
-    states: {
-        hover: {
-            color: '#1A3A6E'    
-        }
-    }
-}]
+          data: data.map((p: any) => {
+              if (p.code3 === 'ISR') p['name'] = 'Palestine';
+              return p;
+          }),
+          joinBy: ['iso-a3', 'code3'],
+          name: 'Population density',
+          tooltip: { valueSuffix: '/km²' },
+          nullColor: '#E2E5EC',        
+          borderColor: '#ffffff',      
+          borderWidth: 1.5,
+      
+          states: {
+              hover: {
+                  color: '#1A3A6E'    
+              }
+          }
+      }, {
+          type: 'mappoint',
+          name: 'Locations',
+          enableMouseTracking: false,
+          shadow: {
+              color: 'rgba(0,0,0,0.15)',
+              offsetX: 0,
+              offsetY: 3,
+              width: 5
+          },
+          data: [
+              // 1. Turkey (top-most): large dark grey dot
+              { lat: 39.9, lon: 32.8, color: '#3E4043', marker: { radius: 10, lineColor: '#ffffff', lineWidth: 3 } },
+              // 2. Iraq/Syria (top-center): medium orange dot
+              { lat: 33.3, lon: 44.3, color: '#ee8c3a', marker: { radius: 8, lineColor: '#ffffff', lineWidth: 3 } },
+              // 3. Northeast Iran (top-right): medium orange dot
+              { lat: 35.7, lon: 51.3, color: '#ee8c3a', marker: { radius: 8, lineColor: '#ffffff', lineWidth: 3 } },
+              // 4. Egypt (left-center): small dark grey dot
+              { lat: 30.0, lon: 31.2, color: '#3E4043', marker: { radius: 6, lineColor: '#ffffff', lineWidth: 2.5 } },
+              // 5. Saudi Arabia (center-right): large dark grey dot
+              { lat: 24.0, lon: 45.0, color: '#3E4043', marker: { radius: 12, lineColor: '#ffffff', lineWidth: 3.5 } },
+              // 6. Sudan (lower-left): medium orange dot
+              { lat: 15.5, lon: 32.5, color: '#ee8c3a', marker: { radius: 8, lineColor: '#ffffff', lineWidth: 3 } },
+              // 7. Yemen (lower-right): small dark grey dot
+              { lat: 15.3, lon: 44.2, color: '#3E4043', marker: { radius: 6, lineColor: '#ffffff', lineWidth: 2.5 } },
+              // 8. Oman (east): medium orange dot
+              { lat: 22.0, lon: 57.0, color: '#ee8c3a', marker: { radius: 7, lineColor: '#ffffff', lineWidth: 2.5 } },
+              // 9. Far East (tiny dark grey dot)
+              { lat: 30.0, lon: 60.0, color: '#3E4043', marker: { radius: 4, lineColor: '#ffffff', lineWidth: 2 } }
+          ]
+      }]
     });
   (Highcharts as any).mapChart('container-chart', {
   chart: {

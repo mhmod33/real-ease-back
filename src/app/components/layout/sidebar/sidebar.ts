@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { SidebarService } from '../../../services/sidebar.service';
 
 interface NavItem {
   label: string;
@@ -14,6 +15,7 @@ interface NavItem {
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
+  readonly sidebarService = inject(SidebarService);
   readonly collapsed = signal(false);
 
   readonly navItems: NavItem[] = [

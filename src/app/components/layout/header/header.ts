@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { SidebarService } from '../../../services/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './header.css',
 })
 export class Header {
+  readonly sidebarService = inject(SidebarService);
   readonly userName = 'مصطفى';
   readonly userRole = 'صاحب عقارات';
 }
