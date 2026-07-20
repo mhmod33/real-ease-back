@@ -59,6 +59,20 @@ export const routes: Routes = [
           import('./components/properties/properties').then((m) => m.Properties),
       },
       {
+        path: 'properties/create',
+        loadComponent: () =>
+          import('./components/properties/create-property/create-property').then(
+            (m) => m.CreateProperty,
+          ),
+      },
+      {
+        path: 'properties/:id',
+        loadComponent: () =>
+          import('./components/properties/property-details/property-details').then(
+            (m) => m.PropertyDetails,
+          ),
+      },
+      {
         path: 'settings',
         loadComponent: () =>
           import('./components/settings/settings').then((m) => m.Settings),

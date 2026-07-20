@@ -1,0 +1,347 @@
+/* =========================================
+   CREATE / ADD PROPERTY PAGE
+   ========================================= */
+
+.cp-page {
+  padding: 24px 28px 48px;
+  min-height: 100%;
+  background: #f8f9fb;
+  box-sizing: border-box;
+}
+
+/* ── Page Header ── */
+.cp-page-header {
+  margin-bottom: 24px;
+}
+
+.cp-page-title {
+  font-size: 22px;
+  font-weight: 400;
+  color: #5a6a85;
+  margin: 0;
+}
+
+.cp-title-bold {
+  font-weight: 700;
+  color: #0d2d5e;
+}
+
+/* ── Form Container ── */
+.cp-form {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 28px 32px;
+  box-shadow: 0 2px 16px rgba(13, 45, 94, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Form Row ── */
+.cp-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.cp-row-full {
+  grid-template-columns: 1fr;
+}
+
+/* ── Form Field ── */
+.cp-form-field {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: #eef2fb;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cp-form-field:focus-within {
+  border-color: #0d2d5e;
+  box-shadow: 0 0 0 3px rgba(13, 45, 94, 0.08);
+  background: #f5f8ff;
+}
+
+.cp-field-full {
+  grid-column: 1 / -1;
+}
+
+.cp-field-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 0 6px 0 0;
+  color: #8fa3bb;
+  flex-shrink: 0;
+}
+
+.cp-input {
+  flex: 1;
+  padding: 13px 0 13px 14px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-family: inherit;
+  color: #1a2a4a;
+  direction: rtl;
+  outline: none;
+  resize: none;
+}
+
+.cp-input::placeholder {
+  color: #9faabd;
+}
+
+/* Select styling */
+.cp-input[type="number"],
+select.cp-input {
+  appearance: none;
+  cursor: pointer;
+}
+
+.cp-textarea {
+  min-height: 70px;
+  line-height: 1.7;
+}
+
+/* ── Upload Zone ── */
+.cp-upload-zone {
+  border: 2px dashed #c8d8ee;
+  border-radius: 16px;
+  background: #f5f8ff;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.cp-upload-zone:hover {
+  border-color: #0d2d5e;
+  background: #eef3fb;
+}
+
+.cp-upload-zone.dragover {
+  border-color: #0d2d5e;
+  background: #e0eaf7;
+  box-shadow: 0 0 0 4px rgba(13, 45, 94, 0.08);
+  transform: scale(1.01);
+}
+
+.cp-upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  pointer-events: none;
+}
+
+.cp-upload-icon {
+  color: #9faabd;
+  transition: color 0.2s;
+}
+
+.cp-upload-zone:hover .cp-upload-icon {
+  color: #0d2d5e;
+}
+
+.cp-upload-text {
+  font-size: 13px;
+  color: #8fa3bb;
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Upload Previews */
+.cp-upload-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px;
+  width: 100%;
+}
+
+.cp-preview-item {
+  position: relative;
+  width: 90px;
+  height: 70px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.cp-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cp-preview-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  background: rgba(220, 38, 38, 0.9);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.cp-preview-remove:hover {
+  background: #dc2626;
+}
+
+.cp-preview-add {
+  width: 90px;
+  height: 70px;
+  border-radius: 10px;
+  border: 2px dashed #c8d8ee;
+  display: grid;
+  place-items: center;
+  color: #8fa3bb;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.cp-preview-add:hover {
+  border-color: #0d2d5e;
+  color: #0d2d5e;
+  background: #eef3fb;
+}
+
+/* ── Amenities ── */
+.cp-amenities-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.cp-amenities-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5a6a85;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.cp-amenities-list {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cp-amenity-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cp-amenity-check {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #c8d8ee;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.cp-amenity-check:checked {
+  background: #0d2d5e;
+  border-color: #0d2d5e;
+}
+
+.cp-amenity-check:checked::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2 6 5 9 10 3'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.cp-amenity-text {
+  font-size: 13px;
+  color: #3d4f6a;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.cp-amenity-item:hover .cp-amenity-text {
+  color: #0d2d5e;
+}
+
+/* ── Form Footer Buttons ── */
+.cp-form-footer {
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+  padding-top: 8px;
+  border-top: 1px solid #eef2fb;
+  margin-top: 4px;
+}
+
+.btn-cancel {
+  padding: 12px 40px;
+  border-radius: 12px;
+  border: 1.5px solid #dce6f5;
+  background: #f5f8ff;
+  color: #5a6a85;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #e8eef8;
+  border-color: #b0bec5;
+  color: #333;
+}
+
+.btn-submit {
+  padding: 12px 48px;
+  border-radius: 12px;
+  border: none;
+  background: #0d2d5e;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-submit:hover {
+  background: #163b78;
+  transform: translateY(-1px);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}

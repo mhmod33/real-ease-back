@@ -1,0 +1,156 @@
+<!-- ===== PROPERTY DETAILS PAGE ===== -->
+@if (property) {
+<div class="pd-page" dir="rtl">
+
+  <!-- ── Page Title ── -->
+  <div class="pd-page-header">
+    <h1 class="pd-page-title">
+      تفاصيل<span class="pd-title-bold">, العقار</span>
+    </h1>
+  </div>
+
+  <!-- ── Top Section: Agent Card (Left) + Main Image (Right) ── -->
+  <div class="pd-top-row">
+
+    <!-- Property Main Image (Right / End in RTL) -->
+    <div class="pd-main-image-wrap">
+      <img [src]="property.mainImage" [alt]="property.name" class="pd-main-image" />
+      
+      <!-- Top Right overlay action buttons -->
+      <div class="pd-image-actions">
+        <button class="pd-img-action-btn" title="مشاركة">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+        </button>
+        <button class="pd-img-action-btn" title="توسيع">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+<g clip-path="url(#clip0_4418_6679)">
+<path d="M15 22.75H9C3.57 22.75 1.25 20.43 1.25 15V9C1.25 3.57 3.57 1.25 9 1.25H15C20.43 1.25 22.75 3.57 22.75 9V15C22.75 20.43 20.43 22.75 15 22.75ZM9 2.75C4.39 2.75 2.75 4.39 2.75 9V15C2.75 19.61 4.39 21.25 9 21.25H15C19.61 21.25 21.25 19.61 21.25 15V9C21.25 4.39 19.61 2.75 15 2.75H9Z" fill="white" style="fill: var(--fillg);"/>
+<path d="M5.99994 18.7504C5.80994 18.7504 5.61994 18.6804 5.46994 18.5304C5.17994 18.2404 5.17994 17.7604 5.46994 17.4704L17.4699 5.47043C17.7599 5.18043 18.2399 5.18043 18.5299 5.47043C18.8199 5.76043 18.8199 6.24043 18.5299 6.53043L6.52994 18.5304C6.37994 18.6804 6.18994 18.7504 5.99994 18.7504Z" fill="white" style="fill: var(--fillg);"/>
+<path d="M18 10.75C17.59 10.75 17.25 10.41 17.25 10V6.75H14C13.59 6.75 13.25 6.41 13.25 6C13.25 5.59 13.59 5.25 14 5.25H18C18.41 5.25 18.75 5.59 18.75 6V10C18.75 10.41 18.41 10.75 18 10.75Z" fill="white" style="fill: var(--fillg);"/>
+<path d="M10 18.75H6C5.59 18.75 5.25 18.41 5.25 18V14C5.25 13.59 5.59 13.25 6 13.25C6.41 13.25 6.75 13.59 6.75 14V17.25H10C10.41 17.25 10.75 17.59 10.75 18C10.75 18.41 10.41 18.75 10 18.75Z" fill="white" style="fill: var(--fillg);"/>
+<path d="M17.9999 18.7504C17.8099 18.7504 17.6199 18.6804 17.4699 18.5304L5.46994 6.53043C5.17994 6.24043 5.17994 5.76043 5.46994 5.47043C5.75994 5.18043 6.23994 5.18043 6.52994 5.47043L18.5299 17.4704C18.8199 17.7604 18.8199 18.2404 18.5299 18.5304C18.3799 18.6804 18.1899 18.7504 17.9999 18.7504Z" fill="white" style="fill: var(--fillg);"/>
+<path d="M6 10.75C5.59 10.75 5.25 10.41 5.25 10V6C5.25 5.59 5.59 5.25 6 5.25H10C10.41 5.25 10.75 5.59 10.75 6C10.75 6.41 10.41 6.75 10 6.75H6.75V10C6.75 10.41 6.41 10.75 6 10.75Z" fill="white" style="fill: var(--fillg);"/>
+<path d="M18 18.75H14C13.59 18.75 13.25 18.41 13.25 18C13.25 17.59 13.59 17.25 14 17.25H17.25V14C17.25 13.59 17.59 13.25 18 13.25C18.41 13.25 18.75 13.59 18.75 14V18C18.75 18.41 18.41 18.75 18 18.75Z" fill="white" style="fill: var(--fillg);"/>
+</g>
+<defs>
+<clipPath id="clip0_4418_6679">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+        </button>
+      </div>
+
+      <!-- Bottom overlay content -->
+      <div class="pd-image-overlay">
+        <h3 class="pd-overlay-title">الواجهة الامامية للعقار</h3>
+        <p class="pd-overlay-text">{{ property.overlayText }}</p>
+      </div>
+    </div>
+
+    <!-- Agent Card (Left / Start in RTL) -->
+    <div class="pd-agent-card">
+      <div class="pd-agent-photo-wrap">
+        <img [src]="property.agent.image" [alt]="property.agent.name" class="pd-agent-photo" />
+      </div>
+      <div class="pd-agent-meta">
+        <h2 class="pd-agent-name">{{ property.agent.name }}</h2>
+        <p class="pd-agent-title">{{ property.agent.title }}</p>
+      </div>
+      <div class="pd-agent-socials">
+        <a [href]="property.agent.instagram" class="pd-social-link-outline" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+        <a [href]="property.agent.facebook" class="pd-social-link-outline" target="_blank" title="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+        <a [href]="property.agent.twitter" class="pd-social-link-outline" target="_blank" title="X">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20">
+            <path d="M4 4l11.733 16h4.267l-11.733 -16z"/>
+            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/>
+          </svg>
+        </a>
+      </div>
+      <button class="btn-negotiate-agent">مفاوضة</button>
+    </div>
+
+  </div>
+
+  <!-- ── Middle Section: Description & Title Info Card ── -->
+  <div class="pd-details-card">
+    
+    <!-- Left Column: Description (RTL = Start, so it sits on the left in the design) -->
+    <div class="pd-desc-col">
+      <h3 class="pd-details-heading">وصف العقار</h3>
+      <p class="pd-desc-text">{{ property.description }}</p>
+    </div>
+
+    <!-- Right Column: Title, price, location -->
+    <div class="pd-info-col">
+      <h2 class="pd-prop-name">{{ property.name }}</h2>
+      <p class="pd-prop-price">{{ property.price }}</p>
+      <div class="pd-prop-location">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span>{{ property.address }}</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Bottom Section: Gallery & Amenities Card ── -->
+  <div class="pd-gallery-card">
+    
+    <!-- Carousel Row with arrow triggers on card borders -->
+    <div class="pd-carousel-row">
+      <button class="pd-carousel-arrow arrow-prev" (click)="prevGallery()" title="السابق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+
+      <div class="pd-carousel-items">
+        @for (img of property.galleryImages; track $index) {
+          <div
+            class="pd-carousel-item-img"
+            [class.active]="currentGalleryIndex === $index"
+            (click)="selectGalleryImage($index)"
+          >
+            <img [src]="img" [alt]="'صورة إضافية ' + ($index + 1)" />
+          </div>
+        }
+      </div>
+
+      <button class="pd-carousel-arrow arrow-next" (click)="nextGallery()" title="التالي">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Amenities section at bottom of the card -->
+    <div class="pd-amenities-section">
+      <p class="pd-amenities-label">مزايا اضافية</p>
+      <div class="pd-amenities-list">
+        @for (amenity of property.amenities; track amenity) {
+          <span class="pd-amenity-pill">{{ amenity }}</span>
+        }
+      </div>
+    </div>
+
+  </div>
+
+</div>
+}

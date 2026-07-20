@@ -1,1 +1,224 @@
-<p>properties works!</p>
+<!-- ===== PROPERTIES LIST PAGE ===== -->
+<div class="props-page" dir="rtl">
+
+  <!-- ── Page Header ── -->
+  <div class="props-page-header">
+    <h1 class="props-page-title">
+      قائمة<span class="props-title-bold">, العقارات</span>
+    </h1>
+    <button class="btn-add-prop" (click)="goToCreate()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" width="16" height="16">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      إضافة عقار
+    </button>
+  </div>
+
+  <!-- ── Filters Panel ── -->
+  <div class="props-filter-panel">
+
+    <!-- تصنيف label -->
+    <div class="filter-label-row">
+      <div class="filter-title-right">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+        </svg>
+        <span>تصنيف</span>
+      </div>
+      <button class="btn-clear-filters" (click)="clearFilters()" type="button">
+        حذف التصفية
+      </button>
+    </div>
+
+    <!-- Three search inputs -->
+    <div class="filter-inputs-row">
+
+      <!-- كلمة مفتاحية -->
+      <div class="filter-field">
+        <input
+          type="text"
+          [(ngModel)]="searchKeyword"
+          placeholder="كلمة مفتاحية"
+          class="filter-input"
+        />
+        <span class="filter-field-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="17" height="17">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="M11 7a4 4 0 0 0-4 4"/>
+            <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+          </svg>
+        </span>
+      </div>
+
+      <!-- نوع العقار -->
+      <div class="filter-field">
+        <select [(ngModel)]="selectedType" class="filter-input filter-select">
+          <option value="">نوع العقار</option>
+          @for (t of propertyTypes; track t) {
+            <option [value]="t">{{ t }}</option>
+          }
+        </select>
+        <span class="filter-field-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="17" height="17">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </span>
+      </div>
+
+      <!-- الموقع -->
+      <div class="filter-field">
+        <select [(ngModel)]="selectedLocation" class="filter-input filter-select">
+          <option value="">الموقع</option>
+          @for (loc of locations; track loc) {
+            <option [value]="loc">{{ loc }}</option>
+          }
+        </select>
+        <span class="filter-field-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="17" height="17">
+            <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </span>
+      </div>
+
+    </div>
+
+    <!-- Search Button + Price Range (side by side) -->
+    <div class="filter-bottom-row">
+
+      <!-- Price Range section (RIGHT in RTL) -->
+      <div class="filter-price-section">
+        <span class="price-section-label">نطاق السعر</span>
+
+        <!-- Dual range track -->
+        <div class="dual-range-wrap" dir="ltr">
+          <!-- Visual track with live gradient -->
+          <div class="range-track" [style.background]="trackBackground"></div>
+          <!-- Min thumb -->
+          <input
+            type="range"
+            class="range-input range-min"
+            min="0"
+            [max]="sliderMax"
+            [value]="priceMin"
+            (input)="onPriceMinChange($any($event.target).value)"
+          />
+          <!-- Max thumb -->
+          <input
+            type="range"
+            class="range-input range-max"
+            min="0"
+            [max]="sliderMax"
+            [value]="priceMax"
+            (input)="onPriceMaxChange($any($event.target).value)"
+          />
+        </div>
+
+        <span class="price-range-values">{{ priceMin }}$ إلى {{ priceMax }}$</span>
+      </div>
+
+      <!-- Search button (LEFT in RTL) -->
+      <button class="btn-search" (click)="onSearch()">بحث</button>
+
+    </div>
+
+  </div>
+
+  <!-- ── Results Count ── -->
+  <div class="props-results-count">
+    عرض 1-{{ filteredProperties.length }} من {{ filteredProperties.length }} النتائج
+  </div>
+
+  <!-- ── Property Cards Grid ── -->
+  <div class="props-grid">
+    @for (prop of filteredProperties; track prop.id) {
+      <div class="prop-card" (click)="goToDetails(prop.id)">
+
+        <!-- Card Image -->
+        <div class="prop-card-img-wrap">
+          <img [src]="prop.image" [alt]="prop.name" class="prop-card-img" />
+
+          <!-- City badge (top-right in RTL = start) -->
+          <div class="prop-badge-city">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="11" height="11">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            {{ prop.city }}
+          </div>
+
+          <!-- Status badge (top-left in RTL = end) -->
+          <div class="prop-badge-status"
+            [class.status-sale]="prop.status === 'للبيع'"
+            [class.status-rent]="prop.status === 'للإيجار'">
+            {{ prop.status }}
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="prop-card-body">
+          <div class="prop-card-top">
+            <span class="prop-price">{{ prop.price }}</span>
+            <span class="prop-name">{{ prop.name }}</span>
+          </div>
+
+          <p class="prop-desc">{{ prop.description }}</p>
+
+          <!-- Agent row -->
+          <div class="prop-agent-row">
+            <img [src]="prop.agentImage" [alt]="prop.agentName" class="prop-agent-avatar" />
+            <div class="prop-agent-meta">
+              <span class="prop-agent-name">{{ prop.agentName }}</span>
+              <span class="prop-agent-label">صاحب عقارات</span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="prop-card-actions">
+            <div class="prop-action-icons">
+              <!-- Heart -->
+              <button class="prop-icon-btn" [class.prop-icon-liked]="prop.isLiked" (click)="toggleLike(prop, $event)" title="إعجاب">
+                <svg viewBox="0 0 24 24" [attr.fill]="prop.isLiked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </button>
+             
+              <!-- Bookmark -->
+              <button class="prop-icon-btn" [class.prop-icon-saved]="prop.isSaved" (click)="toggleSave(prop, $event)" title="حفظ">
+                <svg viewBox="0 0 24 24" [attr.fill]="prop.isSaved ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15">
+                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                </svg>
+              </button>
+               <!-- Share -->
+              <button class="prop-icon-btn" (click)="$event.stopPropagation()" title="مشاركة">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15">
+                  <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>
+              </button>
+            </div>
+
+            <button class="btn-negotiate" (click)="goToDetails(prop.id); $event.stopPropagation()">
+              مفاوضة
+            </button>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    <!-- Empty state -->
+    @if (filteredProperties.length === 0) {
+      <div class="props-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b0bec5" stroke-width="1.5" width="56" height="56">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <p>لا توجد نتائج تطابق البحث</p>
+      </div>
+    }
+  </div>
+
+</div>

@@ -1,0 +1,180 @@
+<!-- ===== ADD PROPERTY PAGE ===== -->
+<div class="cp-page" dir="rtl">
+
+  <!-- ── Page Header ── -->
+  <div class="cp-page-header">
+    <h1 class="cp-page-title">
+      إضافة<span class="cp-title-bold">, عقار</span>
+    </h1>
+  </div>
+
+  <!-- ── Form ── -->
+  <form class="cp-form" (ngSubmit)="onSubmit()" #propertyForm="ngForm">
+
+    <!-- Row 1: نوع العقار | حالة العقار -->
+    <div class="cp-form-row">
+      <!-- نوع العقار -->
+      <div class="cp-form-field">
+        <div class="cp-field-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <select [(ngModel)]="propertyType" name="propertyType" class="cp-input" required>
+          <option value="" disabled selected>نوع العقار</option>
+          @for (t of propertyTypes; track t) {
+            <option [value]="t">{{ t }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- حالة العقار -->
+      <div class="cp-form-field cp-field-with-dropdown">
+        <div class="cp-field-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+        <select [(ngModel)]="propertyStatus" name="propertyStatus" class="cp-input" required>
+          <option value="" disabled selected>حالة العقار</option>
+          @for (s of propertyStatuses; track s) {
+            <option [value]="s">{{ s }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <!-- Row 2: السعر | العنوان -->
+    <div class="cp-form-row">
+      <!-- السعر -->
+      <div class="cp-form-field">
+        <div class="cp-field-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <input
+          type="number"
+          [(ngModel)]="price"
+          name="price"
+          placeholder="السعر"
+          class="cp-input"
+          required
+        />
+      </div>
+
+      <!-- العنوان -->
+      <div class="cp-form-field">
+        <div class="cp-field-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <input
+          type="text"
+          [(ngModel)]="address"
+          name="address"
+          placeholder="العنوان"
+          class="cp-input"
+          required
+        />
+      </div>
+    </div>
+
+    <!-- Row 3: وصف العقار (full width) -->
+    <div class="cp-form-row cp-row-full">
+      <div class="cp-form-field cp-field-full">
+        <div class="cp-field-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+            <line x1="17" y1="10" x2="3" y2="10"/>
+            <line x1="21" y1="6" x2="3" y2="6"/>
+            <line x1="21" y1="14" x2="3" y2="14"/>
+            <line x1="17" y1="18" x2="3" y2="18"/>
+          </svg>
+        </div>
+        <textarea
+          [(ngModel)]="description"
+          name="description"
+          placeholder="وصف العقار"
+          class="cp-input cp-textarea"
+          rows="3"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- ── File Upload Zone ── -->
+    <div
+      class="cp-upload-zone"
+      [class.dragover]="isDragOver"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+      (click)="fileInput.click()"
+    >
+      <input
+        #fileInput
+        type="file"
+        multiple
+        accept="image/*"
+        style="display:none"
+        (change)="onFileSelect($event)"
+      />
+
+      @if (uploadedFiles.length === 0) {
+        <div class="cp-upload-placeholder">
+          <div class="cp-upload-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="48" height="48">
+              <polyline points="16 16 12 12 8 16"/>
+              <line x1="12" y1="12" x2="12" y2="21"/>
+              <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+            </svg>
+          </div>
+          <p class="cp-upload-text">قم بإسقاط الملفات هنا أو اقر لتحميل</p>
+        </div>
+      } @else {
+        <div class="cp-upload-previews" (click)="$event.stopPropagation()">
+          @for (file of uploadedFiles; track $index) {
+            <div class="cp-preview-item">
+              <img [src]="getFilePreview(file)" [alt]="file.name" class="cp-preview-img" />
+              <button type="button" class="cp-preview-remove" (click)="removeFile($index)">×</button>
+            </div>
+          }
+          <div class="cp-preview-add" (click)="fileInput.click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="24" height="24">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- ── Amenities ── -->
+    <div class="cp-amenities-section">
+      <p class="cp-amenities-label">مزايا إضافية</p>
+      <div class="cp-amenities-list">
+        @for (amenity of amenities; track amenity.key) {
+          <label class="cp-amenity-item">
+            <input
+              type="checkbox"
+              [(ngModel)]="amenity.checked"
+              [name]="amenity.key"
+              class="cp-amenity-check"
+            />
+            <span class="cp-amenity-text">{{ amenity.label }}</span>
+          </label>
+        }
+      </div>
+    </div>
+
+    <!-- ── Footer Buttons ── -->
+    <div class="cp-form-footer">
+      <button type="button" class="btn-cancel" (click)="onCancel()">إلغاء</button>
+      <button type="submit" class="btn-submit">إضافة</button>
+    </div>
+
+  </form>
+
+</div>
