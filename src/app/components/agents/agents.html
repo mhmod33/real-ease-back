@@ -1,1 +1,159 @@
-<p>agents works!</p>
+<!-- ===== AGENTS LIST PAGE ===== -->
+<div class="agents-page" dir="rtl">
+
+  <!-- ── Top Header Bar ── -->
+  <div class="agents-header-row">
+    <h1 class="agents-title">
+      قائمة <span class="title-bold">,الوكلاء</span>
+    </h1>
+
+    <button class="btn-add-agent" (click)="goToCreate()">
+      <span>اضافة وكيل</span>
+      <span class="plus-icon">+</span>
+    </button>
+  </div>
+
+  <!-- ── Donut Chart & Stats Summary Box ── -->
+  <div class="agents-summary-box">
+    <!-- Donut Chart & Legend -->
+    <div class="donut-section">
+      <div class="donut-chart-wrap">
+        <div id="agentsDonutChart" class="highcharts-donut-container"></div>
+
+        <div class="donut-center-text">
+          <span class="donut-number">{{ stats.total }}</span>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="donut-legend">
+        <div class="legend-item">
+          <span class="dot dot-blue"></span>
+          <span class="legend-count">{{ stats.realEstateCompanyCount }}</span>
+          <span class="legend-label">شركة عقارية</span>
+        </div>
+        <div class="legend-item">
+          <span class="dot dot-orange"></span>
+          <span class="legend-count">{{ stats.independentAgentCount }}</span>
+          <span class="legend-label">وكيل عقاري مستقل</span>
+        </div>
+        <div class="legend-item">
+          <span class="dot dot-teal"></span>
+          <span class="legend-count">{{ stats.exclusiveAgentCount }}</span>
+          <span class="legend-label">وكيل حصري</span>
+        </div>
+        <div class="legend-item">
+          <span class="dot dot-cyan"></span>
+          <span class="legend-count">{{ stats.commercialAgentCount }}</span>
+          <span class="legend-label">وكيل تجاري</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent Total Count Card -->
+    <div class="total-agent-card">
+      <div class="total-agent-number">{{ stats.total }}</div>
+      <div class="total-agent-meta">
+        <div class="total-icon-box">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+          </svg>
+        </div>
+        <span class="total-agent-title">وكيل عقاري</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Results Count ── -->
+  <div class="results-count-text">
+    عرض {{ agents.length }} من النتائج
+  </div>
+
+  <!-- ── 2-Column Agents Cards Grid ── -->
+  <div class="agents-grid">
+    @for (agent of agents; track agent.id) {
+      <div class="agent-card" (click)="goToDetails(agent.id)">
+
+        <!-- Card Top: Info & Photo -->
+        <div class="agent-card-top">
+          <div class="agent-info-wrap">
+            <h3 class="agent-name">{{ agent.name }}</h3>
+            <span class="agent-type-subtitle">{{ agent.type }}</span>
+            <span class="agent-email font-mono">{{ agent.email }}</span>
+          </div>
+
+          <div class="agent-photo-wrap">
+            <img [src]="agent.image" [alt]="agent.name" class="agent-photo" />
+          </div>
+        </div>
+
+        <hr class="card-divider" />
+
+        <!-- Card Meta Row: Properties & Location -->
+        <div class="agent-card-meta">
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M3 21h18M3 7v14M21 7v14M6 11h4M6 15h4M14 11h4M14 15h4M9 21v-4h6v4M12 3l9 4H3l9-4z"/>
+            </svg>
+            <span>{{ agent.propertiesCount }} عقار</span>
+          </div>
+
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>{{ agent.location }}</span>
+          </div>
+        </div>
+
+        <hr class="card-divider" />
+
+        <!-- Social Media Links -->
+        <div class="social-row">
+          <span class="social-label">وسائل التواصل</span>
+          <div class="social-icons">
+            <a href="javascript:void(0)" class="social-icon" (click)="$event.stopPropagation()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+
+            <a href="javascript:void(0)" class="social-icon" (click)="$event.stopPropagation()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+
+            <a href="javascript:void(0)" class="social-icon" (click)="$event.stopPropagation()">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Action Buttons Row -->
+        <div class="agent-actions-row">
+          <button class="btn-message" (click)="onMessage(agent, $event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            مراسلة
+          </button>
+
+          <button class="btn-call" (click)="onCall(agent, $event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            مكالمة
+          </button>
+        </div>
+
+      </div>
+    }
+  </div>
+
+</div>

@@ -1,0 +1,354 @@
+/* ===== AGENT DETAILS PAGE STYLES ===== */
+
+.agent-details-page {
+  padding: 24px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: 'Expo-arabic', sans-serif;
+  color: #1e293b;
+  box-sizing: border-box;
+}
+
+/* ── Top Header Bar ── */
+.details-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.details-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.details-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e3656;
+  margin: 0;
+}
+
+.title-bold {
+  font-weight: 800;
+}
+
+.details-subtitle {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.btn-delete-agent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fee2e2;
+  color: #ef4444;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-delete-agent:hover {
+  background-color: #fca5a5;
+  color: #b91c1c;
+}
+
+/* ── Main Grid (2 Columns) ── */
+.details-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 960px) {
+  .details-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Right Card: Profile */
+.profile-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.profile-banner-wrap {
+  position: relative;
+  height: 180px;
+  background-color: #1e3656;
+  text-align: center;
+}
+
+.profile-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.avatar-circle-wrap {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-circle-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-overlay-text {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.profile-role {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* Personal Info List */
+.personal-info-list {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+.info-label {
+  width: 90px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.info-val {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.profile-social-section {
+  padding: 0 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-title {
+  font-size: 13.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.social-icon {
+  color: #1e293b;
+  transition: color 0.15s ease;
+}
+
+.social-icon:hover {
+  color: #2563eb;
+}
+
+/* Left Card: Agency Card */
+.agency-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.agency-header {
+  margin-bottom: 12px;
+}
+
+.agency-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.agency-subtitle {
+  font-size: 13px;
+  color: #64748b;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.agency-meta-row {
+  display: flex;
+  gap: 20px;
+  font-size: 13.5px;
+  color: #475569;
+}
+
+.agency-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.agency-divider {
+  border: none;
+  border-top: 1px solid #f1f5f9;
+  margin: 16px 0;
+}
+
+.section-heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e3656;
+  margin: 0 0 8px 0;
+}
+
+.agency-desc {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+.agency-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legal-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13.5px;
+}
+
+.legal-label {
+  color: #64748b;
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.legal-val {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* ── Bottom Donut Stat Cards ── */
+.stats-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 800px) {
+  .stats-cards-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-box-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.card-dark-navy {
+  background-color: #1e3656;
+  border-color: #1e3656;
+  color: #ffffff;
+}
+
+.card-white {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+.stat-box-chart {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+}
+
+.highcharts-mini-donut {
+  width: 100%;
+  height: 100%;
+}
+
+.stat-box-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-box-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.stat-box-num.text-dark {
+  color: #0f172a;
+}
+
+.stat-box-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.stat-box-title.text-dark {
+  color: #64748b;
+}
+
+.font-mono {
+  font-family: monospace, sans-serif;
+}
