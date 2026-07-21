@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { User, UserProperty } from '../../../models/user.model';
+import { AppModal, ModalVariant } from '../../shared/app-modal/app-modal';
 
 @Component({
   selector: 'app-user-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AppModal],
   templateUrl: './user-details.html',
   styleUrl: './user-details.css',
 })
@@ -16,6 +17,14 @@ export class UserDetails implements OnInit {
 
   // Carousel index for properties
   carouselIndex = 0;
+
+  // Confirmation / Info Modal
+  modalOpen = false;
+  modalVariant: ModalVariant = 'confirm';
+  modalTitle = '';
+  modalMessage = '';
+  modalConfirmText = 'تأكيد';
+  private pendingAction?: () => void;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,13 +60,51 @@ export class UserDetails implements OnInit {
 
   deleteProperty(property: UserProperty, event: MouseEvent): void {
     event.stopPropagation();
-    if (this.user?.properties && confirm(`هل أنت متأكد من حذف العقار "${property.title}"؟`)) {
-      this.user.properties = this.user.properties.filter((p) => p.id !== property.id);
-    }
+    if (!this.user?.properties) return;
+    this.openConfirm(
+      'حذف العقار',
+      `هل أنت متأكد من حذف العقار "${property.title}"؟`,
+      () => {
+        if (this.user?.properties) {
+          this.user.properties = this.user.properties.filter((p) => p.id !== property.id);
+        }
+      }
+    );
   }
 
   shareProperty(property: UserProperty, event: MouseEvent): void {
     event.stopPropagation();
-    alert(`مشاركة العقار: ${property.title}`);
+    this.openInfo('مشاركة العقار', `مشاركة العقار: ${property.title}`);
+  }
+
+  /* ── Confirmation / Info Modal ── */
+  private openConfirm(title: string, message: string, action: () => void): void {
+    this.modalVariant = 'danger';
+    this.modalTitle = title;
+    this.modalMessage = message;
+    this.modalConfirmText = 'تأكيد';
+    this.pendingAction = action;
+    this.modalOpen = true;
+  }
+
+  private openInfo(title: string, message: string): void {
+    this.modalVariant = 'info';
+    this.modalTitle = title;
+    this.modalMessage = message;
+    this.modalConfirmText = 'حسناً';
+    this.pendingAction = undefined;
+    this.modalOpen = true;
+  }
+
+  onModalConfirm(): void {
+    this.modalOpen = false;
+    const action = this.pendingAction;
+    this.pendingAction = undefined;
+    action?.();
+  }
+
+  onModalCancel(): void {
+    this.modalOpen = false;
+    this.pendingAction = undefined;
   }
 }

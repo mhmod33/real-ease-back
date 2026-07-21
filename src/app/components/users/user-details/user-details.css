@@ -20,7 +20,7 @@
 .details-title {
   font-size: 26px;
   font-weight: 700;
-  color: #1e3656;
+  color: #003366;
   margin: 0;
 }
 
@@ -32,7 +32,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: #2b4260;
+  background-color: #003366;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -63,7 +63,7 @@
 .profile-banner-wrap {
   position: relative;
   height: 180px;
-  background-color: #1e3656;
+  background-color: #003366;
   text-align: center;
 }
 
@@ -146,7 +146,7 @@
 .section-title {
   font-size: 16px;
   font-weight: 700;
-  color: #1e3656;
+  color: #003366;
   margin: 0 0 16px 0;
 }
 
@@ -223,7 +223,7 @@
 .social-bar-label {
   font-size: 15px;
   font-weight: 700;
-  color: #1e3656;
+  color: #003366;
 }
 
 .social-icons {
@@ -251,7 +251,7 @@
 .section-title-large {
   font-size: 24px;
   font-weight: 700;
-  color: #1e3656;
+  color: #003366;
   margin: 0;
 }
 
@@ -384,7 +384,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #1e3656;
+  background-color: #003366;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -397,7 +397,7 @@
 }
 
 .btn-share:hover {
-  background-color: #15243b;
+  background-color: #163b78;
 }
 
 .btn-prop-delete {

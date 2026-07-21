@@ -172,3 +172,14 @@
     </div>
   </div>
 }
+
+<!-- ── Success / Info Modal ── -->
+<app-modal
+  [open]="infoModalOpen"
+  variant="info"
+  title="تم بنجاح"
+  [message]="infoModalMessage"
+  confirmText="حسناً"
+  (confirm)="closeInfo()"
+  (cancel)="closeInfo()"
+></app-modal>

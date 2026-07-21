@@ -157,3 +157,21 @@
   </div>
 
 </div>
+
+<!-- ── Info Modal ── -->
+<app-modal
+  [open]="modalOpen"
+  variant="info"
+  [title]="modalTitle"
+  [message]="modalMessage"
+  confirmText="حسناً"
+  (confirm)="closeModal()"
+  (cancel)="closeModal()"
+></app-modal>
+
+<!-- ── Chat Modal ── -->
+<app-chat-modal
+  [open]="showChatModal"
+  [contact]="chatContact"
+  (closed)="closeChat()"
+></app-chat-modal>

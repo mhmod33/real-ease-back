@@ -2,6 +2,7 @@ import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ChatModal, ChatContact } from '../shared/chat-modal/chat-modal';
 
 export interface Property {
   id: number;
@@ -21,12 +22,16 @@ export interface Property {
 
 @Component({
   selector: 'app-properties',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ChatModal],
   templateUrl: './properties.html',
   styleUrl: './properties.css',
 })
 export class Properties {
   constructor(private router: Router) {}
+
+  // Chat Modal
+  showChatModal = false;
+  chatContact?: ChatContact;
 
   // ── Filter state ─────────────────────────────────────────────
   searchKeyword = '';
@@ -154,6 +159,22 @@ export class Properties {
 
   goToDetails(id: number) {
     this.router.navigate(['/properties', id]);
+  }
+
+  /* ── Chat / Negotiate ── */
+  openChat(p: Property, e: Event) {
+    e.stopPropagation();
+    this.chatContact = {
+      name: p.agentName,
+      image: p.agentImage,
+      role: 'وكيل عقارات',
+    };
+    this.showChatModal = true;
+  }
+
+  closeChat() {
+    this.showChatModal = false;
+    this.chatContact = undefined;
   }
 
   goToCreate() {

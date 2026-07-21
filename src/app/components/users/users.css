@@ -22,7 +22,7 @@
 .users-title {
   font-size: 28px;
   font-weight: 700;
-  color: #1e3656;
+  color: #003366;
   margin: 0;
 }
 
@@ -75,14 +75,14 @@
 }
 
 .custom-checkbox.checked {
-  background-color: #2b4260;
-  border-color: #2b4260;
+  background-color: #003366;
+  border-color: #003366;
   color: #ffffff;
 }
 
 /* ── Selection Badge ── */
 .selection-badge {
-  background-color: #2b4260;
+  background-color: #003366;
   color: #ffffff;
   font-size: 12px;
   font-weight: 700;
@@ -95,7 +95,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: #2b4260;
+  background-color: #003366;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -177,7 +177,7 @@
 }
 
 .user-card.card-selected {
-  border-color: #2b4260;
+  border-color: #003366;
   background-color: #f0f5ff;
   box-shadow: 0 0 0 3px rgba(43, 66, 96, 0.12);
 }
@@ -304,7 +304,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #1e3656;
+  background-color: #003366;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -317,7 +317,7 @@
 }
 
 .btn-message:hover {
-  background-color: #15243b;
+  background-color: #163b78;
 }
 
 .btn-card-delete {
@@ -407,7 +407,7 @@
   height: 48px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #2b4260;
+  border: 3px solid #003366;
   flex-shrink: 0;
 }
 
@@ -626,7 +626,7 @@
 }
 
 .chat-modal-input:focus {
-  border-color: #2b4260;
+  border-color: #003366;
   background: #ffffff;
 }
 

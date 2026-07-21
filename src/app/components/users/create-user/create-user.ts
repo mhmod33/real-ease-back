@@ -14,6 +14,7 @@ import { UserType } from '../../../models/user.model';
 })
 export class CreateUser {
   name = '';
+  nameError = false;
   type: UserType = 'وكيل عقاري';
   address = '';
   age?: number;
@@ -38,10 +39,10 @@ export class CreateUser {
 
   onSubmit(): void {
     if (!this.name.trim()) {
-      alert('يرجى إدخال اسم المستخدم');
+      this.nameError = true;
       return;
     }
-
+    this.nameError = false;
     this.userService
       .createUser({
         name: this.name,

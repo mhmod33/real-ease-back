@@ -10,13 +10,22 @@
         <span class="details-subtitle">تفاصيل الوكالة</span>
       </div>
 
-      <button class="btn-delete-agent" (click)="deleteAgent()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-          <polyline points="3 6 5 6 21 6"/>
-          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-        </svg>
-        <span>حذف الوكيل</span>
-      </button>
+      <div class="details-header-actions">
+        <button class="btn-negotiate-agent" (click)="openChat()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>مفاوضة</span>
+        </button>
+
+        <button class="btn-delete-agent" (click)="deleteAgent()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+          <span>حذف الوكيل</span>
+        </button>
+      </div>
     </div>
 
     <!-- ── Main Grid (Right: Profile, Left: Agency Info) ── -->
@@ -176,3 +185,21 @@
 
   </div>
 }
+
+<!-- ── Delete Confirmation Modal ── -->
+<app-modal
+  [open]="modalOpen"
+  variant="danger"
+  title="حذف الوكيل"
+  [message]="modalMessage"
+  confirmText="تأكيد"
+  (confirm)="confirmDeleteAgent()"
+  (cancel)="cancelDeleteAgent()"
+></app-modal>
+
+<!-- ── Chat Modal ── -->
+<app-chat-modal
+  [open]="showChatModal"
+  [contact]="chatContact"
+  (closed)="closeChat()"
+></app-chat-modal>

@@ -2,11 +2,12 @@ import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Order, OrderStatus } from '../../models/order.model';
+import { AppModal, ModalVariant } from '../shared/app-modal/app-modal';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AppModal],
   templateUrl: './orders.html',
   styleUrl: './orders.css',
 })
@@ -16,6 +17,14 @@ export class Orders {
 
   selectAll = false;
   activeMenuId: string | null = null;
+
+  // Confirmation / Info Modal
+  modalOpen = false;
+  modalVariant: ModalVariant = 'confirm';
+  modalTitle = '';
+  modalMessage = '';
+  modalConfirmText = 'تأكيد';
+  private pendingAction?: () => void;
 
   // Pagination state
   currentPage = 1;
@@ -192,13 +201,17 @@ export class Orders {
 
   // Bulk Actions
   bulkDelete(): void {
-    if (confirm(`هل أنت تأكد من حذف ${this.selectedCount} طلبات مجهزة؟`)) {
-      this.orders = this.orders.filter((o) => !o.selected);
-      this.selectAll = false;
-      if (this.currentPage > this.totalPages) {
-        this.currentPage = this.totalPages;
+    this.openConfirm(
+      'حذف الطلبات',
+      `هل أنت متأكد من حذف ${this.selectedCount} طلبات مجهزة؟`,
+      () => {
+        this.orders = this.orders.filter((o) => !o.selected);
+        this.selectAll = false;
+        if (this.currentPage > this.totalPages) {
+          this.currentPage = this.totalPages;
+        }
       }
-    }
+    );
   }
 
   bulkChangeStatus(newStatus: OrderStatus): void {
@@ -273,7 +286,41 @@ export class Orders {
   }
 
   viewOrder(order: Order): void {
-    alert(`تفاصيل الطلب: ${order.orderNumber} - ${order.clientName}`);
+    this.openInfo(
+      `تفاصيل الطلب ${order.orderNumber}`,
+      `العميل: ${order.clientName}`
+    );
     this.activeMenuId = null;
+  }
+
+  /* ── Confirmation / Info Modal ── */
+  private openConfirm(title: string, message: string, action: () => void): void {
+    this.modalVariant = 'danger';
+    this.modalTitle = title;
+    this.modalMessage = message;
+    this.modalConfirmText = 'تأكيد';
+    this.pendingAction = action;
+    this.modalOpen = true;
+  }
+
+  private openInfo(title: string, message: string): void {
+    this.modalVariant = 'info';
+    this.modalTitle = title;
+    this.modalMessage = message;
+    this.modalConfirmText = 'حسناً';
+    this.pendingAction = undefined;
+    this.modalOpen = true;
+  }
+
+  onModalConfirm(): void {
+    this.modalOpen = false;
+    const action = this.pendingAction;
+    this.pendingAction = undefined;
+    action?.();
+  }
+
+  onModalCancel(): void {
+    this.modalOpen = false;
+    this.pendingAction = undefined;
   }
 }

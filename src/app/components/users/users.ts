@@ -4,18 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
-
-export interface UserChatMessage {
-  id: string;
-  text: string;
-  isMe: boolean;
-  time: string;
-}
+import { AppModal, ModalVariant } from '../shared/app-modal/app-modal';
+import { ChatModal, ChatContact } from '../shared/chat-modal/chat-modal';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AppModal, ChatModal],
   templateUrl: './users.html',
   styleUrl: './users.css',
 })
@@ -25,9 +20,15 @@ export class Users implements OnInit {
 
   // Chat Modal
   showChatModal = false;
-  chatUser?: User;
-  newChatMessage = '';
-  chatHistory: UserChatMessage[] = [];
+  chatContact?: ChatContact;
+
+  // Confirmation / Info Modal
+  modalOpen = false;
+  modalVariant: ModalVariant = 'confirm';
+  modalTitle = '';
+  modalMessage = '';
+  modalConfirmText = 'تأكيد';
+  private pendingAction?: () => void;
 
   constructor(
     private userService: UserService,
@@ -82,89 +83,77 @@ export class Users implements OnInit {
   /* ── Delete ── */
   deleteUser(user: User, event: MouseEvent): void {
     event.stopPropagation();
-    if (confirm(`هل أنت متأكد من حذف المستخدم "${user.name}"؟`)) {
-      this.selectedIds.delete(user.id);
-      this.userService.deleteUser(user.id).subscribe();
-    }
+    this.openConfirm(
+      'حذف المستخدم',
+      `هل أنت متأكد من حذف المستخدم "${user.name}"؟`,
+      () => {
+        this.selectedIds.delete(user.id);
+        this.userService.deleteUser(user.id).subscribe();
+      }
+    );
   }
 
   bulkDelete(): void {
     if (this.selectedIds.size === 0) {
-      alert('الرجاء تحديد مستخدم واحد على الأقل للحذف');
+      this.openInfo('تنبيه', 'الرجاء تحديد مستخدم واحد على الأقل للحذف');
       return;
     }
-    if (confirm(`هل أنت متأكد من حذف ${this.selectedIds.size} مستخدم؟`)) {
-      const ids = [...this.selectedIds];
-      this.userService.deleteSelectedUsers(ids).subscribe(() => {
-        this.selectedIds.clear();
-      });
-    }
+    this.openConfirm(
+      'حذف المستخدمين',
+      `هل أنت متأكد من حذف ${this.selectedIds.size} مستخدم؟`,
+      () => {
+        const ids = [...this.selectedIds];
+        this.userService.deleteSelectedUsers(ids).subscribe(() => {
+          this.selectedIds.clear();
+        });
+      }
+    );
+  }
+
+  /* ── Confirmation / Info Modal ── */
+  private openConfirm(title: string, message: string, action: () => void): void {
+    this.modalVariant = 'danger';
+    this.modalTitle = title;
+    this.modalMessage = message;
+    this.modalConfirmText = 'تأكيد';
+    this.pendingAction = action;
+    this.modalOpen = true;
+  }
+
+  private openInfo(title: string, message: string): void {
+    this.modalVariant = 'info';
+    this.modalTitle = title;
+    this.modalMessage = message;
+    this.modalConfirmText = 'حسناً';
+    this.pendingAction = undefined;
+    this.modalOpen = true;
+  }
+
+  onModalConfirm(): void {
+    this.modalOpen = false;
+    const action = this.pendingAction;
+    this.pendingAction = undefined;
+    action?.();
+  }
+
+  onModalCancel(): void {
+    this.modalOpen = false;
+    this.pendingAction = undefined;
   }
 
   /* ── Chat Modal ── */
   openChat(user: User, event: MouseEvent): void {
     event.stopPropagation();
-    this.chatUser = user;
-    this.chatHistory = [
-      {
-        id: '1',
-        text: 'السلام عليكم! كيف يمكنني مساعدتك؟',
-        isMe: false,
-        time: '10:00 ص',
-      },
-      {
-        id: '2',
-        text: 'أريد الاستفسار عن عقار في دبي',
-        isMe: true,
-        time: '10:02 ص',
-      },
-      {
-        id: '3',
-        text: 'بكل سرور، لدينا عدة خيارات رائعة في دبي',
-        isMe: false,
-        time: '10:04 ص',
-      },
-    ];
+    this.chatContact = {
+      name: user.name,
+      image: user.image,
+      role: user.type,
+    };
     this.showChatModal = true;
   }
 
   closeChat(): void {
     this.showChatModal = false;
-    this.chatUser = undefined;
-    this.newChatMessage = '';
-  }
-
-  sendChatMessage(): void {
-    if (!this.newChatMessage.trim()) return;
-    this.chatHistory.push({
-      id: String(Date.now()),
-      text: this.newChatMessage.trim(),
-      isMe: true,
-      time: new Date().toLocaleTimeString('ar-EG', {
-        hour: '2-digit',
-        minute: '2-digit',
-      }),
-    });
-    this.newChatMessage = '';
-
-    // Simulate reply
-    setTimeout(() => {
-      this.chatHistory.push({
-        id: String(Date.now() + 1),
-        text: 'شكراً لتواصلك معنا، سنرد عليك في أقرب وقت.',
-        isMe: false,
-        time: new Date().toLocaleTimeString('ar-EG', {
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-      });
-    }, 800);
-  }
-
-  onChatEnter(event: KeyboardEvent): void {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      this.sendChatMessage();
-    }
+    this.chatContact = undefined;
   }
 }

@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import { AgentService } from '../../services/agent.service';
 import { Agent, AgentTypeStats } from '../../models/agent.model';
+import { AppModal } from '../shared/app-modal/app-modal';
+import { ChatModal, ChatContact } from '../shared/chat-modal/chat-modal';
 
 @Component({
   selector: 'app-agents',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AppModal, ChatModal],
   templateUrl: './agents.html',
   styleUrl: './agents.css',
 })
@@ -21,6 +23,15 @@ export class Agents implements OnInit, AfterViewInit {
     commercialAgentCount: 20,
     total: 150,
   };
+
+  // Info Modal
+  modalOpen = false;
+  modalTitle = '';
+  modalMessage = '';
+
+  // Chat Modal
+  showChatModal = false;
+  chatContact?: ChatContact;
 
   constructor(
     private agentService: AgentService,
@@ -87,11 +98,35 @@ export class Agents implements OnInit, AfterViewInit {
 
   onMessage(agent: Agent, event: MouseEvent): void {
     event.stopPropagation();
-    alert(`بدء مراسلة الوكيل: ${agent.name}`);
+    this.chatContact = {
+      name: agent.name,
+      image: agent.image,
+      role: agent.type,
+      phone: agent.phone,
+    };
+    this.showChatModal = true;
+  }
+
+  closeChat(): void {
+    this.showChatModal = false;
+    this.chatContact = undefined;
   }
 
   onCall(agent: Agent, event: MouseEvent): void {
     event.stopPropagation();
-    alert(`الاتصال بالوكيل: ${agent.name} (${agent.phone || 'رقم الهاتف متوفر'})`);
+    this.openInfo(
+      'الاتصال بالوكيل',
+      `الاتصال بالوكيل: ${agent.name} (${agent.phone || 'رقم الهاتف متوفر'})`
+    );
+  }
+
+  private openInfo(title: string, message: string): void {
+    this.modalTitle = title;
+    this.modalMessage = message;
+    this.modalOpen = true;
+  }
+
+  closeModal(): void {
+    this.modalOpen = false;
   }
 }

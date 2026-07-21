@@ -25,7 +25,7 @@
             <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
           </svg>
         </button>
-        <button class="pd-img-action-btn" title="توسيع">
+        <button class="pd-img-action-btn" title="توسيع" (click)="openLightbox()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
 <g clip-path="url(#clip0_4418_6679)">
 <path d="M15 22.75H9C3.57 22.75 1.25 20.43 1.25 15V9C1.25 3.57 3.57 1.25 9 1.25H15C20.43 1.25 22.75 3.57 22.75 9V15C22.75 20.43 20.43 22.75 15 22.75ZM9 2.75C4.39 2.75 2.75 4.39 2.75 9V15C2.75 19.61 4.39 21.25 9 21.25H15C19.61 21.25 21.25 19.61 21.25 15V9C21.25 4.39 19.61 2.75 15 2.75H9Z" fill="white" style="fill: var(--fillg);"/>
@@ -81,7 +81,7 @@
           </svg>
         </a>
       </div>
-      <button class="btn-negotiate-agent">مفاوضة</button>
+      <button class="btn-negotiate-agent" (click)="openChat()">مفاوضة</button>
     </div>
 
   </div>
@@ -153,4 +153,29 @@
   </div>
 
 </div>
+
+<!-- ── Image Lightbox ── -->
+@if (showLightbox) {
+  <div class="pd-lightbox-backdrop" (click)="closeLightbox()">
+    <button class="pd-lightbox-close" (click)="closeLightbox()" title="إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="22" height="22">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <img
+      [src]="property.mainImage"
+      [alt]="property.name"
+      class="pd-lightbox-img"
+      (click)="$event.stopPropagation()"
+    />
+  </div>
+}
+
+<!-- ── Chat Modal ── -->
+<app-chat-modal
+  [open]="showChatModal"
+  [contact]="chatContact"
+  (closed)="closeChat()"
+></app-chat-modal>
 }

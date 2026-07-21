@@ -14,6 +14,7 @@ import { AgentType } from '../../../models/agent.model';
 })
 export class CreateAgent {
   name = '';
+  nameError = false;
   type: AgentType = 'وكيل عقاري مستقل';
   address = '';
   age?: number;
@@ -37,10 +38,10 @@ export class CreateAgent {
 
   onSubmit(): void {
     if (!this.name.trim()) {
-      alert('يرجى إدخال اسم الوكيل');
+      this.nameError = true;
       return;
     }
-
+    this.nameError = false;
     this.agentService
       .addAgent({
         name: this.name,

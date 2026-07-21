@@ -15,7 +15,7 @@
 .settings-title {
   font-size: 28px;
   font-weight: 700;
-  color: #1e3656;
+  color: #003366;
   margin: 0;
 }
 
@@ -34,7 +34,7 @@
 .card-section-title {
   font-size: 17px;
   font-weight: 700;
-  color: #1e3656;
+  color: #003366;
   margin: 0 0 20px 0;
 }
 
@@ -164,7 +164,7 @@
 .btn-save {
   width: 100%;
   height: 52px;
-  background-color: #1e3656;
+  background-color: #003366;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -176,7 +176,7 @@
 }
 
 .btn-save:hover {
-  background-color: #15243b;
+  background-color: #163b78;
   box-shadow: 0 4px 12px rgba(30, 54, 86, 0.3);
 }
 
@@ -272,7 +272,7 @@
 
 .btn-modal-confirm {
   height: 44px;
-  background-color: #1e3656;
+  background-color: #003366;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -284,13 +284,13 @@
 }
 
 .btn-modal-confirm:hover {
-  background-color: #15243b;
+  background-color: #163b78;
 }
 
 .btn-modal-cancel {
   height: 44px;
   background-color: #e5e7eb;
-  color: #1e3656;
+  color: #003366;
   border: none;
   border-radius: 10px;
   font-size: 15px;

@@ -210,3 +210,14 @@
 
   </div>
 }
+
+<!-- ── Confirm / Info Modal ── -->
+<app-modal
+  [open]="modalOpen"
+  [variant]="modalVariant"
+  [title]="modalTitle"
+  [message]="modalMessage"
+  [confirmText]="modalConfirmText"
+  (confirm)="onModalConfirm()"
+  (cancel)="onModalCancel()"
+></app-modal>

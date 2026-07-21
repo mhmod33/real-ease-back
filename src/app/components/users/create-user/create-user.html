@@ -20,11 +20,16 @@
           <input
             type="text"
             class="form-control"
+            [class.input-error]="nameError"
             [(ngModel)]="name"
+            (ngModelChange)="nameError = false"
             name="name"
             placeholder="الاسم"
             required
           />
+          @if (nameError) {
+            <span class="field-error">يرجى إدخال اسم المستخدم</span>
+          }
         </div>
 
         <!-- Column 2: User Type Dropdown (Left) -->

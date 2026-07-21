@@ -4,16 +4,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import { AgentService } from '../../../services/agent.service';
 import { Agent } from '../../../models/agent.model';
+import { AppModal } from '../../shared/app-modal/app-modal';
+import { ChatModal, ChatContact } from '../../shared/chat-modal/chat-modal';
 
 @Component({
   selector: 'app-agent-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AppModal, ChatModal],
   templateUrl: './agent-details.html',
   styleUrl: './agent-details.css',
 })
 export class AgentDetails implements OnInit, AfterViewInit {
   agent?: Agent;
+
+  // Delete Confirmation Modal
+  modalOpen = false;
+  modalMessage = '';
+
+  // Chat Modal
+  showChatModal = false;
+  chatContact?: ChatContact;
 
   constructor(
     private route: ActivatedRoute,
@@ -99,11 +109,39 @@ export class AgentDetails implements OnInit, AfterViewInit {
   }
 
   deleteAgent(): void {
-    if (this.agent && confirm(`هل أنت متأكد من حذف الوكيل "${this.agent.name}"؟`)) {
+    if (this.agent) {
+      this.modalMessage = `هل أنت متأكد من حذف الوكيل "${this.agent.name}"؟`;
+      this.modalOpen = true;
+    }
+  }
+
+  confirmDeleteAgent(): void {
+    this.modalOpen = false;
+    if (this.agent) {
       this.agentService.deleteAgent(this.agent.id).subscribe(() => {
         this.router.navigate(['/agents']);
       });
     }
+  }
+
+  cancelDeleteAgent(): void {
+    this.modalOpen = false;
+  }
+
+  openChat(): void {
+    if (this.agent) {
+      this.chatContact = {
+        name: this.agent.name,
+        image: this.agent.image,
+        role: this.agent.type,
+        phone: this.agent.phone,
+      };
+      this.showChatModal = true;
+    }
+  }
+
+  closeChat(): void {
+    this.showChatModal = false;
   }
 
   goBack(): void {

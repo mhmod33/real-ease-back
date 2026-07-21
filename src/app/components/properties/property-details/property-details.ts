@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ChatModal, ChatContact } from '../../shared/chat-modal/chat-modal';
 
 export interface PropertyDetail {
   id: number;
@@ -26,7 +27,7 @@ export interface PropertyDetail {
 
 @Component({
   selector: 'app-property-details',
-  imports: [CommonModule],
+  imports: [CommonModule, ChatModal],
   templateUrl: './property-details.html',
   styleUrl: './property-details.css',
 })
@@ -34,6 +35,13 @@ export class PropertyDetails implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   currentGalleryIndex = 0;
+
+  // Chat Modal
+  showChatModal = false;
+  chatContact?: ChatContact;
+
+  // Image Lightbox
+  showLightbox = false;
 
   // ── Mock Properties Database ──────────────────────────────────
   private propertiesDb: PropertyDetail[] = [
@@ -176,5 +184,29 @@ export class PropertyDetails implements OnInit {
 
   goBack() {
     this.router.navigate(['/properties']);
+  }
+
+  // ── Chat / Negotiate ──────────────────────────────────────────
+  openChat() {
+    this.chatContact = {
+      name: this.property.agent.name,
+      image: this.property.agent.image,
+      role: this.property.agent.title,
+    };
+    this.showChatModal = true;
+  }
+
+  closeChat() {
+    this.showChatModal = false;
+    this.chatContact = undefined;
+  }
+
+  // ── Image Lightbox ────────────────────────────────────────────
+  openLightbox() {
+    this.showLightbox = true;
+  }
+
+  closeLightbox() {
+    this.showLightbox = false;
   }
 }

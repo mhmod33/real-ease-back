@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
+import { AppModal } from '../shared/app-modal/app-modal';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AppModal],
   templateUrl: './settings.html',
   styleUrl: './settings.css',
 })
@@ -39,6 +40,10 @@ export class Settings implements OnInit {
 
   // Delete modal
   showDeleteModal = false;
+
+  // Success / Info modal
+  infoModalOpen = false;
+  infoModalMessage = '';
 
   userTypes = ['وكيل عقاري', 'مستشار عقاري', 'شركة عقارية', 'وكيل تجاري', 'مدير عقاري'];
 
@@ -89,7 +94,7 @@ export class Settings implements OnInit {
         age: this.age,
         description: this.description,
       }).subscribe(() => {
-        alert('تم حفظ المعلومات الشخصية بنجاح');
+        this.showInfo('تم حفظ المعلومات الشخصية بنجاح');
       });
     }
   }
@@ -108,13 +113,22 @@ export class Settings implements OnInit {
           linkedin: this.linkedin,
         },
       }).subscribe(() => {
-        alert('تم حفظ وسائل التواصل بنجاح');
+        this.showInfo('تم حفظ وسائل التواصل بنجاح');
       });
     }
   }
 
   openDeleteModal(): void {
     this.showDeleteModal = true;
+  }
+
+  showInfo(message: string): void {
+    this.infoModalMessage = message;
+    this.infoModalOpen = true;
+  }
+
+  closeInfo(): void {
+    this.infoModalOpen = false;
   }
 
   cancelDelete(): void {
