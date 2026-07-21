@@ -1,0 +1,561 @@
+/* ===== ORDERS PAGE STYLES ===== */
+
+.orders-page {
+  padding: 24px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: 'Expo-arabic', sans-serif;
+  color: #1e293b;
+  box-sizing: border-box;
+}
+
+/* ── Top Header Section ── */
+
+.orders-title-sub {
+  font-weight: 800;
+  color: #1e3656;
+}
+
+.orders-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.props-page {
+  padding: 24px 28px 40px;
+  min-height: 100%;
+  background: #f8f9fb;
+  box-sizing: border-box;
+}
+
+/* ── Page Header ── */
+.props-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.props-page-title {
+  font-size: 22px;
+  font-weight: 400;
+  color: #5a6a85;
+  margin: 15px 0;
+}
+
+.props-title-bold {
+  font-weight: 700;
+  color: #003366;
+}
+
+.second-row{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin:15px 0;
+  width: 100%;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+/* ── Stat Cards ── */
+.stat-card {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  justify-content: start;
+  gap: 61px;
+  background: #edf2f9;
+  border-radius: 14px;
+  padding: 12px 24px;
+  min-width: 200px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.stat-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #1e3656;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.stat-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e3656;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fa8b3c;
+  line-height: 1.2;
+}
+
+/* ── Download Button ── */
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2b4260;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 26px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-download:hover {
+  background-color: #1e3048;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(43, 66, 96, 0.25);
+}
+
+/* ── Bulk Actions Floating Toolbar ── */
+.bulk-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1e3656;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(30, 54, 86, 0.25);
+  animation: slideDown 0.2s ease-out;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bulk-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.bulk-count-badge {
+  background-color: #fa8b3c;
+  color: #ffffff;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.bulk-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.bulk-status-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.bulk-label {
+  font-size: 13px;
+  opacity: 0.9;
+  margin-left: 4px;
+}
+
+.btn-bulk-status {
+  border: none;
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.btn-bulk-status:hover {
+  opacity: 0.9;
+}
+
+.btn-status-pending {
+  background-color: #e75a29;
+}
+
+.btn-status-agreed {
+  background-color: #27a868;
+}
+
+.btn-status-negotiating {
+  background-color: #4361ee;
+}
+
+.btn-bulk-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-bulk-action:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-bulk-action.btn-danger {
+  background-color: #ef4444;
+  border-color: #ef4444;
+}
+
+.btn-bulk-action.btn-danger:hover {
+  background-color: #dc2626;
+}
+
+.btn-clear-selection {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 4px 8px;
+  transition: opacity 0.2s;
+}
+
+.btn-clear-selection:hover {
+  opacity: 1;
+}
+
+/* ── Table Container Layout ── */
+.orders-table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Common Grid Layout for Header & Rows */
+.orders-header-bar,
+.order-card-row {
+  display: grid;
+  grid-template-columns: 44px 1.1fr 1.1fr 1.4fr 1.6fr 1.8fr 1.1fr 1.3fr 1fr 1.2fr 50px;
+  align-items: center;
+  column-gap: 12px;
+  padding: 14px 16px;
+  text-align: right;
+  font-size: 13.5px;
+}
+
+/* ── Header Bar ── */
+.orders-header-bar {
+  background-color: #ffffff;
+  border: 2px solid #2b4260;
+  border-radius: 10px;
+  font-weight: 700;
+  color: #1e3656;
+  margin-bottom: 4px;
+}
+
+/* ── Table Rows ── */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-card-row {
+  background-color: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  color: #334155;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.order-card-row:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.order-card-row.selected {
+  background-color: #f0f7ff;
+  border-color: #93c5fd;
+}
+
+/* Column Utilities */
+.col-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #2b4260;
+  border-radius: 4px;
+}
+
+.font-mono {
+  font-family: monospace, sans-serif;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.text-muted {
+  color: #64748b;
+}
+
+/* ── Status Badges ── */
+.col-status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Pending (Orange) */
+.status-pending {
+  background-color: #e75a29;
+}
+
+/* Agreed (Green) */
+.status-agreed {
+  background-color: #27a868;
+}
+
+/* Negotiating (Blue) */
+.status-negotiating {
+  background-color: #4361ee;
+}
+
+/* ── Action Column & Dropdown ── */
+.col-actions {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-action-menu {
+  background: transparent;
+  border: none;
+  color: #475569;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.btn-action-menu:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.action-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-family: inherit;
+  color: #334155;
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: right;
+  transition: background 0.15s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8fafc;
+}
+
+.dropdown-item.danger {
+  color: #ef4444;
+}
+
+.dropdown-item.danger:hover {
+  background-color: #fef2f2;
+}
+
+.orders-empty {
+  text-align: center;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 12px;
+  color: #64748b;
+}
+
+/* ── Pagination Footer Bar ── */
+.orders-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 20px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 13.5px;
+  color: #475569;
+}
+
+.pagination-info {
+  font-weight: 500;
+}
+
+.pagination-size-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.size-select {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #1e293b;
+  background-color: #ffffff;
+  cursor: pointer;
+  outline: none;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pagination-btn {
+  min-width: 32px;
+  height: 32px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #334155;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.pagination-btn.active {
+  background-color: #1e3656;
+  border-color: #1e3656;
+  color: #ffffff;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.arrow-btn {
+  font-size: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .orders-table-container {
+    overflow-x: auto;
+  }
+  .orders-header-bar,
+  .order-card-row {
+    min-width: 1100px;
+  }
+}

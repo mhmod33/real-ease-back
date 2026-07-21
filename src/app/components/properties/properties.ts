@@ -45,8 +45,8 @@ export class Properties {
     return (
       `linear-gradient(to right,` +
       ` #f6a65b ${minPct}%,` +
-      ` #0d2d5e ${minPct}%,` +
-      ` #0d2d5e ${maxPct}%,` +
+      ` #003366 ${minPct}%,` +
+      ` #003366 ${maxPct}%,` +
       ` #f6a65b ${maxPct}%)`
     );
   }
