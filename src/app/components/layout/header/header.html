@@ -1,4 +1,5 @@
 <header class="header" dir="rtl">
+  <!-- Menu Toggle -->
   <button
     type="button"
     class="header__menu-btn"
@@ -10,6 +11,7 @@
     </svg>
   </button>
 
+  <!-- Search -->
   <div class="header__search">
     <input
       class="header__search-input"
@@ -26,6 +28,7 @@
   </div>
 
   <div class="header__actions">
+    <!-- Language Toggle -->
     <button type="button" class="header__lang" aria-label="تغيير اللغة">
       <span class="header__lang-flag" aria-hidden="true"></span>
       <span class="header__lang-text">العربية</span>
@@ -34,22 +37,244 @@
       </svg>
     </button>
 
-    <button type="button" class="header__notification" aria-label="الإشعارات">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 3a5 5 0 0 1 5 5v3.5l1.5 2.5H5.5L7 11.5V8a5 5 0 0 1 5-5z" />
-        <path d="M10 18.5a2 2 0 0 0 4 0" />
-      </svg>
-      <span class="header__notification-dot" aria-hidden="true"></span>
-    </button>
+    <!-- ── Chat Button + Overlay ── -->
+    <div class="header__icon-wrapper">
+      <button
+        id="headerChatBtn"
+        type="button"
+        class="header__icon-btn"
+        [class.active-overlay]="showChat"
+        (click)="toggleChat()"
+        aria-label="المحادثات"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        @if (unreadMessagesCount > 0) {
+          <span class="header__badge">{{ unreadMessagesCount }}</span>
+        }
+      </button>
 
+      <!-- Chat Popover -->
+      @if (showChat) {
+        <div class="overlay-panel chat-panel" (click)="$event.stopPropagation()">
+          <div class="overlay-header">
+            <div class="overlay-title-wrap">
+              <span class="overlay-title">كل المحادثات</span>
+              @if (unreadMessagesCount > 0) {
+                <span class="overlay-badge">{{ unreadMessagesCount }}</span>
+              }
+            </div>
+            <button class="overlay-close-btn" (click)="closeChat()">✕</button>
+          </div>
+
+          <!-- Conversation List -->
+          <div class="conv-list">
+            @for (conv of conversationList; track conv.id) {
+              <div
+                class="conv-item"
+                [class.conv-unread]="conv.unread"
+                (click)="selectConversation(conv)"
+              >
+                <div class="conv-avatar" [style.background]="conv.avatarColor">
+                  {{ conv.initials }}
+                  @if (conv.status === 'online') {
+                    <span class="conv-status-indicator online"></span>
+                  }
+                </div>
+                <div class="conv-info">
+                  <div class="conv-name-row">
+                    <span class="conv-name">{{ conv.name }}</span>
+                    <span class="conv-time">{{ conv.lastTime }}</span>
+                  </div>
+                  <p class="conv-last-msg">{{ conv.lastMessage }}</p>
+                  <div class="conv-meta">
+                    @if (conv.status) {
+                      <span class="conv-status">{{ conv.status === 'online' ? 'نشط الآن' : 'غير متصل' }}</span>
+                    }
+                    @if (conv.totalMessages) {
+                      <span class="conv-msg-count">{{ conv.totalMessages }} رسالة</span>
+                    }
+                  </div>
+                </div>
+                @if (conv.unread) {
+                  <span class="conv-unread-dot"></span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- ── Notifications Button + Overlay ── -->
+    <div class="header__icon-wrapper">
+      <button
+        id="headerNotifBtn"
+        type="button"
+        class="header__icon-btn header__notif-btn"
+        [class.active-overlay]="showNotifications"
+        (click)="toggleNotifications()"
+        aria-label="الإشعارات"
+      >
+        <!-- Bell SVG -->
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22">
+          <path
+            d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
+            stroke="#c8952a"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+          />
+          <path
+            d="M13.73 21a2 2 0 0 1-3.46 0"
+            stroke="#c8952a"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        @if (unreadNotificationsCount > 0) {
+          <span class="header__notif-red-dot"></span>
+        }
+      </button>
+
+      <!-- Notifications Popover -->
+      @if (showNotifications) {
+        <div class="overlay-panel notif-panel" (click)="$event.stopPropagation()">
+          <div class="overlay-header">
+            <div class="overlay-title-wrap">
+              <span class="notif-count-badge">{{ notifications.length }}</span>
+              <span class="overlay-title">الاشعارات</span>
+            </div>
+            <button class="overlay-close-btn" (click)="closeNotifications()">✕</button>
+          </div>
+
+          <div class="notif-list">
+            @for (notif of notifications; track notif.id) {
+              <div class="notif-card" [class.notif-unread]="!notif.read">
+                <div class="notif-icon-wrap">
+                  @if (notif.icon === 'order') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
+                      <path d="M9 11l3 3L22 4"/>
+                      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                    </svg>
+                  } @else if (notif.icon === 'comment') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  } @else if (notif.icon === 'deal') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                  } @else {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
+                      <line x1="12" y1="1" x2="12" y2="23"/>
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                  }
+                </div>
+                <div class="notif-body">
+                  <p class="notif-title">{{ notif.title }}</p>
+                  <p class="notif-message">{{ notif.message }}</p>
+                  <span class="notif-time">{{ notif.time }}</span>
+                </div>
+                <button class="notif-dismiss" (click)="dismissNotification(notif.id)">✕</button>
+              </div>
+            }
+
+            @if (notifications.length === 0) {
+              <div class="notif-empty">لا توجد إشعارات</div>
+            }
+          </div>
+
+          @if (notifications.length > 0) {
+            <div class="notif-footer">
+              <button class="btn-clear-notif" (click)="clearAllNotifications()">
+                حذف كل الاشعارات
+              </button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- ── Chat Modal ── -->
+    @if (showChatModal && activeConv) {
+      <div class="chat-modal-overlay" (click)="closeChatModal()">
+        <div class="chat-modal" (click)="$event.stopPropagation()">
+          <!-- Modal Header -->
+          <div class="chat-modal-header">
+            <div class="chat-modal-user-info">
+              <div class="chat-modal-avatar" [style.background]="activeConv.avatarColor">
+                {{ activeConv.initials }}
+                @if (activeConv.status === 'online') {
+                  <span class="chat-modal-status-indicator online"></span>
+                }
+              </div>
+              <div class="chat-modal-user-details">
+                <h2 class="chat-modal-name">{{ activeConv.name }}</h2>
+                <p class="chat-modal-status">
+                  {{ activeConv.status === 'online' ? 'نشط الآن' : 'آخر ظهور قريباً' }}
+                </p>
+              </div>
+            </div>
+            <button class="chat-modal-close-btn" (click)="closeChatModal()" aria-label="إغلاق المحادثة">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Messages Container -->
+          <div class="chat-modal-messages">
+            @for (msg of chatConversations; track msg.id) {
+              <div class="chat-msg-group" [class.chat-msg-me]="msg.isMe">
+                <div class="chat-msg-avatar">
+                  <div class="chat-msg-avatar-icon" [style.background]="msg.isMe ? '#16a34a' : activeConv.avatarColor">
+                    {{ msg.isMe ? 'م' : msg.avatar }}
+                  </div>
+                </div>
+                <div class="chat-msg-content">
+                  <div class="chat-msg-bubble" [class.chat-msg-bubble-me]="msg.isMe">
+                    {{ msg.message }}
+                  </div>
+                  <span class="chat-msg-time">{{ msg.time }}</span>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Input Area -->
+          <div class="chat-modal-input-area">
+            <input
+              type="text"
+              class="chat-modal-input"
+              [(ngModel)]="newMessage"
+              (keydown)="onEnter($event)"
+              placeholder="اكتب رسالتك هنا..."
+              dir="rtl"
+            />
+            <button class="chat-modal-send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Profile -->
     <button type="button" class="header__profile" aria-label="قائمة المستخدم">
       <span class="header__avatar" aria-hidden="true">م</span>
-
       <span class="header__user-info">
         <span class="header__user-name">{{ userName }}</span>
         <span class="header__user-role">{{ userRole }}</span>
       </span>
-
       <svg class="header__chevron" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M6 9l6 6 6-6" />
       </svg>

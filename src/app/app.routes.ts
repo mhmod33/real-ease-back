@@ -97,6 +97,20 @@ export const routes: Routes = [
           import('./components/users/users').then((m) => m.Users),
       },
       {
+        path: 'users/create',
+        loadComponent: () =>
+          import('./components/users/create-user/create-user').then(
+            (m) => m.CreateUser,
+          ),
+      },
+      {
+        path: 'users/:id',
+        loadComponent: () =>
+          import('./components/users/user-details/user-details').then(
+            (m) => m.UserDetails,
+          ),
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./components/notfound/notfound').then((m) => m.Notfound),
