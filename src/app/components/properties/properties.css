@@ -492,6 +492,18 @@
   height: 16px;
 }
 
+.prop-icon-delete:hover {
+  color: #e53935;
+  border-color: #e53935;
+  background: #fde8e8;
+}
+
+.prop-icon-edit:hover {
+  color: #003366;
+  border-color: #003366;
+  background: #f0f4fb;
+}
+
 .btn-negotiate {
   background: #003366;
   color: #fff;

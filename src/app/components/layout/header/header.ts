@@ -1,7 +1,9 @@
 import { Component, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SidebarService } from '../../../services/sidebar.service';
+import { SessionService } from '../../../services/session.service';
 
 export interface ChatMessage {
   id: string;
@@ -44,8 +46,14 @@ export interface Notification {
 })
 export class Header {
   readonly sidebarService = inject(SidebarService);
+  private readonly sessionService = inject(SessionService);
+  private readonly router = inject(Router);
   readonly userName = 'مصطفى';
   readonly userRole = 'صاحب عقارات';
+
+  goToProfile(): void {
+    this.router.navigate(['/users', this.sessionService.currentUserId]);
+  }
 
   showNotifications = false;
   showChat = false;

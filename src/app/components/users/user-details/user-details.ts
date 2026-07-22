@@ -47,6 +47,10 @@ export class UserDetails implements OnInit {
     this.router.navigate(['/settings']);
   }
 
+  goToAddProperty(): void {
+    this.router.navigate(['/properties/create']);
+  }
+
   prevProperty(): void {
     if (!this.user?.properties || this.user.properties.length === 0) return;
     this.carouselIndex =

@@ -36,6 +36,24 @@ export class AgentService {
         facebook: 'https://facebook.com',
         twitter: 'https://x.com',
       },
+      properties: [
+        {
+          id: 'a1-p1',
+          title: 'شقة البحر الأزرق',
+          price: '$6521k',
+          location: 'الدوحة',
+          type: 'للبيع',
+          image: 'images/properties/image-1.png',
+        },
+        {
+          id: 'a1-p2',
+          title: 'بنتهاوس النجوم',
+          price: '$15021k',
+          location: 'دبي',
+          type: 'للإيجار',
+          image: 'images/properties/image-2.png',
+        },
+      ],
     },
     {
       id: '2',
@@ -66,6 +84,16 @@ export class AgentService {
         facebook: 'https://facebook.com',
         twitter: 'https://x.com',
       },
+      properties: [
+        {
+          id: 'a2-p1',
+          title: 'فيلا النخبة المميزة',
+          price: '$15021k',
+          location: 'الرياض',
+          type: 'للإيجار',
+          image: 'images/properties/image.png',
+        },
+      ],
     },
     {
       id: '3',
@@ -96,6 +124,16 @@ export class AgentService {
         facebook: 'https://facebook.com',
         twitter: 'https://x.com',
       },
+      properties: [
+        {
+          id: 'a3-p1',
+          title: 'شقة الحديقة السرية',
+          price: '$15021k',
+          location: 'القاهرة',
+          type: 'للبيع',
+          image: 'images/properties/image-4.png',
+        },
+      ],
     },
     {
       id: '4',
@@ -156,6 +194,24 @@ export class AgentService {
         facebook: 'https://facebook.com',
         twitter: 'https://x.com',
       },
+      properties: [
+        {
+          id: 'a5-p1',
+          title: 'بنتهاوس راقٍ',
+          price: '$4521k',
+          location: 'دبي',
+          type: 'للبيع',
+          image: 'images/image-1.png',
+        },
+        {
+          id: 'a5-p2',
+          title: 'فيلا النخبة المميزة',
+          price: '$15021k',
+          location: 'الرياض',
+          type: 'للإيجار',
+          image: 'images/image-2.png',
+        },
+      ],
     },
   ]);
 
@@ -216,6 +272,15 @@ export class AgentService {
   deleteAgent(id: string): Observable<boolean> {
     const filtered = this.agentsSubject.value.filter((a) => a.id !== id);
     this.agentsSubject.next(filtered);
+    return of(true);
+  }
+
+  deleteAgentProperty(agentId: string, propertyId: string): Observable<boolean> {
+    const agent = this.agentsSubject.value.find((a) => a.id === agentId);
+    if (agent?.properties) {
+      agent.properties = agent.properties.filter((p) => p.id !== propertyId);
+      this.agentsSubject.next([...this.agentsSubject.value]);
+    }
     return of(true);
   }
 }

@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import 'highcharts/modules/map';
-
+import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
+  imports: [RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  constructor() {
+  constructor(private router: Router) {
     (async () => {
 
     const topology = await fetch(
@@ -187,7 +188,11 @@ export class Dashboard {
 });
 })();
 
-  
-  
-}
+
+
+  }
+
+  goToAgent(id: string): void {
+    this.router.navigate(['/agents', id]);
+  }
 }

@@ -304,7 +304,7 @@ select.cp-input {
   border-top: 1px solid #eef2fb;
   margin-top: 4px;
 }
-
+/* 
 .btn-cancel {
   padding: 12px 40px;
   border-radius: 12px;
@@ -340,7 +340,7 @@ select.cp-input {
 .btn-submit:hover {
   background: #163b78;
   transform: translateY(-1px);
-}
+} */
 
 .btn-submit:active {
   transform: translateY(0);

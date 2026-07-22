@@ -378,3 +378,156 @@
 .font-mono {
   font-family: monospace, sans-serif;
 }
+
+/* ── Agent Properties Section ── */
+.agent-properties-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.section-title-large {
+  font-size: 24px;
+  font-weight: 700;
+  color: #003366;
+  margin: 0;
+}
+
+.properties-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  background-color: #edf2f9;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+@media (max-width: 800px) {
+  .properties-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.prop-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.prop-img-wrap {
+  position: relative;
+  height: 180px;
+  width: 100%;
+}
+
+.prop-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge-city {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #1e293b;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-type {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.prop-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.prop-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prop-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.prop-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.prop-actions-row {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-share {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #003366;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-share:hover {
+  background-color: #163b78;
+}
+
+.btn-prop-delete {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #fee2e2;
+  color: #ef4444;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-prop-delete:hover {
+  background-color: #fca5a5;
+  color: #b91c1c;
+}

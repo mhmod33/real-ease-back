@@ -157,6 +157,7 @@
   border-radius: 0;
   background: transparent;
   color: #002b5b;
+  font-family: inherit;
   font-size: 17px;
   font-weight: 700;
   text-decoration: none;
@@ -198,9 +199,9 @@
   );
 }
 
-.sidebar__nav-link--active .sidebar__nav-icon {
+/* .sidebar__nav-link--active .sidebar__nav-icon {
   color: #fff;
-}
+} */
 
 .sidebar__nav-icon {
   display: grid;
@@ -252,10 +253,6 @@
   flex-shrink: 0;
 }
 
-.sidebar__footer .sidebar__nav-link {
-  --fillg: #002b5b;
-  color: #002b5b;
-}
 
 /* ── Promo card ── */
 .sidebar__promo {

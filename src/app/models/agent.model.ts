@@ -1,3 +1,5 @@
+import { UserProperty } from './user.model';
+
 export type AgentType =
   | 'وكيل عقاري حصري'
   | 'وكيل عقاري مستقل'
@@ -36,6 +38,7 @@ export interface Agent {
   taxNumber?: string;
   stats?: AgentStats;
   socialLinks?: AgentSocialLinks;
+  properties?: UserProperty[];
 }
 
 export interface AgentTypeStats {

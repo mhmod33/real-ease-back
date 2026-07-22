@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import { AgentService } from '../../../services/agent.service';
+import { SessionService } from '../../../services/session.service';
 import { Agent } from '../../../models/agent.model';
-import { AppModal } from '../../shared/app-modal/app-modal';
+import { UserProperty } from '../../../models/user.model';
+import { AppModal, ModalVariant } from '../../shared/app-modal/app-modal';
 import { ChatModal, ChatContact } from '../../shared/chat-modal/chat-modal';
 
 @Component({
@@ -25,10 +27,19 @@ export class AgentDetails implements OnInit, AfterViewInit {
   showChatModal = false;
   chatContact?: ChatContact;
 
+  // Property Actions Modal (share / delete)
+  propertyModalOpen = false;
+  propertyModalVariant: ModalVariant = 'danger';
+  propertyModalTitle = '';
+  propertyModalMessage = '';
+  propertyModalConfirmText = 'تأكيد';
+  private pendingPropertyAction?: () => void;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private agentService: AgentService
+    private agentService: AgentService,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
@@ -142,6 +153,47 @@ export class AgentDetails implements OnInit, AfterViewInit {
 
   closeChat(): void {
     this.showChatModal = false;
+  }
+
+  /* ── Agent Properties Actions ── */
+  shareProperty(property: UserProperty, event: MouseEvent): void {
+    event.stopPropagation();
+    this.propertyModalVariant = 'info';
+    this.propertyModalTitle = 'مشاركة العقار';
+    this.propertyModalMessage = `مشاركة العقار: ${property.title}`;
+    this.propertyModalConfirmText = 'حسناً';
+    this.pendingPropertyAction = undefined;
+    this.propertyModalOpen = true;
+  }
+
+  deleteProperty(property: UserProperty, event: MouseEvent): void {
+    event.stopPropagation();
+    if (!this.agent) return;
+    const agentId = this.agent.id;
+    this.propertyModalVariant = 'danger';
+    this.propertyModalTitle = 'حذف العقار';
+    this.propertyModalMessage = `هل أنت متأكد من حذف العقار "${property.title}"؟`;
+    this.propertyModalConfirmText = 'تأكيد';
+    this.pendingPropertyAction = () => {
+      this.agentService.deleteAgentProperty(agentId, property.id).subscribe(() => {
+        if (this.agent?.properties) {
+          this.agent.properties = this.agent.properties.filter((p) => p.id !== property.id);
+        }
+      });
+    };
+    this.propertyModalOpen = true;
+  }
+
+  onPropertyModalConfirm(): void {
+    this.propertyModalOpen = false;
+    const action = this.pendingPropertyAction;
+    this.pendingPropertyAction = undefined;
+    action?.();
+  }
+
+  onPropertyModalCancel(): void {
+    this.propertyModalOpen = false;
+    this.pendingPropertyAction = undefined;
   }
 
   goBack(): void {

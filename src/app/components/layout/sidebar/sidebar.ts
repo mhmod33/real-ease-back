@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SidebarService } from '../../../services/sidebar.service';
+import { AppModal } from '../../shared/app-modal/app-modal';
 
 interface NavItem {
   label: string;
@@ -10,13 +11,16 @@ interface NavItem {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, AppModal],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
   readonly sidebarService = inject(SidebarService);
+  private readonly router = inject(Router);
   readonly collapsed = signal(false);
+
+  showLogoutModal = false;
 
   readonly navItems: NavItem[] = [
     { label: 'لوحة التحكم', route: '/dashboard', icon: 'dashboard' },
@@ -28,5 +32,19 @@ export class Sidebar {
 
   toggleCollapse(): void {
     this.collapsed.update((value) => !value);
+  }
+
+  openLogoutModal(): void {
+    this.showLogoutModal = true;
+  }
+
+  cancelLogout(): void {
+    this.showLogoutModal = false;
+  }
+
+  confirmLogout(): void {
+    this.showLogoutModal = false;
+    this.sidebarService.close();
+    this.router.navigate(['/login']);
   }
 }
