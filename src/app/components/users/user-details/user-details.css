@@ -449,6 +449,44 @@
   color: #b91c1c;
 }
 
+.btn-prop-edit {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #e8eef5;
+  color: #003366;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-prop-edit:hover {
+  background-color: #cfdcea;
+}
+
+.prop-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prop-edit-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
 .font-mono {
   font-family: monospace, sans-serif;
 }

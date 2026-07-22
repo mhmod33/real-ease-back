@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { User, UserProperty } from '../../../models/user.model';
@@ -8,7 +9,7 @@ import { AppModal, ModalVariant } from '../../shared/app-modal/app-modal';
 @Component({
   selector: 'app-user-details',
   standalone: true,
-  imports: [CommonModule, AppModal],
+  imports: [CommonModule, FormsModule, AppModal],
   templateUrl: './user-details.html',
   styleUrl: './user-details.css',
 })
@@ -17,6 +18,15 @@ export class UserDetails implements OnInit {
 
   // Carousel index for properties
   carouselIndex = 0;
+
+  // Inline property edit
+  editingPropertyId: string | null = null;
+  editDraft: Pick<UserProperty, 'title' | 'price' | 'location' | 'type'> = {
+    title: '',
+    price: '',
+    location: '',
+    type: 'للبيع',
+  };
 
   // Confirmation / Info Modal
   modalOpen = false;
@@ -79,6 +89,28 @@ export class UserDetails implements OnInit {
   shareProperty(property: UserProperty, event: MouseEvent): void {
     event.stopPropagation();
     this.openInfo('مشاركة العقار', `مشاركة العقار: ${property.title}`);
+  }
+
+  startEditProperty(property: UserProperty, event: MouseEvent): void {
+    event.stopPropagation();
+    this.editingPropertyId = property.id;
+    this.editDraft = {
+      title: property.title,
+      price: property.price,
+      location: property.location,
+      type: property.type,
+    };
+  }
+
+  saveEditProperty(property: UserProperty, event: MouseEvent): void {
+    event.stopPropagation();
+    Object.assign(property, this.editDraft);
+    this.editingPropertyId = null;
+  }
+
+  cancelEditProperty(event: MouseEvent): void {
+    event.stopPropagation();
+    this.editingPropertyId = null;
   }
 
   /* ── Confirmation / Info Modal ── */
