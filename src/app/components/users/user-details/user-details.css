@@ -471,22 +471,6 @@
   background-color: #cfdcea;
 }
 
-.prop-edit-form {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.prop-edit-input {
-  width: 100%;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 13px;
-  font-family: inherit;
-  box-sizing: border-box;
-}
-
 .font-mono {
   font-family: monospace, sans-serif;
 }

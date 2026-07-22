@@ -2,6 +2,10 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChatModal, ChatContact } from '../../shared/chat-modal/chat-modal';
+import { EditPropertyModal } from '../edit-property-modal/edit-property-modal';
+import { PropertyService } from '../../../services/property.service';
+import { SessionService } from '../../../services/session.service';
+import { Property } from '../../../models/property.model';
 
 export interface PropertyDetail {
   id: number;
@@ -27,12 +31,17 @@ export interface PropertyDetail {
 
 @Component({
   selector: 'app-property-details',
-  imports: [CommonModule, ChatModal],
+  imports: [CommonModule, ChatModal, EditPropertyModal],
   templateUrl: './property-details.html',
   styleUrl: './property-details.css',
 })
 export class PropertyDetails implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private propertyService: PropertyService,
+    public sessionService: SessionService
+  ) {}
 
   currentGalleryIndex = 0;
 
@@ -42,6 +51,10 @@ export class PropertyDetails implements OnInit {
 
   // Image Lightbox
   showLightbox = false;
+
+  // Edit Property Modal
+  editModalOpen = false;
+  editingProperty: Property | null = null;
 
   // ── Mock Properties Database ──────────────────────────────────
   private propertiesDb: PropertyDetail[] = [
@@ -160,6 +173,42 @@ export class PropertyDetails implements OnInit {
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id')) || 2;
     this.property = this.propertiesDb.find((p) => p.id === id) ?? this.propertiesDb[1];
+    this.syncFromPropertyService();
+  }
+
+  /** Overlay the locally-mocked display data with the live, editable Property record. */
+  private syncFromPropertyService(): void {
+    const live = this.propertyService.getPropertyById(this.property.id);
+    if (!live) return;
+    this.property = {
+      ...this.property,
+      name: live.name,
+      city: live.city,
+      status: live.status,
+      price: live.price,
+      description: live.description,
+      mainImage: live.image,
+    };
+  }
+
+  /* ── Edit Property ── */
+  openEditModal(): void {
+    this.editingProperty = this.propertyService.getPropertyById(this.property.id) ?? null;
+    if (this.editingProperty) {
+      this.editModalOpen = true;
+    }
+  }
+
+  onEditSave(updated: Property): void {
+    this.propertyService.updateProperty(updated.id, updated);
+    this.syncFromPropertyService();
+    this.editModalOpen = false;
+    this.editingProperty = null;
+  }
+
+  onEditCancel(): void {
+    this.editModalOpen = false;
+    this.editingProperty = null;
   }
 
   // ── Gallery ───────────────────────────────────────────────────

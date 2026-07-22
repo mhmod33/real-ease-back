@@ -8,16 +8,21 @@ import { Agent } from '../../../models/agent.model';
 import { UserProperty } from '../../../models/user.model';
 import { AppModal, ModalVariant } from '../../shared/app-modal/app-modal';
 import { ChatModal, ChatContact } from '../../shared/chat-modal/chat-modal';
+import { EditUserPropertyModal } from '../../shared/edit-user-property-modal/edit-user-property-modal';
 
 @Component({
   selector: 'app-agent-details',
   standalone: true,
-  imports: [CommonModule, AppModal, ChatModal],
+  imports: [CommonModule, AppModal, ChatModal, EditUserPropertyModal],
   templateUrl: './agent-details.html',
   styleUrl: './agent-details.css',
 })
 export class AgentDetails implements OnInit, AfterViewInit {
   agent?: Agent;
+
+  // Edit Property Modal
+  editModalOpen = false;
+  editingProperty: UserProperty | null = null;
 
   // Delete Confirmation Modal
   modalOpen = false;
@@ -182,6 +187,26 @@ export class AgentDetails implements OnInit, AfterViewInit {
       });
     };
     this.propertyModalOpen = true;
+  }
+
+  startEditProperty(property: UserProperty, event: MouseEvent): void {
+    event.stopPropagation();
+    this.editingProperty = property;
+    this.editModalOpen = true;
+  }
+
+  onEditSave(updated: UserProperty): void {
+    const target = this.agent?.properties?.find((p) => p.id === updated.id);
+    if (target) {
+      Object.assign(target, updated);
+    }
+    this.editModalOpen = false;
+    this.editingProperty = null;
+  }
+
+  onEditCancel(): void {
+    this.editModalOpen = false;
+    this.editingProperty = null;
   }
 
   onPropertyModalConfirm(): void {

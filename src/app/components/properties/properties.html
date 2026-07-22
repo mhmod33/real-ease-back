@@ -258,3 +258,11 @@
   (confirm)="confirmDeleteProperty()"
   (cancel)="cancelDeleteProperty()"
 ></app-modal>
+
+<!-- ── Edit Property Modal (admin) ── -->
+<app-edit-property-modal
+  [open]="editModalOpen"
+  [property]="editingProperty"
+  (save)="onEditSave($event)"
+  (cancel)="onEditCancel()"
+></app-edit-property-modal>

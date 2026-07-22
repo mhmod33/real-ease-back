@@ -12,7 +12,9 @@
 /* ── Page Header ── */
 .pd-page-header {
   margin-bottom: 24px;
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .pd-page-title {
@@ -25,6 +27,26 @@
 .pd-title-bold {
   font-weight: 700;
   color: #003366;
+}
+
+.pd-btn-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #003366;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pd-btn-edit:hover {
+  background-color: #163b78;
 }
 
 /* ── Top Row: Agent Card & Property Image ── */

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { PropertyService } from '../../../services/property.service';
 
 interface AmenityOption {
   key: string;
@@ -16,34 +15,8 @@ interface AmenityOption {
   templateUrl: './create-property.html',
   styleUrl: './create-property.css',
 })
-export class CreateProperty implements OnInit {
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private propertyService: PropertyService
-  ) {}
-
-  // ── Edit mode ──────────────────────────────────────────────────
-  editingId?: number;
-
-  get isEditMode(): boolean {
-    return this.editingId !== undefined;
-  }
-
-  ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (idParam) {
-      const property = this.propertyService.getPropertyById(+idParam);
-      if (property) {
-        this.editingId = property.id;
-        this.propertyType = property.type;
-        this.propertyStatus = property.status;
-        this.price = String(property.priceNum);
-        this.address = property.city;
-        this.description = property.description;
-      }
-    }
-  }
+export class CreateProperty {
+  constructor(private router: Router) {}
 
   // ── Form fields ────────────────────────────────────────────────
   propertyType = '';
@@ -106,20 +79,6 @@ export class CreateProperty implements OnInit {
 
   // ── Submit / Cancel ────────────────────────────────────────────
   onSubmit() {
-    if (this.isEditMode && this.editingId !== undefined) {
-      const priceNum = +this.price || 0;
-      this.propertyService.updateProperty(this.editingId, {
-        type: this.propertyType,
-        status: this.propertyStatus as 'للبيع' | 'للإيجار',
-        city: this.address,
-        description: this.description,
-        priceNum,
-        price: `$${priceNum}k`,
-      });
-      this.router.navigate(['/properties']);
-      return;
-    }
-
     const payload = {
       propertyType: this.propertyType,
       propertyStatus: this.propertyStatus,

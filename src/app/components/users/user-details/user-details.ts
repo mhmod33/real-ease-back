@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { User, UserProperty } from '../../../models/user.model';
 import { AppModal, ModalVariant } from '../../shared/app-modal/app-modal';
+import { EditUserPropertyModal } from '../../shared/edit-user-property-modal/edit-user-property-modal';
 
 @Component({
   selector: 'app-user-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, AppModal],
+  imports: [CommonModule, AppModal, EditUserPropertyModal],
   templateUrl: './user-details.html',
   styleUrl: './user-details.css',
 })
@@ -19,14 +19,9 @@ export class UserDetails implements OnInit {
   // Carousel index for properties
   carouselIndex = 0;
 
-  // Inline property edit
-  editingPropertyId: string | null = null;
-  editDraft: Pick<UserProperty, 'title' | 'price' | 'location' | 'type'> = {
-    title: '',
-    price: '',
-    location: '',
-    type: 'للبيع',
-  };
+  // Edit Property Modal
+  editModalOpen = false;
+  editingProperty: UserProperty | null = null;
 
   // Confirmation / Info Modal
   modalOpen = false;
@@ -93,24 +88,22 @@ export class UserDetails implements OnInit {
 
   startEditProperty(property: UserProperty, event: MouseEvent): void {
     event.stopPropagation();
-    this.editingPropertyId = property.id;
-    this.editDraft = {
-      title: property.title,
-      price: property.price,
-      location: property.location,
-      type: property.type,
-    };
+    this.editingProperty = property;
+    this.editModalOpen = true;
   }
 
-  saveEditProperty(property: UserProperty, event: MouseEvent): void {
-    event.stopPropagation();
-    Object.assign(property, this.editDraft);
-    this.editingPropertyId = null;
+  onEditSave(updated: UserProperty): void {
+    const target = this.user?.properties?.find((p) => p.id === updated.id);
+    if (target) {
+      Object.assign(target, updated);
+    }
+    this.editModalOpen = false;
+    this.editingProperty = null;
   }
 
-  cancelEditProperty(event: MouseEvent): void {
-    event.stopPropagation();
-    this.editingPropertyId = null;
+  onEditCancel(): void {
+    this.editModalOpen = false;
+    this.editingProperty = null;
   }
 
   /* ── Confirmation / Info Modal ── */

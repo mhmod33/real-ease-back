@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ChatModal, ChatContact } from '../shared/chat-modal/chat-modal';
 import { AppModal } from '../shared/app-modal/app-modal';
+import { EditPropertyModal } from './edit-property-modal/edit-property-modal';
 import { SessionService } from '../../services/session.service';
 import { PropertyService } from '../../services/property.service';
 import { Property } from '../../models/property.model';
@@ -12,7 +13,7 @@ export type { Property };
 
 @Component({
   selector: 'app-properties',
-  imports: [CommonModule, FormsModule, ChatModal, AppModal],
+  imports: [CommonModule, FormsModule, ChatModal, AppModal, EditPropertyModal],
   templateUrl: './properties.html',
   styleUrl: './properties.css',
 })
@@ -31,6 +32,10 @@ export class Properties {
   deleteModalOpen = false;
   deleteModalMessage = '';
   private pendingDeleteId?: number;
+
+  // Edit Property Modal (admin)
+  editModalOpen = false;
+  editingProperty: Property | null = null;
 
   // ── Filter state ─────────────────────────────────────────────
   searchKeyword = '';
@@ -100,7 +105,19 @@ export class Properties {
   /* ── Admin: Edit Property ── */
   editProperty(p: Property, e: Event) {
     e.stopPropagation();
-    this.router.navigate(['/properties', p.id, 'edit']);
+    this.editingProperty = p;
+    this.editModalOpen = true;
+  }
+
+  onEditSave(updated: Property) {
+    this.propertyService.updateProperty(updated.id, updated);
+    this.editModalOpen = false;
+    this.editingProperty = null;
+  }
+
+  onEditCancel() {
+    this.editModalOpen = false;
+    this.editingProperty = null;
   }
 
   /* ── Admin: Delete Property ── */

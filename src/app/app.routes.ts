@@ -80,13 +80,6 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'properties/:id/edit',
-        loadComponent: () =>
-          import('./components/properties/create-property/create-property').then(
-            (m) => m.CreateProperty,
-          ),
-      },
-      {
         path: 'properties/:id',
         loadComponent: () =>
           import('./components/properties/property-details/property-details').then(

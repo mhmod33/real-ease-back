@@ -1,0 +1,47 @@
+@if (open && property) {
+  <div class="eupm-overlay" (click)="onCancel()">
+    <div class="eupm-box" (click)="$event.stopPropagation()" dir="rtl">
+
+      <h3 class="eupm-title">تعديل, <span class="eupm-title-bold">العقار</span></h3>
+
+      <form class="eupm-form" (ngSubmit)="onSave()" #editForm="ngForm">
+        <div class="eupm-field">
+          <label class="eupm-label">العنوان</label>
+          <input class="eupm-input" type="text" [(ngModel)]="draft.title" name="title" required />
+        </div>
+
+        <div class="eupm-row">
+          <div class="eupm-field">
+            <label class="eupm-label">السعر</label>
+            <input class="eupm-input" type="text" [(ngModel)]="draft.price" name="price" required />
+          </div>
+
+          <div class="eupm-field">
+            <label class="eupm-label">النوع</label>
+            <select class="eupm-input" [(ngModel)]="draft.type" name="type" required>
+              @for (t of propertyTypes; track t) {
+                <option [value]="t">{{ t }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="eupm-field">
+          <label class="eupm-label">الموقع</label>
+          <input class="eupm-input" type="text" [(ngModel)]="draft.location" name="location" required />
+        </div>
+
+        <div class="eupm-field">
+          <label class="eupm-label">رابط الصورة</label>
+          <input class="eupm-input" type="text" [(ngModel)]="draft.image" name="image" />
+        </div>
+
+        <div class="eupm-actions">
+          <button type="button" class="btn-eupm-cancel" (click)="onCancel()">إلغاء</button>
+          <button type="submit" class="btn-eupm-save" [disabled]="editForm.invalid">حفظ</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+}
