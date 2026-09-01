@@ -23,8 +23,7 @@ class GoogleAuthController extends Controller
             ],422);
         }
         try {
-            $googleUser = Socialite::driver('google')
-            ->stateless()
+            $googleUser = Socialite::driver('google-one-tap')
             ->userFromToken($request->id_token);
     
         } catch (Exception $e) {
