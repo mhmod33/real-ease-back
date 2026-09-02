@@ -12,3 +12,5 @@ Route::get('/user', function (Request $request) {
 Route::post('/auth/google', [GoogleAuthController::class, 'login']);
 Route::apiResource('orders',OrderController::class);
 Route::apiResource('users',UserController::class);
+Route::patch('/users/{user}/avatar', [UserController::class, 'updateAvatar']);
+Route::delete('/users/{user}/avatar', [UserController::class, 'deleteAvatar']);

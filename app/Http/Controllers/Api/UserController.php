@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreUserRequest;
 use App\Http\Requests\Api\UpdateUserRequest;
+use App\Http\Requests\Api\UpdateAvatarRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -91,6 +93,45 @@ class UserController extends Controller
         }
     }
 
+    public function updateAvatar(UpdateAvatarRequest $request)
+{
+    $user = auth()->user();
+
+    if ($request->hasFile('avatar')) {
+        if ($user->avatar) {
+            Storage::disk('public')->delete('avatars/' . $user->avatar);
+        }
+
+        $avatar = $request->file('avatar');
+        $avatarName = time() . '_' . $avatar->getClientOriginalName();
+        $avatar->storeAs('public/avatars', $avatarName);
+
+        $user->avatar = $avatarName;
+        $user->save();
+    }
+
+    return response()->json([
+        'message' => 'Avatar updated successfully',
+        'data' => $user,
+    ], 200);
+}
+
+    public function deleteAvatar(){
+        $user=auth()->user();
+        if($user->avatar){
+            Storage::disk('public')->delete('avatars/'.$user->avatar);
+            $user->update(['avatar' => null]);
+            return response()->json([
+                'message' => 'Avatar deleted successfully',
+                'data' => $user,
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'No avatar to delete',
+            ], 400);
+        }
+    }
     /**
      * Remove the specified resource from storage.
      */
