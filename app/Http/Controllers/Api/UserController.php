@@ -94,27 +94,27 @@ class UserController extends Controller
     }
 
     public function updateAvatar(UpdateAvatarRequest $request)
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
 
-    if ($request->hasFile('avatar')) {
-        if ($user->avatar) {
-            Storage::disk('public')->delete('avatars/' . $user->avatar);
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar) {
+                Storage::disk('public')->delete('avatars/' . $user->avatar);
+            }
+
+            $avatar = $request->file('avatar');
+            $avatarName = time() . '_' . $avatar->getClientOriginalName();
+            $avatar->storeAs('public/avatars', $avatarName);
+
+            $user->avatar = $avatarName;
+            $user->save();
         }
 
-        $avatar = $request->file('avatar');
-        $avatarName = time() . '_' . $avatar->getClientOriginalName();
-        $avatar->storeAs('public/avatars', $avatarName);
-
-        $user->avatar = $avatarName;
-        $user->save();
+        return response()->json([
+            'message' => 'Avatar updated successfully',
+            'data' => $user,
+        ], 200);
     }
-
-    return response()->json([
-        'message' => 'Avatar updated successfully',
-        'data' => $user,
-    ], 200);
-}
 
     public function deleteAvatar(){
         $user=auth()->user();
