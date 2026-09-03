@@ -34,6 +34,9 @@ class User extends Authenticatable
         'social_media',
     ];
 
+    public function properties() :hasMany{
+        return $this->hasMany(Property::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
