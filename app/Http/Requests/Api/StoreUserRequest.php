@@ -34,6 +34,7 @@ class StoreUserRequest extends FormRequest
             'agency'=>'nullable|string',
             'location'=>'nullable|string',
             'description'=>'nullable|string',
+            'social_media'=>'nullable|array',
         ];
     }
     public function messages(): array
@@ -49,6 +50,7 @@ class StoreUserRequest extends FormRequest
             'age.integer' => 'Age must be an integer',
             'string'=>'The :attribute must be a string',
             'gender.in' => 'Gender must be either male or female',
+            'social_media.array' => 'Social media must be valid JSON',
         ];
     }
 }

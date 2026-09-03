@@ -14,3 +14,4 @@ Route::apiResource('orders',OrderController::class);
 Route::apiResource('users',UserController::class);
 Route::patch('/users/{user}/avatar', [UserController::class, 'updateAvatar']);
 Route::delete('/users/{user}/avatar', [UserController::class, 'deleteAvatar']);
+Route::delete('/users', [UserController::class, 'deleteAllUsers']);

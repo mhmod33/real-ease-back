@@ -17,13 +17,38 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::all();
+        $query=User::query();
+
+        //search
+        if($request->has('search')&& $request->search!==''){
+            $search=$request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name','like',"%{$search}%")->
+                orwhere('email','like',"%{$search}%");
+            });
+        }
+
+        //role
+        if($request->has('role')&& $request->role!==''){
+            $query->where('role',$request->role);
+        }
+
+        //pagination
+        $perPage=$request->get('perPage',10);
+        $users=$query->latest()->paginate($perPage);
         return response()->json(
             [
             'message' => 'Users retrieved successfully',
-            'data' => $users
+            'data' => $users->items(),
+            'pagination' => [
+                'total' => $users->total(),
+                'per_page' => $users->perPage(),
+                'last_page'=>$users->lastPage(),
+                'current_page' => $users->currentPage()
+            ]
             ],
             200);
     }
@@ -153,5 +178,14 @@ class UserController extends Controller
                 ],
                 404);
         }
+    }
+    public function deleteAllUsers()
+    {
+        User::truncate();
+        return response()->json(
+            [
+                'message' => 'All users deleted successfully',
+            ],
+            200);
     }
 }

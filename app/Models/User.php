@@ -31,6 +31,7 @@ class User extends Authenticatable
         'location',
         'description',
         'avatar',
+        'social_media',
     ];
 
     /**
@@ -44,7 +45,7 @@ class User extends Authenticatable
     ];
     protected function avatarUrl(): string
     {
-        return $this->avatar? asset('storage/avatars/'.$this.avatar): asset('storage/avatars/default.png');
+        return $this->avatar? asset('storage/avatars/'.$this->avatar): asset('storage/avatars/default.png');
     }
     /**
      * Get the attributes that should be cast.
