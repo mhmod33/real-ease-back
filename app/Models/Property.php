@@ -30,4 +30,12 @@ class Property extends Model
     public function user() :BelongsTo{
         return $this->belongsTo(User::class);
     }
+    protected function casts(): array
+    {
+        return [
+            'image' => 'array',
+            'images' => 'array',
+            'features' => 'array',
+        ];
+    }
 }

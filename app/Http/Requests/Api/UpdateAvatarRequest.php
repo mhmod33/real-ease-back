@@ -26,4 +26,4 @@ class UpdateAvatarRequest extends FormRequest
             'avatar' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
-}
+}   

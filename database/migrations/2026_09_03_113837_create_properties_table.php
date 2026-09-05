@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('status', ['available', 'sold', 'pending', 'rented'])->default('available');
             $table->string('image')->nullable();
             $table->json('images')->nullable();
+            
         });
     }
 
