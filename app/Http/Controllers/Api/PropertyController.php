@@ -86,11 +86,11 @@ class PropertyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Property $property)
+    public function update(UpdatePropertyRequest $request, Property $property)
     {
         $property=Property::find($property->id);
-        $validated =$request->validated();
-        $property->update(validated());
+        $validated= $request->validated();
+        $property->update($validated);
         return response()->json([
             'message'=>'Property updated successfully',
             'data'=>$property

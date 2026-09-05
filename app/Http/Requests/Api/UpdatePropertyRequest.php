@@ -27,6 +27,7 @@ class UpdatePropertyRequest extends FormRequest
             'description'=>'string|max:255',
             'price'=>'required|numeric',
             'features'=>'array|nullable',
+            'features.*'=>'string|max:100',            
             'location'=>'string|nullable',
             'type'=>'string|in:apartment,house,condo,land,commercial,other',
             'contract_type'=>'string|in:sale,rent',
