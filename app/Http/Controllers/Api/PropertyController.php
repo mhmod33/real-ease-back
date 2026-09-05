@@ -102,7 +102,7 @@ class PropertyController extends Controller
      */
     public function destroy(Property $property)
     {
-        $property=Property::find($reqeust->id);
+        $property=Property::find($property->id);
         $property->delete();
         return response()->json([
             'message'=>'Property deleted successfully',
