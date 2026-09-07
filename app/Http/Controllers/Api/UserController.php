@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreUserRequest;
 use App\Http\Requests\Api\UpdateUserRequest;
 use App\Http\Requests\Api\UpdateAvatarRequest;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -87,7 +88,7 @@ class UserController extends Controller
             return response()->json(
                 [
                 'message' => 'User retrieved successfully',
-                'data' => $user
+                'data' => new UserResource($user)
                 ],
                 200);
         }

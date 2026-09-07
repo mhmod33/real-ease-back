@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -34,7 +35,7 @@ class User extends Authenticatable
         'social_media',
     ];
 
-    public function properties() :hasMany{
+    public function properties() :HasMany{
         return $this->hasMany(Property::class);
     }
     /**
@@ -60,6 +61,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'social_media' => 'array',
         ];
     }
 }

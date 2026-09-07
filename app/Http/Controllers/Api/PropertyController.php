@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Api\StorePropertyRequest;
 use App\Http\Requests\Api\UpdatePropertyRequest;
 use Illuminate\Validation\Validator;
+use App\Http\Resources\PropertyResource;
+
 
 class PropertyController extends Controller
 {
@@ -91,7 +93,7 @@ class PropertyController extends Controller
         $property=Property::find($property->id);
         return response()->json([
             'message'=>'',
-            'data'=>$property
+            'data'=> new PropertyResource($property)
         ],200);
     }
 
