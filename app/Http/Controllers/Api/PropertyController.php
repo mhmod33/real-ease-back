@@ -19,16 +19,29 @@ class PropertyController extends Controller
         $properties=Property::all();
         $query=Property::query();
 
-        if($request->has('search') && search!==''){
+        if($request->has('search') && $request->search!=''){
             $search = $request->search;
             $query->where(function($q) use ($search){
                     $q->where('name','like',"%{$search}%")->
-                    orwhere('email','like',"%{$search}%");
+                    orwhere('email','like',"%{$search}%")->
+                    orwhere('location','like',"%{$search}%")->
+                    orwhere('description','like',"%{$search}%");
             });
         }
+    
+        if($request->has('price_down') && $request->has('price_up') && $request->price_down!='' && $request->price_up!=''){
+            $priceDown = $request->price_down;
+            $priceUp = $request->price_up;
+            $query->where(function($q) use ($priceDown, $priceUp){
+                    $q->where('price', '>=', $priceDown)->
+                    where('price', '<=', $priceUp);
+            });
+        }
+    
 
-        if($request->has('role') && $request->$role!=''){
-            $query->where('role',$request->role);
+           
+        if($request->has('type') && $request->type!=''){
+            $query->where('type',$request->type);
         }
 
         $perPage=$request->get('perPage',10);
