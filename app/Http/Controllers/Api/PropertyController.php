@@ -29,12 +29,12 @@ class PropertyController extends Controller
             });
         }
     
-        if($request->has('price_down') && $request->has('price_up') && $request->price_down!='' && $request->price_up!=''){
-            $priceDown = $request->price_down;
-            $priceUp = $request->price_up;
-            $query->where(function($q) use ($priceDown, $priceUp){
-                    $q->where('price', '>=', $priceDown)->
-                    where('price', '<=', $priceUp);
+        if($request->has('min_price') && $request->has('max_price') && $request->min_price!='' && $request->max_price!=''){
+            $minPrice = $request->min_price;
+            $maxPrice = $request->max_price;
+            $query->where(function($q) use ($minPrice, $maxPrice){
+                    $q->where('price', '>=', $minPrice)->
+                    where('price', '<=', $maxPrice);
             });
         }
     
