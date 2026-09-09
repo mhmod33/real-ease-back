@@ -73,7 +73,7 @@ class PropertyController extends Controller
         else{
             $validated['user_id']=$current_user;
         }
-        $property=Property::create($request->validated());
+        $property=Property::create( $validated);
 
         
             return response()->json(
