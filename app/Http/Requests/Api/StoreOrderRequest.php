@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -22,8 +22,12 @@ class StoreOrderRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return   [
+        'order_number'=>'required|string|max:255',
+        'property_id'=>'required|string|exists:properties,id',
+        'user_id',
+        'owner_id',
+        'status'
+    ];
     }
 }

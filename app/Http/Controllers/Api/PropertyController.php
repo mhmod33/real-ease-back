@@ -9,7 +9,7 @@ use App\Http\Requests\Api\StorePropertyRequest;
 use App\Http\Requests\Api\UpdatePropertyRequest;
 use Illuminate\Validation\Validator;
 use App\Http\Resources\PropertyResource;
-
+    
 
 class PropertyController extends Controller
 {

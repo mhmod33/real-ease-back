@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 use App\Models\Order;
+use App\Models\Property;
+use App\Http\Resources\OrderResource;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreOrderRequest;
@@ -11,12 +14,23 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders=Order::all();
+
+        $query=Order::with(['property','user']);
+        
+        if($request->has('order_number') && ($request->order_number!='')){
+            $query->where('order_number',$request->order_number);
+            }
+        if($request->has('property_id') && ($request->property_id!='')){
+            $query->where('property_id',$request->property_id);
+        }
+            
+        $orders=$query->get();
+
         return response()->json([
             "message"=>"Orders retrieved successfully",
-            "data"=>$orders
+            "data"=>OrderResource::collection($orders)
         ],200);
     }
 
@@ -36,7 +50,9 @@ class OrderController extends Controller
     $validated = $request->validated();
     $currentUser = auth()->user();
 
-    if ($currentUser->isAdmin() && $request->filled('user_id')) {
+    if (
+        // $currentUser->isAdmin() &&
+     $request->filled('user_id')) {
         $validated['user_id'] = $request->user_id;
     } else {
         $validated['user_id'] = $currentUser->id;
