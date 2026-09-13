@@ -11,6 +11,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/auth/google', [GoogleAuthController::class, 'login']);
+Route::get('/orders/total-clients', [OrderController::class, 'getTotalClients']);
+Route::get('/orders/total-price', [OrderController::class, 'getTotalPrice']);
+Route::get('/orders/get-user-by-id/{user}', [OrderController::class, 'getOrdersByUserId']);
+Route::delete('/orders/delete-multiple', [OrderController::class, 'deleteMultipleOrders']);
+Route::patch('/orders/change-status/{order}', [OrderController::class, 'changeStatus']);
 Route::apiResource('orders',OrderController::class);
 Route::apiResource('users',UserController::class);
 Route::apiResource('properties',PropertyController::class);
