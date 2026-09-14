@@ -54,6 +54,87 @@ class UserController extends Controller
             200);
     }
 
+    public function getAgents(){
+        $agents=User::where('role','agent')->get();
+        return response()->json(
+            [
+            'message' => 'Agents retrieved successfully',
+            'data' => $agents
+            ],
+            200);
+    }
+    public function getAgentsCount(){
+        $agentsCount=User::where('role','agent')->count();
+        return response()->json(
+            [
+            'message' => 'Agents count retrieved successfully',
+            'data' => $agentsCount
+            ],
+            200);
+    }
+    public function agentsStatistics(){
+        $totalAgents=User::where('role','agent')->count();
+        $realEstateAgents=User::where('type','realEstateAgent')->count();
+        $independentRealEstateAgents=User::where('type','independentRealEstateAgent')->count();
+        $realEstateCompany=User::where('type','realEstateCompany')->count();
+        $commercialAgent=User::where('type','commercialAgent')->count();
+        return response()->json(
+            [
+            'message' => 'Agents statistics retrieved successfully',
+            'data' => [
+                'total_agents' => $totalAgents,
+                'real_estate_agents' => $realEstateAgents,
+                'independent_real_estate_agents' => $independentRealEstateAgents,
+                'real_estate_company' => $realEstateCompany,
+                'commercial_agents' => $commercialAgent
+            ]
+            ],
+            200);
+    }
+    public function getSingleAgent(User $user){
+        $user=User::find($user->id)->where('role','agent')->first();
+        if($user){
+            return response()->json(
+                [
+                'message' => 'User retrieved successfully',
+                'data' => new UserResource($user)
+                ],
+                200);
+        }
+    }
+    public function createAgent(StoreUserRequest $request){
+        $validated =$request->validated();
+        $validated['role']='agent';
+        $user = User::create($validated);
+        if($user){
+            return response()->json(
+                [
+                'message' => 'Agent created successfully',
+                'data' => $user
+                ],
+                201);
+        }
+        else{
+            return response()->json(
+                [
+                'message' => 'User creation failed',
+                ],
+                400);
+        }
+
+    }
+
+    public function deleteAgent(User $user){
+        $user=User::find($user->id)->where('role','agent')->first();
+        if($user){
+            $user->delete();
+            return response()->json(
+                [
+                'message' => 'Agent deleted successfully',
+                ],
+                200);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */

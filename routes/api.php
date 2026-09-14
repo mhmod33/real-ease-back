@@ -17,6 +17,13 @@ Route::get('/orders/get-user-by-id/{user}', [OrderController::class, 'getOrdersB
 Route::delete('/orders/delete-multiple', [OrderController::class, 'deleteMultipleOrders']);
 Route::patch('/orders/change-status/{order}', [OrderController::class, 'changeStatus']);
 Route::apiResource('orders',OrderController::class);
+
+Route::get('/users/agents', [UserController::class, 'getAgents']);
+Route::get('/users/total-agents', [UserController::class, 'getAgentsCount']);
+Route::get('/users/agents-statistics', [UserController::class, 'agentsStatistics']);
+Route::get('/users/{user}', [UserController::class, 'getSingleAgent']);
+Route::post('/users/agents', [UserController::class, 'createAgent']);
+Route::delete('/users/agents/{user}', [UserController::class, 'deleteAgent']);
 Route::apiResource('users',UserController::class);
 Route::apiResource('properties',PropertyController::class);
 Route::patch('/users/{user}/avatar', [UserController::class, 'updateAvatar']);
