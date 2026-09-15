@@ -15,6 +15,9 @@ Route::patch('/user/profile', [UserController::class, 'updateProfile'])->middlew
 
 Route::post('/auth/google', [GoogleAuthController::class, 'login']);
 Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::delete('/auth/delete-account', [UserController::class, 'deleteProfile'])->middleware('auth:sanctum');
+
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::get('/orders/total-clients', [OrderController::class, 'getTotalClients']);
 Route::get('/orders/total-price', [OrderController::class, 'getTotalPrice']);
