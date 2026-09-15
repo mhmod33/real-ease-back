@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\GoogleAuthController;
+use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PropertyController;
@@ -13,6 +14,8 @@ Route::get('/user/profile', [UserController::class, 'getProfile'])->middleware('
 Route::patch('/user/profile', [UserController::class, 'updateProfile'])->middleware('auth:sanctum');
 
 Route::post('/auth/google', [GoogleAuthController::class, 'login']);
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/register', [AuthController::class, 'register']);
 Route::get('/orders/total-clients', [OrderController::class, 'getTotalClients']);
 Route::get('/orders/total-price', [OrderController::class, 'getTotalPrice']);
 Route::get('/orders/get-user-by-id/{user}', [OrderController::class, 'getOrdersByUserId']);

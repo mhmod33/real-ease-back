@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreUserRequest;
 use App\Http\Requests\Api\UpdateUserRequest;
+use App\Http\Requests\Api\UpdateProfile;
 use App\Http\Requests\Api\UpdateAvatarRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Storage;
