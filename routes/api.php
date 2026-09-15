@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\PropertyController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+Route::get('/user/profile', [UserController::class, 'getProfile'])->middleware('auth:sanctum');
+Route::patch('/user/profile', [UserController::class, 'updateProfile'])->middleware('auth:sanctum');
 
 Route::post('/auth/google', [GoogleAuthController::class, 'login']);
 Route::get('/orders/total-clients', [OrderController::class, 'getTotalClients']);

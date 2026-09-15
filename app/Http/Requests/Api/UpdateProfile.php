@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class UpdateProfile extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,12 @@ class UpdateUserRequest extends FormRequest
         return [
             'name'=>'sometimes|required|string|max:255',
             'email'=>'sometimes|required|string|email|max:255|unique:users',
-            'password'=>'sometimes|required|string|min:8',
-            'google_id'=>'nullable|string',
-            'role'=>'nullable|string',
             'type'=>'nullable|string',
             'age'=>'nullable|integer',
             'gender'=>'nullable|string',
             'agency'=>'nullable|string',
             'location'=>'nullable|string',
             'description'=>'nullable|string',
-            'avatar'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'social_media'=>'nullable|array',
             'phone'=>'nullable|string|max:30',
             'whatsapp_phone'=>'nullable|string|max:30',
@@ -55,6 +51,9 @@ class UpdateUserRequest extends FormRequest
             'string'=>'The :attribute must be a string',
             'gender.in' => 'Gender must be either male or female',
             'social_media.array' => 'Social media must be valid JSON',
+            'phone.string' => 'Phone must be a string',
+            'whatsapp_phone.string' => 'WhatsApp phone must be a string',
+            'personal_website.url' => 'Personal website must be a valid URL',
         ];
     }
 }

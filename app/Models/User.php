@@ -33,6 +33,9 @@ class User extends Authenticatable
         'description',
         'avatar',
         'social_media',
+        'phone',
+        'whatsapp_phone',
+        'personal_website',
     ];
 
     public function properties() :HasMany{

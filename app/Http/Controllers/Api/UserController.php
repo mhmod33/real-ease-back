@@ -174,7 +174,30 @@ class UserController extends Controller
                 200);
         }
     }
-
+    public function getProfile(){
+        $user=auth()->user();
+        if($user){
+            return response()->json(
+                [
+                'message' => 'Profile retrieved successfully',
+                'data' => new UserResource($user)
+                ],
+                200);
+        }
+    }
+    public function updateProfile(UpdateProfile $request){
+        $user=auth()->user();
+        $validated=$request->validated();
+        if($user){
+            $user->update($validated);
+            return response()->json(
+                [
+                'message' => 'Profile updated successfully',
+                'data' => new UserResource($user)
+                ],
+                200);
+        }
+    }
     /**
      * Update the specified resource in storage.
      */
@@ -250,6 +273,24 @@ class UserController extends Controller
             return response()->json(
                 [
                 'message' => 'User deleted successfully',
+                ],
+                200);
+        }
+        else{
+            return response()->json(
+                [
+                'message' => 'User not found',
+                ],
+                404);
+        }
+    }
+    public function deleteProfile(){
+        $user=auth()->user();
+        if($user){
+            $user->delete();
+            return response()->json(
+                [
+                'message' => 'Profile deleted successfully',
                 ],
                 200);
         }
