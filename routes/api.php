@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PropertyController;
+use App\Http\Controllers\Api\PropertyRatingController;
+use App\Http\Controllers\Api\AgentRatingController;
+use App\Http\Controllers\Api\DashboardController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -34,6 +37,17 @@ Route::post('/users/agents', [UserController::class, 'createAgent']);
 Route::delete('/users/agents/{user}', [UserController::class, 'deleteAgent']);
 Route::apiResource('users',UserController::class);
 Route::apiResource('properties',PropertyController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/properties/{property}/ratings', [PropertyRatingController::class, 'index']);
+    Route::post('/properties/{property}/ratings', [PropertyRatingController::class, 'store']);
+    Route::get('/agents/{agent}/ratings', [AgentRatingController::class, 'index']);
+    Route::post('/agents/{agent}/ratings', [AgentRatingController::class, 'store']);
+});
+
+Route::get('/dashboard/kpi-card', [\App\Http\Controllers\Api\DashboardController::class, 'kpiCard']);
+Route::get('/dashboard/line-chart-data', [\App\Http\Controllers\Api\DashboardController::class, 'lineChartData']);
+Route::get('/dashboard/top-properties', [\App\Http\Controllers\Api\DashboardController::class, 'topProperties']);
+Route::get('/dashboard/top-agents', [\App\Http\Controllers\Api\DashboardController::class, 'topAgents']);
 Route::patch('/users/{user}/avatar', [UserController::class, 'updateAvatar']);
 Route::delete('/users/{user}/avatar', [UserController::class, 'deleteAvatar']);
 Route::delete('/users', [UserController::class, 'deleteAllUsers']);

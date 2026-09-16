@@ -24,21 +24,24 @@ class PropertyResource extends JsonResource
             'type' => $this->type,
             'contract_type' => $this->contract_type,
             'status' => $this->status,
+            'rate' => $this->rate,
             'images' => $this->images,
-            'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-                'agency' => $this->user->agency,
-                'email' => $this->user->email,
-                'phone' => $this->user->phone,
-                'role' => $this->user->role,
-                'avatar' => $this->user->avatar,
-                'social_media' => $this->user->social_media,
-                'location' => $this->user->location,
-                'description' => $this->user->description,
-                'type' => $this->user->type,
-                'age' => $this->user->age,
-            ],
+            'user' => $this->when($this->user, function () {
+                return [
+                    'id' => $this->user->id,
+                    'name' => $this->user->name,
+                    'agency' => $this->user->agency,
+                    'email' => $this->user->email,
+                    'phone' => $this->user->phone,
+                    'role' => $this->user->role,
+                    'avatar' => $this->user->avatar,
+                    'social_media' => $this->user->social_media,
+                    'location' => $this->user->location,
+                    'description' => $this->user->description,
+                    'type' => $this->user->type,
+                    'age' => $this->user->age,
+                ];
+            }),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
     }

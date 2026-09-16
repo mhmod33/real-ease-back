@@ -41,6 +41,21 @@ class User extends Authenticatable
     public function properties() :HasMany{
         return $this->hasMany(Property::class);
     }
+
+    public function propertyRatings(): HasMany
+    {
+        return $this->hasMany(PropertyRating::class);
+    }
+
+    public function agentRatings(): HasMany
+    {
+        return $this->hasMany(AgentRating::class, 'agent_id');
+    }
+
+    public function ratingsGiven(): HasMany
+    {
+        return $this->hasMany(AgentRating::class, 'user_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
