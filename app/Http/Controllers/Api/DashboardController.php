@@ -63,4 +63,34 @@ class DashboardController extends Controller
             'data'=>$topProperties
         ],200);
     }
+
+    public function propertiesLocationMap(){
+        $topCountries=Property::select('location')
+        ->selectRaw('COUNT(*) as top_properties')
+        ->orderByDesc('top_properties')
+        ->groupBy('location')
+        ->take(5)
+        ->get();
+
+        $markers=Property::select('id', 'name', 'location','latitude','longitude')
+        ->whereNotNull('latitude')
+        ->whereNotNull('longitude')
+        ->get();
+        return response()->json([
+            "message"=>"Properties location map retrieved successfully",
+            'top_locations' => $topCountries,
+            'markers' => $markers,
+        ],200);
+    }
+
+    public function propertiesOverview() {
+        $recentProperties=Property::where('created_at','>=',now()->subDays(7))->count();
+        $totalProperties=Property::count();
+        return response()->json([
+            "message"=>"Recent properties retrieved successfully",
+            'total_properties'=>$totalProperties,
+            'recent_properties'=>$recentProperties
+
+        ],200);
+    }
 }

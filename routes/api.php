@@ -51,6 +51,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/dashboard/line-chart-data', [DashboardController::class, 'lineChartData']);
         Route::get('/dashboard/top-properties', [DashboardController::class, 'topProperties']);
         Route::get('/dashboard/top-agents', [DashboardController::class, 'topAgents']);
+        Route::get('/dashboard/properties-location-map', [DashboardController::class, 'propertiesLocationMap']);
+        Route::get('/dashboard/properties-overview-card', [DashboardController::class, 'propertiesOverview']);
     });
 
     Route::patch('/users/{user}/avatar', [UserController::class, 'updateAvatar']);

@@ -21,6 +21,8 @@ class PropertyResource extends JsonResource
             'features' => $this->features,
             'description' => $this->description,
             'location' => $this->location,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
             'type' => $this->type,
             'contract_type' => $this->contract_type,
             'status' => $this->status,

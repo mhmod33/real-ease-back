@@ -27,7 +27,9 @@ class Property extends Model
         'images',
         'user_id',
         'features',
-        'rate'
+        'rate',
+        'latitude',
+        'longitude',
     ];
     public function user() :BelongsTo{
         return $this->belongsTo(User::class);

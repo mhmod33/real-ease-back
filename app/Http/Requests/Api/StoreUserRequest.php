@@ -33,6 +33,8 @@ class StoreUserRequest extends FormRequest
             'gender'=>'nullable|string',
             'agency'=>'nullable|string',
             'location'=>'nullable|string',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'description'=>'nullable|string',
             'social_media'=>'nullable|array',
             'phone'=>'nullable|string|max:30',

@@ -29,6 +29,8 @@ class UpdatePropertyRequest extends FormRequest
             'features'=>'array|nullable',
             'features.*'=>'string|max:100',            
             'location'=>'string|nullable',
+            'latitude'=>'nullable|numeric|between:-90,90',
+            'longitude'=>'nullable|numeric|between:-180,180',
             'type'=>'string|in:apartment,house,condo,land,commercial,other',
             'contract_type'=>'string|in:sale,rent',
             'status'=>'string|in:available, sold, pending, rented',
