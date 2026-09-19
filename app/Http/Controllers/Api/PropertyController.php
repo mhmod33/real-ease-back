@@ -111,6 +111,20 @@ class PropertyController extends Controller
         ],200);
     }
 
+    public function changeStatus(Request $request, Property $property)
+    {
+        $validated = $request->validate([
+            'status' => 'required|string|in:available,sold,pending,rented',
+        ]);
+
+        $property->update($validated);
+
+        return response()->json([
+            'message' => 'Property status changed successfully',
+            'data' => $property,
+        ], 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

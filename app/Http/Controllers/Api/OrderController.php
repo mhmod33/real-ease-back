@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Order;
 use App\Models\Property;
 use App\Http\Resources\OrderResource;
-
+use App\Notifications\NewOrderNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreOrderRequest;
@@ -63,13 +63,13 @@ class OrderController extends Controller
     $order = Order::create($validated);
 
     $property->update(['status' => 'pending']);
+    $property->user->notify(new NewOrderNotification($order));
 
     return response()->json([
         'message' => 'Order created successfully',
         'data' => $order,
     ], 201);
     
-
     }
 
     public function getTotalClients(){

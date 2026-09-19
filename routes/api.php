@@ -10,7 +10,7 @@ use App\Http\Controllers\Api\PropertyController;
 use App\Http\Controllers\Api\PropertyRatingController;
 use App\Http\Controllers\Api\AgentRatingController;
 use App\Http\Controllers\Api\DashboardController;
-
+use App\Http\Controllers\Api\NotificationController;
 // Public authentication endpoints.
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/google', [GoogleAuthController::class, 'login']);
@@ -24,14 +24,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/user/profile', [UserController::class, 'updateProfile'])->middleware('auth:sanctum');
     Route::delete('/auth/delete-account', [UserController::class, 'deleteProfile'])->middleware('auth:sanctum');
 
+    //notifications
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
+    Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+    Route::patch('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+
     // Order management and order statistics.
+    Route::apiResource('orders', OrderController::class);
     Route::middleware('role:admin')->group(function () {
         Route::get('/orders/total-clients', [OrderController::class, 'getTotalClients']);
         Route::get('/orders/total-price', [OrderController::class, 'getTotalPrice']);
         Route::get('/orders/get-user-by-id/{user}', [OrderController::class, 'getOrdersByUserId']);
         Route::delete('/orders/delete-multiple', [OrderController::class, 'deleteMultipleOrders']);
         Route::patch('/orders/change-status/{order}', [OrderController::class, 'changeStatus']);
-        Route::apiResource('orders', OrderController::class);
    
         // Agent management and user administration.
         Route::get('/users/agents', [UserController::class, 'getAgents']);
@@ -44,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/users', [UserController::class, 'deleteAllUsers']);
    
         // Property listings and property details.
+        Route::patch('/properties/change-status/{property}', [PropertyController::class, 'changeStatus']);
         Route::apiResource('properties', PropertyController::class);
         
         // Dashboard metrics and chart data.
