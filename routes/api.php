@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PropertyRatingController;
 use App\Http\Controllers\Api\AgentRatingController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\MessageController;
 // Public authentication endpoints.
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/google', [GoogleAuthController::class, 'login']);
@@ -32,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Order management and order statistics.
     Route::apiResource('orders', OrderController::class);
+    Route::apiResource('messages', MessageController::class);
     Route::middleware('role:admin')->group(function () {
         Route::get('/orders/total-clients', [OrderController::class, 'getTotalClients']);
         Route::get('/orders/total-price', [OrderController::class, 'getTotalPrice']);
