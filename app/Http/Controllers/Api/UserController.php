@@ -1,0 +1,315 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\StoreUserRequest;
+use App\Http\Requests\Api\UpdateUserRequest;
+use App\Http\Requests\Api\UpdateProfile;
+use App\Http\Requests\Api\UpdateAvatarRequest;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
+class UserController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $users = User::all();
+        $query=User::query();
+
+        //search
+        if($request->has('search')&& $request->search!==''){
+            $search=$request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name','like',"%{$search}%")->
+                orwhere('email','like',"%{$search}%");
+            });
+        }
+
+        //role
+        if($request->has('role')&& $request->role!==''){
+            $query->where('role',$request->role);
+        }
+
+        //pagination
+        $perPage=$request->get('perPage',10);
+        $users=$query->latest()->paginate($perPage);
+        return response()->json(
+            [
+            'message' => 'Users retrieved successfully',
+            'data' => $users->items(),
+            'pagination' => [
+                'total' => $users->total(),
+                'per_page' => $users->perPage(),
+                'last_page'=>$users->lastPage(),
+                'current_page' => $users->currentPage()
+            ]
+            ],
+            200);
+    }
+
+    public function getAgents(){
+        $agents=User::where('role','agent')->get();
+        return response()->json(
+            [
+            'message' => 'Agents retrieved successfully',
+            'data' => $agents
+            ],
+            200);
+    }
+    public function getAgentsCount(){
+        $agentsCount=User::where('role','agent')->count();
+        return response()->json(
+            [
+            'message' => 'Agents count retrieved successfully',
+            'data' => $agentsCount
+            ],
+            200);
+    }
+    public function agentsStatistics(){
+        $totalAgents=User::where('role','agent')->count();
+        $realEstateAgents=User::where('type','realEstateAgent')->count();
+        $independentRealEstateAgents=User::where('type','independentRealEstateAgent')->count();
+        $realEstateCompany=User::where('type','realEstateCompany')->count();
+        $commercialAgent=User::where('type','commercialAgent')->count();
+        return response()->json(
+            [
+            'message' => 'Agents statistics retrieved successfully',
+            'data' => [
+                'total_agents' => $totalAgents,
+                'real_estate_agents' => $realEstateAgents,
+                'independent_real_estate_agents' => $independentRealEstateAgents,
+                'real_estate_company' => $realEstateCompany,
+                'commercial_agents' => $commercialAgent
+            ]
+            ],
+            200);
+    }
+    public function getSingleAgent(User $user){
+        $user=User::find($user->id)->where('role','agent')->first();
+        if($user){
+            return response()->json(
+                [
+                'message' => 'User retrieved successfully',
+                'data' => new UserResource($user)
+                ],
+                200);
+        }
+    }
+    public function createAgent(StoreUserRequest $request){
+        $validated =$request->validated();
+        $validated['role']='agent';
+        $user = User::create($validated);
+        if($user){
+            return response()->json(
+                [
+                'message' => 'Agent created successfully',
+                'data' => $user
+                ],
+                201);
+        }
+        else{
+            return response()->json(
+                [
+                'message' => 'User creation failed',
+                ],
+                400);
+        }
+
+    }
+
+    public function deleteAgent(User $user){
+        $user=User::find($user->id)->where('role','agent')->first();
+        if($user){
+            $user->delete();
+            return response()->json(
+                [
+                'message' => 'Agent deleted successfully',
+                ],
+                200);
+        }
+    }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreUserRequest $request)
+    {
+        $validated =$request->validated();
+        $user = User::create($validated);
+        if($user){
+            return response()->json(
+                [
+                'message' => 'User created successfully',
+                'data' => $user
+                ],
+                201);
+        }
+        else{
+            return response()->json(
+                [
+                'message' => 'User creation failed',
+                ],
+                400);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $user)
+    {
+        $user=User::find($user->id);
+        if($user){
+            return response()->json(
+                [
+                'message' => 'User retrieved successfully',
+                'data' => new UserResource($user)
+                ],
+                200);
+        }
+    }
+    public function getProfile(){
+        $user=auth()->user();
+        if($user){
+            return response()->json(
+                [
+                'message' => 'Profile retrieved successfully',
+                'data' => new UserResource($user)
+                ],
+                200);
+        }
+    }
+    public function updateProfile(UpdateProfile $request){
+        $user=auth()->user();
+        $validated=$request->validated();
+        if($user){
+            $user->update($validated);
+            return response()->json(
+                [
+                'message' => 'Profile updated successfully',
+                'data' => new UserResource($user)
+                ],
+                200);
+        }
+    }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateUserRequest $request, User $user)
+    {
+        $user=User::find($user->id);
+        $validated =$request->validated();
+        if($user){
+            $user->update($validated);
+            return response()->json(
+                [
+                'message' => 'User updated successfully',
+                'data' => $user
+                ],
+                200);
+        }
+        else{
+            return response()->json(
+                [
+                'message' => 'User not found',
+                ],
+                404);
+        }
+    }
+
+    public function updateAvatar(UpdateAvatarRequest $request)
+    {
+        $user = auth()->user();
+
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar) {
+                Storage::disk('public')->delete('avatars/' . $user->avatar);
+            }
+
+            $avatar = $request->file('avatar');
+            $avatarName = time() . '_' . $avatar->getClientOriginalName();
+            $avatar->storeAs('public/avatars', $avatarName);
+
+            $user->avatar = $avatarName;
+            $user->save();
+        }
+
+        return response()->json([
+            'message' => 'Avatar updated successfully',
+            'data' => $user,
+        ], 200);
+    }
+
+    public function deleteAvatar(){
+        $user=auth()->user();
+        if($user->avatar){
+            Storage::disk('public')->delete('avatars/'.$user->avatar);
+            $user->update(['avatar' => null]);
+            return response()->json([
+                'message' => 'Avatar deleted successfully',
+                'data' => $user,
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'No avatar to delete',
+            ], 400);
+        }
+    }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user)
+    {
+        $user=User::find($user->id);
+        if($user){
+            $user->delete();
+            return response()->json(
+                [
+                'message' => 'User deleted successfully',
+                ],
+                200);
+        }
+        else{
+            return response()->json(
+                [
+                'message' => 'User not found',
+                ],
+                404);
+        }
+    }
+    public function deleteProfile(){
+        $user=auth()->user();
+        if($user){
+            $user->delete();
+            return response()->json(
+                [
+                'message' => 'Profile deleted successfully',
+                ],
+                200);
+        }
+        else{
+            return response()->json(
+                [
+                'message' => 'User not found',
+                ],
+                404);
+        }
+    }
+    public function deleteAllUsers()
+    {
+        User::truncate();
+        return response()->json(
+            [
+                'message' => 'All users deleted successfully',
+            ],
+            200);
+    }
+}
