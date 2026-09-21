@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (! Schema::hasColumn('messages', 'owner_id')) {
+            return;
+        }
+
         Schema::table('messages', function (Blueprint $table) {
-            $table->dropForeign('messages_owner_id_foreign');
+            $table->dropForeign(['owner_id']);
             $table->dropColumn('owner_id');
         });
     }
