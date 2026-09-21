@@ -27,6 +27,8 @@ class UpdateMessageRequest extends FormRequest
             'receiver_id' =>['sometimes','exists:users,id'],
             'sender_id' =>['sometimes','exists:users,id'],
             'message' =>['sometimes','string'],
+            'read_at'=>['sometimes,datetime']
+
         ];
     }
 }

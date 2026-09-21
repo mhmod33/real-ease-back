@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\message;
 use Illuminate\Http\Request;
 use App\Http\Resources\MessageResource;
+use App\Http\Requests\Api\StoreMessageRequest;
+use App\Models\Property;
 use App\Http\Controllers\Controller;
 
 class MessageController extends Controller
@@ -32,9 +34,26 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMessageRequest $request)
     {
-        //
+        $property = Property::findOrFail($request->property_id);
+        $currentUser = $request->user();
+
+        $receiverId = ($currentUser->id === $property->user_id)
+            ? $request->receiver_id
+            : $property->user_id;
+
+        $message = Message::create([
+            'property_id' => $property->id,
+            'sender_id' => $currentUser->id,
+            'receiver_id' => $receiverId,
+            'message' => $request->message,
+        ]);
+
+        return response()->json([
+            'message' => 'Message sent successfully',
+            'data' => $message,
+        ], 201);
     }
 
     /**
@@ -45,6 +64,48 @@ class MessageController extends Controller
         //
     }
 
+
+    public function conversation(Request $request, Property $property)
+    {
+        $currentUser = $request->user();
+
+        $messages= Message::where('property_id',$property->id) 
+        ->where(function ($q) use ($currentUser) {
+            $q->where('sender_id',$currentUser->id)
+            ->orwhere('receiver_id',$currentUser->id);
+            })
+            ->orderBy('created_at')
+            ->get();
+            
+            return response ()->json([
+                'message' => 'Conversation retrieved successfully',
+                'messages' => $messages,
+                ],200);
+                }
+                
+    public function myConversations (Request $request){
+        $currentUser =$request->user();
+        
+        $conversations = Message::where('sender_id',$currentUser->id)
+            ->orwhere('receiver_id',$currentUser->id)
+            ->with('property:id,name')
+            ->get()
+            ->groupBy('property_id')
+            ->map(function ($messages){
+                return [
+                    'property'=>$messages->first()->property,
+                    'last_message'=>$messages->last()->message,
+                    'last_message_at'=>$messages->last()->created_at,
+                ];    
+
+            })
+            ->values();
+
+            return response()->json([
+                'message' => 'Conversations retrieved successfully',
+                'data' => $conversations,
+            ],200);
+    }
     /**
      * Update the specified resource in storage.
      */
@@ -56,8 +117,11 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(message $message)
+    public function markAsRead(Message $message)
     {
-        //
+        $message->update(['read_at'=>now()]);
+        return response()->json([
+            'message' => 'message marked as readed successfully',
+        ],200);
     }
 }

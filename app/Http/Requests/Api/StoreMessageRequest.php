@@ -24,8 +24,7 @@ class StoreMessageRequest extends FormRequest
     {
         return [
             'property_id' =>['required','exists:properties,id'],
-            'receiver_id' =>['required','exists:users,id'],
-            'sender_id' =>['required','exists:users,id'],
+            'receiver_id' => ['nullable','exists:users,id'],
             'message' =>['required','string'],
         ];
     }

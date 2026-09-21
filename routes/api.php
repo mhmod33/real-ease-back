@@ -33,7 +33,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Order management and order statistics.
     Route::apiResource('orders', OrderController::class);
-    Route::apiResource('messages', MessageController::class);
+    Route::get('/messages', [MessageController::class, 'index']);
+    Route::post('/messages', [MessageController::class, 'store']);
+    Route::get('/messages/conversations', [MessageController::class, 'myConversations']);
+    Route::get('/messages/property/{property}', [MessageController::class, 'conversation']);
+    Route::patch('/messages/{message}/read', [MessageController::class, 'markAsRead']);
     Route::middleware('role:admin')->group(function () {
         Route::get('/orders/total-clients', [OrderController::class, 'getTotalClients']);
         Route::get('/orders/total-price', [OrderController::class, 'getTotalPrice']);
