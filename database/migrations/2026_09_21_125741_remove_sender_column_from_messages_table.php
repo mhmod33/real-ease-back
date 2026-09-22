@@ -11,14 +11,22 @@ return new class extends Migration
      */
    public function up(): void
     {
+        if (! Schema::hasColumn('messages', 'sender')) {
+            return;
+        }
+
         Schema::table('messages', function (Blueprint $table) {
-            $table->dropForeign('messages_sender_foreign');   // امسح الـ foreign key الأول
-            $table->dropColumn('sender');                      // بعدها امسح العمود
+            $table->dropForeign(['sender']);
+            $table->dropColumn('sender');
         });
     }
 
     public function down(): void
     {
+        if (Schema::hasColumn('messages', 'sender')) {
+            return;
+        }
+
         Schema::table('messages', function (Blueprint $table) {
             $table->foreignId('sender')->nullable()->constrained('users')->onDelete('cascade');
         });
