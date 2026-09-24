@@ -56,7 +56,7 @@ class GoogleAuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'message' => 'تم تسجيل الدخول بنجاح',
+            'message' => 'Login successful with google',
             'user' => $user,
             'token' => $token,
             'token_type' => 'Bearer',
