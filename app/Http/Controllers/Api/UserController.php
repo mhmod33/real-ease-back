@@ -9,6 +9,7 @@ use App\Http\Requests\Api\StoreUserRequest;
 use App\Http\Requests\Api\UpdateUserRequest;
 use App\Http\Requests\Api\UpdateProfile;
 use App\Http\Requests\Api\UpdateAvatarRequest;
+use App\Http\Requests\Api\UpdateCoverPhotoRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -262,6 +263,46 @@ class UserController extends Controller
                 'message' => 'No avatar to delete',
             ], 400);
         }
+    }
+
+    public function updateCoverPhoto(UpdateCoverPhotoRequest $request)
+    {
+        $user = auth()->user();
+
+        // Delete old cover photo if exists
+        if ($user->cover_photo) {
+            Storage::disk('public')->delete('cover_photos/' . $user->cover_photo);
+        }
+
+        $file = $request->file('cover_photo');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/cover_photos', $fileName);
+
+        $user->cover_photo = $fileName;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Cover photo updated successfully',
+            'data'    => new UserResource($user),
+        ], 200);
+    }
+
+    public function deleteCoverPhoto()
+    {
+        $user = auth()->user();
+
+        if ($user->cover_photo) {
+            Storage::disk('public')->delete('cover_photos/' . $user->cover_photo);
+            $user->update(['cover_photo' => null]);
+
+            return response()->json([
+                'message' => 'Cover photo deleted successfully',
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => 'No cover photo to delete',
+        ], 400);
     }
     /**
      * Remove the specified resource from storage.

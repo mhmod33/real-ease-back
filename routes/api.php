@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Authenticated user profile and account endpoints.
     // Route::get('/user', function (Request $request) { return $request->user();})->middleware('auth:sanctum');
     Route::get('/user/profile', [UserController::class, 'getProfile'])->middleware('auth:sanctum');
-    Route::patch('/user/profile', [UserController::class, 'updateProfile'])->middleware('auth:sanctum');
+    Route::put('/user/profile', [UserController::class, 'updateProfile'])->middleware('auth:sanctum');
     Route::delete('/auth/delete-account', [UserController::class, 'deleteProfile'])->middleware('auth:sanctum');
 
     //notifications
@@ -70,6 +70,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::patch('/users/{user}/avatar', [UserController::class, 'updateAvatar']);
     Route::delete('/users/{user}/avatar', [UserController::class, 'deleteAvatar']);
+
+    Route::post('/user/cover-photo', [UserController::class, 'updateCoverPhoto']);
+    Route::delete('/user/cover-photo', [UserController::class, 'deleteCoverPhoto']);
 
 
     // Property and agent ratings.

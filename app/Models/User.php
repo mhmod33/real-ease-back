@@ -32,6 +32,7 @@ class User extends Authenticatable
         'location',
         'description',
         'avatar',
+        'cover_photo',
         'social_media',
         'phone',
         'whatsapp_phone',

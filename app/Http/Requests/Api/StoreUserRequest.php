@@ -40,6 +40,7 @@ class StoreUserRequest extends FormRequest
             'phone'=>'nullable|string|max:30',
             'whatsapp_phone'=>'nullable|string|max:30',
             'personal_website'=>'nullable|url|max:255',
+            'cover-photo'=>'nullable |string'
         ];
     }
     public function messages(): array
