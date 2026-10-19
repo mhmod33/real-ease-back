@@ -28,6 +28,7 @@ class PropertyResource extends JsonResource
             'status' => $this->status,
             'rate' => $this->rate,
             'images' => $this->images,
+            'image' => $this->image,
             'user' => $this->when($this->user, function () {
                 return [
                     'id' => $this->user->id,
