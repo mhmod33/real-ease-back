@@ -20,7 +20,7 @@ class MessageController extends Controller
         $q->where('receiver_id',$request->user()->id)
             ->orWhere('sender_id',$request->user()->id);
         })
-        ->with(['property_id','sender_id','receiver_id'])
+        ->with(['property','sender','receiver'])
         ->orderBy('created_at')
         ->get();
 
