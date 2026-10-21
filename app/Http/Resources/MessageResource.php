@@ -23,13 +23,13 @@ class MessageResource extends JsonResource
             'price'=>$this->property->price,
             'agent'=>$this->property->agent,
         ],
-        'sender_id'=>[
+        'sender'=>[
             'id'=>$this->sender->id,
             'name'=>$this->sender->name,
             'email'=>$this->sender->email,
-            'phone'=>$this->sender->phone,
+            'phone'=>$this->sender->phone,  
         ],
-        'receiver_id'=>[
+        'receiver'=>[
             'id'=>$this->receiver->id,
             'name'=>$this->receiver->name,
             'email'=>$this->receiver->email,

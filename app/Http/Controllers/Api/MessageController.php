@@ -16,13 +16,10 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-        $messages =Message::where( function ($q) use ($request){
-        $q->where('receiver_id',$request->user()->id)
-            ->orWhere('sender_id',$request->user()->id);
-        })
-        ->with(['property','sender','receiver'])
-        ->orderBy('created_at')
-        ->get();
+        $messages = Message::where('receiver_id', $request->user()->id)
+            ->with(['property', 'sender', 'receiver'])
+            ->orderBy('created_at')
+            ->get();
 
 
         return response()->json([
