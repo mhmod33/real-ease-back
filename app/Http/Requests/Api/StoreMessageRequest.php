@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreMessageRequest extends FormRequest
 {
@@ -23,8 +24,8 @@ class StoreMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'property_id' =>['required','exists:properties,id'],
-            'receiver_id' => ['nullable','exists:users,id'],
+            'property_id' =>['exists:properties,id'],
+            'receiver_id' => ['required','exists:users,id', Rule::notIn([$this->user()->id])],
             'message' =>['required','string'],
         ];
     }
