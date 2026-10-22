@@ -34,15 +34,19 @@ class MessageController extends Controller
     public function store(StoreMessageRequest $request)
     {
         $validated = $request->validated();
+        if (!isset($validated['property_id'])) {
+            $userProerties = $request->user()->properties;
+            if ($userProerties->isEmpty()) {
+                return response()->json([
+                    'message' => 'User does not have any properties',
+                ], 400);
+            }
+            $validated['property_id'] = $request->user()->properties()->first()->id;
+        }
         $property = Property::findOrFail($validated['property_id']);
-        $currentUser = $request->user();
+        $validated['sender_id'] = $request->user()->id;
 
-        $message = Message::create([
-            'property_id' => $property->id,
-            'sender_id' => $currentUser->id,
-            'receiver_id' => $validated['receiver_id'],
-            'message' => $validated['message'],
-        ]);
+        $message = Message::create($validated);
 
         return response()->json([
             'message' => 'Message sent successfully',
