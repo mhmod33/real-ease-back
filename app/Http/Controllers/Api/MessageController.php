@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\message;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Http\Resources\MessageResource;
 use App\Http\Requests\Api\StoreMessageRequest;
 use App\Models\Property;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 
 class MessageController extends Controller
@@ -80,6 +81,27 @@ class MessageController extends Controller
                 'messages' => $messages,
                 ],200);
                 }
+
+    public function history(Request $request, User $user)
+    {
+        $currentUser = $request->user();
+
+        $messages = Message::where(function ($query) use ($currentUser, $user) {
+            $query->where('sender_id', $currentUser->id)
+                ->where('receiver_id', $user->id);
+        })->orWhere(function ($query) use ($currentUser, $user) {
+            $query->where('sender_id', $user->id)
+                ->where('receiver_id', $currentUser->id);
+        })
+            ->orderBy('created_at')
+            ->orderBy('id')
+            ->get();
+
+        return response()->json([
+            'message' => 'Message history retrieved successfully',
+            'data' => $messages,
+        ], 200);
+    }
                 
     public function myConversations (Request $request){
         $currentUser =$request->user();

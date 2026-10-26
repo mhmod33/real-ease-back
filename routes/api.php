@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/messages', [MessageController::class, 'index']);
     Route::post('/messages', [MessageController::class, 'store']);
     Route::get('/messages/conversations', [MessageController::class, 'myConversations']);
+    Route::get('/messages/history/{user}', [MessageController::class, 'history']);
     Route::get('/messages/property/{property}', [MessageController::class, 'conversation']);
     Route::patch('/messages/{message}/read', [MessageController::class, 'markAsRead']);
     Route::middleware('role:admin')->group(function () {
