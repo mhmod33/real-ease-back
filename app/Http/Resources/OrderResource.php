@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
 class OrderResource extends JsonResource
 {
     /**
@@ -24,7 +23,7 @@ class OrderResource extends JsonResource
                 'price'=>$this->property->price,
                 'agent'=>$this->property->agent,
             ],
-            'owner'=>$this->owner_id,
+            'owner'=>$this->owner?->name,
             'client'=>[
                 'id'=>$this->user->id,
                 'name'=>$this->user->name,
