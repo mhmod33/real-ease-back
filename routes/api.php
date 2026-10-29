@@ -32,18 +32,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
 
     // Order management and order statistics.
-    Route::apiResource('orders', OrderController::class);
-    Route::get('/messages', [MessageController::class, 'index']);
-    Route::post('/messages', [MessageController::class, 'store']);
-    Route::get('/messages/conversations', [MessageController::class, 'myConversations']);
-    Route::get('/messages/history/{user}', [MessageController::class, 'history']);
-    Route::get('/messages/property/{property}', [MessageController::class, 'conversation']);
-    Route::patch('/messages/{message}/read', [MessageController::class, 'markAsRead']);
     Route::middleware('role:admin')->group(function () {
+        Route::delete('/orders/delete-multiple', [OrderController::class, 'deleteMultipleOrders']);
+        Route::patch('/orders/change-status-multiple', [OrderController::class, 'changeStatusMultipleOrders']);
         Route::get('/orders/total-clients', [OrderController::class, 'getTotalClients']);
         Route::get('/orders/total-price', [OrderController::class, 'getTotalPrice']);
         Route::get('/orders/get-user-by-id/{user}', [OrderController::class, 'getOrdersByUserId']);
-        Route::delete('/orders/delete-multiple', [OrderController::class, 'deleteMultipleOrders']);
         Route::patch('/orders/change-status/{order}', [OrderController::class, 'changeStatus']);
    
         // Agent management and user administration.
@@ -68,6 +62,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/dashboard/properties-location-map', [DashboardController::class, 'propertiesLocationMap']);
         Route::get('/dashboard/properties-overview-card', [DashboardController::class, 'propertiesOverview']);
     });
+    Route::apiResource('orders', OrderController::class);
+    Route::get('/messages', [MessageController::class, 'index']);
+    Route::post('/messages', [MessageController::class, 'store']);
+    Route::get('/messages/conversations', [MessageController::class, 'myConversations']);
+    Route::get('/messages/history/{user}', [MessageController::class, 'history']);
+    Route::get('/messages/property/{property}', [MessageController::class, 'conversation']);
+    Route::patch('/messages/{message}/read', [MessageController::class, 'markAsRead']);
 
     Route::patch('/users/{user}/avatar', [UserController::class, 'updateAvatar']);
     Route::delete('/users/{user}/avatar', [UserController::class, 'deleteAvatar']);
