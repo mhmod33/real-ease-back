@@ -49,7 +49,7 @@ class PropertyController extends Controller
         $properties=$query->latest()->paginate($perPage);
         return response()->json([
             'message'=>'Properties retrieved successfully',
-            'data'=>$properties->items(),
+            'data'=>PropertyResource::collection($properties->items()),
             'pagination'=>[
                 'total'=>$properties->total(),
                 'per_page'=>$properties->perPage(),
