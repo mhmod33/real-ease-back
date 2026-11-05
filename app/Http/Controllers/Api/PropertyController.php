@@ -92,7 +92,7 @@ class PropertyController extends Controller
     {
         $property=Property::find($property->id);
         return response()->json([
-            'message'=>'',
+            'message'=>'Returnd details of the property successfully',
             'data'=> new PropertyResource($property)
         ],200);
     }
