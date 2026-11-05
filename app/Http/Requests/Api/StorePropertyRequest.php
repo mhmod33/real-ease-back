@@ -31,7 +31,7 @@ class StorePropertyRequest extends FormRequest
             'location'=>'string|nullable',
             'type'=>'string|in:apartment,house,condo,land,commercial,other',
             'contract_type'=>'string|in:sale,rent',
-            'status'=>'string|in:available, sold, pending, rented',
+            'status'=>'string|in:available,sold,pending,rented',
             'image'=>'string|nullable',
             'images'=>'array|nullable',
             'user_id'=>'nullable|exists:users,id'
