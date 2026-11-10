@@ -26,7 +26,7 @@ class PropertyResource extends JsonResource
             'type' => $this->type,
             'contract_type' => $this->contract_type,
             'status' => $this->status,
-            'rate' => $this->rate,
+            'rate' => (float) $this->rate,
             'images' => $this->images,
             'image' => $this->image,
             'user' => $this->when($this->user, function () {
