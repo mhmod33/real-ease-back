@@ -11,7 +11,7 @@ class PropertyRatingController extends Controller
     public function index(Property $property)
     {
         return response()->json([
-            'data' => $property->ratings()->with('user')->latest()->get(),
+            'data' => $property->ratings()->with('user')->latest()->get()[0] ?? null,
         ], 200);
     }
 
