@@ -44,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/users/agents', [UserController::class, 'getAgents']);
         Route::get('/users/total-agents', [UserController::class, 'getAgentsCount']);
         Route::get('/users/agents-statistics', [UserController::class, 'agentsStatistics']);
+        Route::get('/users/agents/{agent}/properties-statistics', [UserController::class, 'agentPropertiesStatistics']);
         Route::get('/users/{user}', [UserController::class, 'getSingleAgent']);
         Route::post('/users/agents', [UserController::class, 'createAgent']);
         Route::delete('/users/agents/{user}', [UserController::class, 'deleteAgent']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreUserRequest;
@@ -76,10 +77,10 @@ class UserController extends Controller
     }
     public function agentsStatistics(){
         $totalAgents=User::where('role','agent')->count();
-        $realEstateAgents=User::where('type','realEstateAgent')->count();
-        $independentRealEstateAgents=User::where('type','independentRealEstateAgent')->count();
-        $realEstateCompany=User::where('type','realEstateCompany')->count();
-        $commercialAgent=User::where('type','commercialAgent')->count();
+        $realEstateAgents=User::where('role','agent')->where('type','realEstateAgent')->count();
+        $independentRealEstateAgents=User::where('role','agent')->where('type','independentRealEstateAgent')->count();
+        $realEstateCompany=User::where('role','agent')->where('type','realEstateCompany')->count();
+        $commercialAgent=User::where('role','agent')->where('type','commercialAgent')->count();
         return response()->json(
             [
             'message' => 'Agents statistics retrieved successfully',
@@ -92,6 +93,23 @@ class UserController extends Controller
             ]
             ],
             200);
+    }
+    public function agentPropertiesStatistics(User $agent){
+        abort_unless($agent->role === 'agent', 404);
+
+        $properties = Property::where('user_id', $agent->id);
+        $soldProperties = (clone $properties)->where('status', 'sold')->count();
+        $rentedProperties = (clone $properties)->where('status', 'rented')->count();
+
+        return response()->json([
+            'message' => 'Agent properties statistics retrieved successfully',
+            'data' => [
+                'agent_id' => $agent->id,
+                'sold_properties' => $soldProperties,
+                'rented_properties' => $rentedProperties,
+                'total_sold_and_rented' => $soldProperties + $rentedProperties,
+            ],
+        ], 200);
     }
     public function getSingleAgent(User $user){
         $user=User::find($user->id)->where('role','agent')->first();
